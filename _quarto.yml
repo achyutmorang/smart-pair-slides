@@ -1,6 +1,10 @@
 project:
   type: website
   output-dir: docs
+  resources:
+    - assets/videos/**
+    - assets/diagrams/**
+    - assets/plots/**
 
 website:
   title: "SMART-PAIR"
