@@ -237,48 +237,52 @@ img.plot { background: var(--white); }
 
 .video-grid-3 {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.58em;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.42em;
   align-items: start;
+  margin-left: -0.32em;
+  margin-right: -0.32em;
 }
 .video-panel {
   background: #ffffff;
   border: 1px solid var(--line);
   border-radius: 14px;
-  padding: 0.52em;
+  padding: 0.38em;
   box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
 }
 .video-panel h3 {
-  font-size: 0.86em;
-  margin: 0 0 0.38em 0;
+  font-size: 0.78em;
+  margin: 0 0 0.28em 0;
   color: var(--heading);
   letter-spacing: -0.02em;
 }
-.video-panel video {
+.video-panel video,
+.rollout-gif {
   width: 100%;
   aspect-ratio: 16 / 9;
   border-radius: 10px;
   border: 1px solid #d8dee8;
   background: #f8fafc;
   object-fit: contain;
+  display: block;
 }
 .video-caption {
-  margin-top: 0.42em;
+  margin-top: 0.30em;
   color: var(--muted);
-  font-size: 0.48em;
-  line-height: 1.25;
+  font-size: 0.40em;
+  line-height: 1.18;
 }
 .metric-strip {
   display: flex;
   gap: 0.35em;
   flex-wrap: wrap;
-  margin-top: 0.42em;
+  margin-top: 0.30em;
 }
 .metric-pill {
-  font-size: 0.42em;
+  font-size: 0.36em;
   font-weight: 800;
   border-radius: 999px;
-  padding: 0.22em 0.48em;
+  padding: 0.18em 0.40em;
   border: 1px solid #d8dee8;
   background: #f8fafc;
   color: var(--heading);

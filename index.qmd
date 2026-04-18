@@ -251,24 +251,24 @@ $$
 <div class="video-grid-3">
 <div class="video-panel">
 <h3>Ground truth</h3>
-<video src="assets/videos/lead_braking_case_01/ground_truth.mp4" controls preload="metadata" playsinline></video>
+<img class="rollout-gif" src="assets/videos/lead_braking_case_01/ground_truth.gif" alt="Ground truth rollout animation" />
 <div class="video-caption">Logged scenario reference for case <code>17a010edfe6d47b3</code>, follower 15, lead 22.</div>
 </div>
 <div class="video-panel">
 <h3>SMART-BC rollout</h3>
-<video src="assets/videos/lead_braking_case_01/smart_bc.mp4" controls preload="metadata" playsinline></video>
+<img class="rollout-gif" src="assets/videos/lead_braking_case_01/smart_bc.gif" alt="SMART-BC rollout animation" />
 <div class="metric-strip"><span class="metric-pill safe">no forced collision</span><span class="metric-pill">min gap 5.21 m</span><span class="metric-pill">TTC 2.62 s</span></div>
 <div class="video-caption">Behavior-cloned SMART-tiny checkpoint under the same forced lead-braking condition.</div>
 </div>
 <div class="video-panel">
 <h3>SMART-CLSFT rollout</h3>
-<video src="assets/videos/lead_braking_case_01/smart_clsft.mp4" controls preload="metadata" playsinline></video>
+<img class="rollout-gif" src="assets/videos/lead_braking_case_01/smart_clsft.gif" alt="SMART-CLSFT rollout animation" />
 <div class="metric-strip"><span class="metric-pill risk">forced collision</span><span class="metric-pill">min gap 0.19 m</span><span class="metric-pill">TTC 0.017 s</span></div>
 <div class="video-caption">Closed-loop fine-tuned reference checkpoint on the matched stress intervention.</div>
 </div>
 </div>
 
-<div class="small center">This is a qualitative diagnostic slide, not a benchmark claim. It motivates the frozen counterfactual stress suite used later for BC, CLSFT, PAIR, and shuffled-PAIR comparisons.</div>
+<div class="small center">GIFs are shown side-by-side for rapid visual comparison. This is a qualitative diagnostic slide, not a benchmark claim.</div>
 
 ## First Stress Signal
 
