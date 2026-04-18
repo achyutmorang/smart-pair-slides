@@ -16,7 +16,7 @@ format:
 <div>
 <div class="kicker">Research deck | traffic simulation | WOSAC-style evaluation</div>
 
-# SMART-PAIR
+<h1>SMART-PAIR</h1>
 
 <p class="subtitle">A checkpoint-first plan for improving SMART-style multi-agent traffic simulation with a training-time predictive interaction regularizer and counterfactual stress diagnosis.</p>
 
@@ -30,7 +30,7 @@ format:
 :::
 
 ::: {.hero-panel}
-### Core idea
+<h3>Core idea</h3>
 
 <div class="equation-box">
 $$
@@ -54,7 +54,7 @@ $$
 
 :::: {.grid-3}
 ::: {.claim-card}
-### 1. SMART is strong
+<h3>1. SMART is strong</h3>
 
 SMART treats driving as next-token prediction over learned motion tokens and map context.
 
@@ -62,7 +62,7 @@ SMART treats driving as next-token prediction over learned motion tokens and map
 :::
 
 ::: {.claim-card}
-### 2. CAT-K is useful
+<h3>2. CAT-K is useful</h3>
 
 CAT-K improves closed-loop behavior by selecting model-likely tokens closer to logged futures.
 
@@ -70,7 +70,7 @@ CAT-K improves closed-loop behavior by selecting model-likely tokens closer to l
 :::
 
 ::: {.claim-card}
-### 3. A gap remains
+<h3>3. A gap remains</h3>
 
 Logged-future realism may not fully test whether agents react correctly when another agent changes behavior.
 
@@ -86,7 +86,7 @@ Logged-future realism may not fully test whether agents react correctly when ano
 
 :::: {.grid-2}
 ::: {.card}
-### Standard realism
+<h3>Standard realism</h3>
 
 <div class="equation-box">
 $$
@@ -98,7 +98,7 @@ $$
 :::
 
 ::: {.card}
-### Counterfactual interaction realism
+<h3>Counterfactual interaction realism</h3>
 
 <div class="equation-box">
 $$
@@ -122,7 +122,7 @@ $$
 
 :::: {.grid-2}
 ::: {.card}
-### SMART generator path
+<h3>SMART generator path</h3>
 
 - Vectorized map tokens enter **RoadNet**.
 - Agent motion tokens enter **MotionNet**.
@@ -143,7 +143,7 @@ $$
 :::
 
 ::: {.card}
-### What changes?
+<h3>What changes?</h3>
 
 - Use existing hidden states from the SMART agent decoder.
 - Predict future interaction latents through a compact PAIR branch.
@@ -222,7 +222,7 @@ $$
 
 :::: {.grid-2}
 ::: {.card}
-### Lead-braking intervention
+<h3>Lead-braking intervention</h3>
 
 A lead vehicle is forced to follow a plausible braking token sequence. The model must generate the follower response.
 
@@ -236,7 +236,7 @@ $$
 :::
 
 ::: {.card}
-### Metrics
+<h3>Metrics</h3>
 
 - forced collision rate
 - normal vs forced minimum gap
@@ -264,7 +264,7 @@ $$
 
 :::: {.grid-2}
 ::: {.card}
-### Useful signal
+<h3>Useful signal</h3>
 
 On the 20-pair diagnostic subset, the fine-tuned checkpoint shows more forced lead-braking collisions than the BC checkpoint despite similar normal-condition gaps.
 
@@ -272,7 +272,7 @@ This suggests the stress harness may reveal behavior not captured by the small a
 :::
 
 ::: {.card}
-### Not yet a claim
+<h3>Not yet a claim</h3>
 
 The subset is small. The intervention family is narrow. No videos were generated in this pass. The result must be replicated with stronger controls before being treated as evidence.
 
@@ -286,7 +286,7 @@ The subset is small. The intervention family is narrow. No videos were generated
 
 :::: {.grid-2}
 ::: {.card}
-### Matched PAIR
+<h3>Matched PAIR</h3>
 
 <div class="equation-box">
 $$
@@ -303,7 +303,7 @@ Target latents come from the true future token structure.
 :::
 
 ::: {.card}
-### Shuffled control
+<h3>Shuffled control</h3>
 
 <div class="equation-box">
 $$
@@ -339,7 +339,7 @@ If matched PAIR improves stress behavior while shuffled PAIR does not, the evide
 
 :::: {.grid-3}
 ::: {.card}
-### Standard realism
+<h3>Standard realism</h3>
 
 - RMM
 - interaction metrics
@@ -349,7 +349,7 @@ If matched PAIR improves stress behavior while shuffled PAIR does not, the evide
 :::
 
 ::: {.card}
-### Counterfactual diagnosis
+<h3>Counterfactual diagnosis</h3>
 
 - forced collision rate
 - min gap distribution
@@ -359,7 +359,7 @@ If matched PAIR improves stress behavior while shuffled PAIR does not, the evide
 :::
 
 ::: {.card}
-### Representation evidence
+<h3>Representation evidence</h3>
 
 - hidden-state future probes
 - matched vs shuffled ablation
@@ -386,7 +386,7 @@ If matched PAIR improves stress behavior while shuffled PAIR does not, the evide
 
 :::: {.grid-2}
 ::: {.card}
-### Scientific limitations
+<h3>Scientific limitations</h3>
 
 - Stress suite currently covers one intervention family.
 - 20-pair diagnosis is too small for a claim.
@@ -395,7 +395,7 @@ If matched PAIR improves stress behavior while shuffled PAIR does not, the evide
 :::
 
 ::: {.card}
-### Engineering limitations
+<h3>Engineering limitations</h3>
 
 - PAIR scaffold exists but has not been scaled.
 - Stress evaluator needs faster scenario caching and video export.
@@ -418,13 +418,13 @@ If matched PAIR improves stress behavior while shuffled PAIR does not, the evide
 
 :::: {.grid-2}
 ::: {.card}
-### Technical thesis
+<h3>Technical thesis</h3>
 
 SMART-PAIR is a conservative modification: keep SMART's deployed autoregressive generator, but regularize the training representation toward future interaction structure.
 :::
 
 ::: {.card}
-### Scientific thesis
+<h3>Scientific thesis</h3>
 
 A simulator should be judged not only by logged-future realism, but also by whether it reacts plausibly when another agent's future changes.
 :::
