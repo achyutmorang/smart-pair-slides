@@ -54,7 +54,7 @@ $$
 
 :::: {.grid-3}
 ::: {.claim-card}
-<h3>1. SMART is strong</h3>
+<h3>1&#46; SMART is strong</h3>
 
 SMART treats driving as next-token prediction over learned motion tokens and map context.
 
@@ -62,7 +62,7 @@ SMART treats driving as next-token prediction over learned motion tokens and map
 :::
 
 ::: {.claim-card}
-<h3>2. CAT-K is useful</h3>
+<h3>2&#46; CAT-K is useful</h3>
 
 CAT-K improves closed-loop behavior by selecting model-likely tokens closer to logged futures.
 
@@ -70,7 +70,7 @@ CAT-K improves closed-loop behavior by selecting model-likely tokens closer to l
 :::
 
 ::: {.claim-card}
-<h3>3. A gap remains</h3>
+<h3>3&#46; A gap remains</h3>
 
 Logged-future realism may not fully test whether agents react correctly when another agent changes behavior.
 
