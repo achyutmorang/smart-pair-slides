@@ -1,0 +1,14 @@
+/.quarto/
+/.venv/
+__pycache__/
+.DS_Store
+*.ckpt
+*.pkl
+*.tfrecord*
+*.tar
+*.tar.gz
+*.zip
+/data/
+/datasets/
+/checkpoints/
+/pretrained_model_checkpoints/

@@ -1,0 +1,34 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "SMART-PAIR"
+  site-url: "https://achyutmorang.github.io/smart-pair-slides/"
+
+format:
+  revealjs:
+    theme: [default, styles.scss]
+    slide-number: c/t
+    chalkboard: true
+    preview-links: auto
+    code-line-numbers: false
+    controls: true
+    progress: true
+    history: true
+    center: false
+    width: 1600
+    height: 900
+    margin: 0.055
+    transition: slide
+    background-transition: fade
+    fig-align: center
+    toc: false
+    html-math-method: katex
+    smaller: false
+    footer: "SMART-PAIR | Predictive Agent Interaction Representation"
+execute:
+  echo: false
+  warning: false
+  message: false
+bibliography: references.bib

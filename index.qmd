@@ -1,0 +1,446 @@
+---
+title: "SMART-PAIR"
+subtitle: "Predictive Agent Interaction Representation for SMART-Style Traffic Simulation"
+author: "Achyut Morang"
+date: "April 2026"
+format:
+  revealjs:
+    title-slide-attributes:
+      data-background-gradient: "linear-gradient(135deg, #10151f 0%, #172034 55%, #0d1f1b 100%)"
+---
+
+## SMART-PAIR {.title-slide}
+
+:::: {.title-card}
+::: {.r-stack}
+<div>
+<div class="kicker">Research deck | traffic simulation | WOSAC-style evaluation</div>
+
+# SMART-PAIR
+
+<p class="subtitle">A checkpoint-first plan for improving SMART-style multi-agent traffic simulation with a training-time predictive interaction regularizer and counterfactual stress diagnosis.</p>
+
+<div class="badge-row">
+<span class="badge">SMART baseline</span>
+<span class="badge">CAT-K reference</span>
+<span class="badge">PAIR fine-tuning</span>
+<span class="badge">Counterfactual stress tests</span>
+</div>
+</div>
+:::
+
+::: {.hero-panel}
+### Core idea
+
+<div class="equation-box">
+$$
+\mathcal{L}_{\text{SMART-PAIR}}
+=
+\mathcal{L}_{\text{task}}
++
+\lambda_{\text{PAIR}}\mathcal{L}_{\text{PAIR}}
+$$
+</div>
+
+<p>Keep the deployed SMART generator unchanged. Add a training-only objective that forces hidden states to predict future multi-agent interaction structure.</p>
+
+<div class="callout green">
+<strong>Inference footprint:</strong> unchanged SMART rollout path. PAIR is a fine-tuning regularizer, not a bigger deployed simulator.
+</div>
+:::
+::::
+
+## Why This Project Exists
+
+:::: {.grid-3}
+::: {.claim-card}
+### 1. SMART is strong
+
+SMART treats driving as next-token prediction over learned motion tokens and map context.
+
+<div class="small">This gives an elegant language-like formulation for multi-agent rollout.</div>
+:::
+
+::: {.claim-card}
+### 2. CAT-K is useful
+
+CAT-K improves closed-loop behavior by selecting model-likely tokens closer to logged futures.
+
+<div class="small">It is a strong fine-tuning reference, not a strawman.</div>
+:::
+
+::: {.claim-card}
+### 3. A gap remains
+
+Logged-future realism may not fully test whether agents react correctly when another agent changes behavior.
+
+<div class="small">This is the opening for counterfactual interaction robustness.</div>
+:::
+::::
+
+<div class="callout blue">
+<strong>Research claim boundary:</strong> we are not claiming CAT-K is weak. We are asking whether logged-future metrics under-test changed-interaction response quality.
+</div>
+
+## First-Principles Distinction
+
+:::: {.grid-2}
+::: {.card}
+### Standard realism
+
+<div class="equation-box">
+$$
+\hat{\tau}_{1:N} \sim p_{\theta}(\tau_{1:N}\mid H,M)
+$$
+</div>
+
+<p>Can the simulator sample joint futures that look like the dataset?</p>
+:::
+
+::: {.card}
+### Counterfactual interaction realism
+
+<div class="equation-box">
+$$
+\hat{\tau}_{-j}^{cf}
+\sim
+p_{\theta}(\tau_{-j}\mid H,M,\operatorname{do}(\tau_j=\tilde{\tau}_j))
+$$
+</div>
+
+<p>If one agent behaves differently, do the nearby agents react plausibly?</p>
+:::
+::::
+
+<div class="callout red">
+$$
+\text{closeness to logged future}\;\neq\;\text{correct response under changed interaction}
+$$
+</div>
+
+## The Baseline Architecture We Keep
+
+:::: {.grid-2}
+::: {.card}
+### SMART generator path
+
+- Vectorized map tokens enter **RoadNet**.
+- Agent motion tokens enter **MotionNet**.
+- Temporal, interaction, and map-agent attention produce next-token distributions.
+- Rollout samples or selects the next motion token autoregressively.
+:::
+
+::: {.card}
+<img class="diagram" src="assets/diagrams/smart_architecture.svg" />
+:::
+::::
+
+## SMART-PAIR: Small Training-Time Addition
+
+:::: {.grid-2}
+::: {.card}
+<img class="diagram" src="assets/diagrams/smart_pair_architecture.svg" />
+:::
+
+::: {.card}
+### What changes?
+
+- Use existing hidden states from the SMART agent decoder.
+- Predict future interaction latents through a compact PAIR branch.
+- Train with matched future targets and a shuffled-target control.
+- Remove the PAIR branch at inference.
+
+<div class="equation-box">
+$$
+\mathcal{L}_{\text{PAIR}}
+= 2 - 2\cos\left(\hat{z}_{i,r},\operatorname{sg}(z^+_{i,r})\right)
+$$
+</div>
+:::
+::::
+
+## Experiment Logic: Checkpoint First
+
+<img class="plot" src="assets/plots/experiment_pipeline.svg" />
+
+<div class="small center">The project should not scale new training until checkpoint trust and stress diagnosis are reproducible.</div>
+
+## Current Substrate Status
+
+:::: {.grid-4}
+::: {.metric-card}
+<div class="metric-label">Author checkpoints</div>
+<div class="big-number">2</div>
+<p>BC and closed-loop fine-tuned reference checkpoints are available locally.</p>
+:::
+
+::: {.metric-card}
+<div class="metric-label">Smoke cache</div>
+<div class="big-number">✓</div>
+<p>Small fixed cache is enough for load, rollout, and validation-prefix checks.</p>
+:::
+
+::: {.metric-card}
+<div class="metric-label">Stress pairs</div>
+<div class="big-number">20</div>
+<p>Diverse lead-braking pairs across 10 scenarios for first diagnosis.</p>
+:::
+
+::: {.metric-card}
+<div class="metric-label">PAIR scaffold</div>
+<div class="big-number">off</div>
+<p>Implemented behind disabled-by-default config flags.</p>
+:::
+::::
+
+## Baseline Smoke Results
+
+:::: {.grid-2}
+::: {.card}
+<img class="plot" src="assets/plots/baseline_4batch.svg" />
+:::
+
+::: {.card}
+<img class="plot" src="assets/plots/ade_4batch.svg" />
+:::
+::::
+
+<div class="small">Scope: 4 validation batches, batch size 2, one closed-loop rollout, same fixed prefix. This is a mechanics/trust table, not a paper-grade benchmark.</div>
+
+## Baseline Table
+
+| Model | Open acc | Open loss | Closed ADE ↓ | RMM ↑ | Interaction ↑ | Map ↑ | Scenarios |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| BC | 0.8198 | 2.3412 | 0.8633 | 0.6966 | 0.7701 | 0.7724 | 8 |
+| CLSFT | 0.8163 | 2.9705 | 0.7836 | 0.7182 | 0.7889 | 0.8076 | 8 |
+
+<div class="callout green">
+<strong>Interpretation:</strong> the closed-loop fine-tuned checkpoint improves closed-loop ADE, RMM, interaction, and map metrics on this small fixed prefix. This makes it a credible reference before testing PAIR.
+</div>
+
+## Counterfactual Stress Diagnosis
+
+:::: {.grid-2}
+::: {.card}
+### Lead-braking intervention
+
+A lead vehicle is forced to follow a plausible braking token sequence. The model must generate the follower response.
+
+<div class="equation-box">
+$$
+\tilde{\tau}_{lead} = \operatorname{Brake}(\tau_{lead}^{*}),
+\qquad
+\hat{\tau}_{follower}^{cf} \sim p_{\theta}(\cdot \mid \operatorname{do}(\tilde{\tau}_{lead}))
+$$
+</div>
+:::
+
+::: {.card}
+### Metrics
+
+- forced collision rate
+- normal vs forced minimum gap
+- minimum time-to-collision
+- follower speed delta at 3 seconds
+- paired videos for qualitative inspection
+:::
+::::
+
+## First Stress Signal
+
+:::: {.grid-2}
+::: {.card}
+<img class="plot" src="assets/plots/stress_collision.svg" />
+:::
+
+::: {.card}
+<img class="plot" src="assets/plots/stress_gap.svg" />
+:::
+::::
+
+<div class="small">Scope: 20 selected lead/follower pairs from 10 scenarios. This is diagnostic evidence only; visual inspection and larger coverage are still required.</div>
+
+## What The Stress Result Means
+
+:::: {.grid-2}
+::: {.card}
+### Useful signal
+
+On the 20-pair diagnostic subset, the fine-tuned checkpoint shows more forced lead-braking collisions than the BC checkpoint despite similar normal-condition gaps.
+
+This suggests the stress harness may reveal behavior not captured by the small aggregate realism prefix.
+:::
+
+::: {.card}
+### Not yet a claim
+
+The subset is small. The intervention family is narrow. No videos were generated in this pass. The result must be replicated with stronger controls before being treated as evidence.
+
+<div class="callout red">
+<strong>Decision gate:</strong> do not claim PAIR helps until matched PAIR, shuffled PAIR, BC, and CLSFT are compared on the same frozen stress suite.
+</div>
+:::
+::::
+
+## PAIR Fine-Tuning Design
+
+:::: {.grid-2}
+::: {.card}
+### Matched PAIR
+
+<div class="equation-box">
+$$
+\theta_{PAIR}
+=
+\operatorname{FT}\left(
+\theta_{BC},
+\mathcal{L}_{task}+\lambda\mathcal{L}_{PAIR}
+\right)
+$$
+</div>
+
+Target latents come from the true future token structure.
+:::
+
+::: {.card}
+### Shuffled control
+
+<div class="equation-box">
+$$
+\theta_{shuffle}
+=
+\operatorname{FT}\left(
+\theta_{BC},
+\mathcal{L}_{task}+\lambda\mathcal{L}_{PAIR}^{shuffle}
+\right)
+$$
+</div>
+
+Same capacity and training path, but future targets are mismatched.
+:::
+::::
+
+<div class="callout blue">
+If matched PAIR improves stress behavior while shuffled PAIR does not, the evidence points toward future-interaction structure rather than extra parameters or extra optimization steps.
+</div>
+
+## Minimal Experiment Matrix
+
+| Variant | Initialization | Extra objective | Purpose |
+|---|---|---|---|
+| BC | author BC checkpoint | none | behavior-cloning baseline |
+| CLSFT / CAT-K reference | author fine-tuned checkpoint | closed-loop fine-tuning | strong reference |
+| SMART-PAIR | author BC checkpoint | matched PAIR | proposed method |
+| Shuffled PAIR | author BC checkpoint | shuffled PAIR | negative control |
+
+<div class="small">Every variant must be evaluated on the same validation subset, same stress manifest, same rollout settings, and same random seeds.</div>
+
+## Evidence Package Required
+
+:::: {.grid-3}
+::: {.card}
+### Standard realism
+
+- RMM
+- interaction metrics
+- map metrics
+- kinematic metrics
+- closed-loop ADE
+:::
+
+::: {.card}
+### Counterfactual diagnosis
+
+- forced collision rate
+- min gap distribution
+- TTC distribution
+- speed-response curves
+- side-by-side videos
+:::
+
+::: {.card}
+### Representation evidence
+
+- hidden-state future probes
+- matched vs shuffled ablation
+- PAIR cosine curves
+- no-inference-size increase proof
+:::
+::::
+
+## Engineering Invariants
+
+<div class="callout green">
+<strong>Invariant 1:</strong> with <code>pair.enabled=false</code>, author checkpoints must strict-load with zero missing or unexpected keys.
+</div>
+
+<div class="callout green">
+<strong>Invariant 2:</strong> PAIR must be training-only unless an explicit inference-time reranking experiment is introduced.
+</div>
+
+<div class="callout green">
+<strong>Invariant 3:</strong> no restricted checkpoints, processed WOMD files, or private raw logs enter public slides or GitHub history.
+</div>
+
+## Current Limitations
+
+:::: {.grid-2}
+::: {.card}
+### Scientific limitations
+
+- Stress suite currently covers one intervention family.
+- 20-pair diagnosis is too small for a claim.
+- Need visual inspection to rule out metric artifacts.
+- Need non-interference controls and shuffled PAIR comparison.
+:::
+
+::: {.card}
+### Engineering limitations
+
+- PAIR scaffold exists but has not been scaled.
+- Stress evaluator needs faster scenario caching and video export.
+- Validation must expand beyond the smoke prefix.
+- Documentation still needs cleanup of old J-SMART names.
+:::
+::::
+
+## Near-Term Plan
+
+<div class="timeline">
+<div class="step"><strong>1. Freeze deck inputs</strong><span>public-safe notes, plots, diagrams</span></div>
+<div class="step"><strong>2. Review code changes</strong><span>PAIR and stress harness regression checks</span></div>
+<div class="step"><strong>3. Generate videos</strong><span>BC vs CLSFT stress cases</span></div>
+<div class="step"><strong>4. Run PAIR smoke</strong><span>matched and shuffled fine-tune</span></div>
+<div class="step"><strong>5. Expand evidence</strong><span>fixed stress suite plus WOSAC-style metrics</span></div>
+</div>
+
+## Takeaway
+
+:::: {.grid-2}
+::: {.card}
+### Technical thesis
+
+SMART-PAIR is a conservative modification: keep SMART's deployed autoregressive generator, but regularize the training representation toward future interaction structure.
+:::
+
+::: {.card}
+### Scientific thesis
+
+A simulator should be judged not only by logged-future realism, but also by whether it reacts plausibly when another agent's future changes.
+:::
+::::
+
+<div class="equation-box center">
+$$
+\text{standard realism} + \text{counterfactual reaction quality} + \text{representation evidence}
+$$
+</div>
+
+## Backup: Source Grounding
+
+- SMART: next-token multi-agent motion generation.
+- CAT-K: closed-loop fine-tuning reference through top-$K$ token targets.
+- WOSAC: realism metrics covering kinematic, interaction, and map behavior.
+- JEPA-style learning: latent predictive objectives that organize hidden states around future structure.
+
+<div class="small">This deck is public-safe: it includes only derived metrics, diagrams, equations, and research planning. It excludes checkpoints and restricted dataset artifacts.</div>

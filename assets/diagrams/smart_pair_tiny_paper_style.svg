@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1120" viewBox="0 0 1900 1120">
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+<path d="M0,0 L0,6 L9,3 z" fill="#202020" />
+</marker>
+<marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+<path d="M0,0 L0,6 L9,3 z" fill="#305c96" />
+</marker>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+<feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.16"/>
+</filter>
+</defs>
+<rect x="0" y="0" width="100%" height="100%" fill="white"/>
+<text x="950" y="50" font-family="Helvetica, Arial, sans-serif" font-size="32" font-weight="800" text-anchor="middle" fill="#111111" style="">SMART-PAIR-tiny Architecture: SMART Generator + PAIR Future-Interaction Regularizer</text>
+<text x="950" y="84" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#111111" style="">Deployed params stay 7,151,296. Training-time v1 adds 99,712 trainable params.</text>
+<rect x="70" y="125" width="1760" height="880" rx="0" fill="#ffffff" fill-opacity="1.0" stroke="#222222" stroke-width="2"/>
+<rect x="100" y="175" width="760" height="760" rx="12" fill="#f9fbff" fill-opacity="1.0" stroke="#305c96" stroke-width="2"/>
+<text x="480" y="215" font-family="Helvetica, Arial, sans-serif" font-size="25" font-weight="700" text-anchor="middle" fill="#111111" style="">(a) SMART-tiny generator path</text>
+<line x1="130" y1="725.5" x2="351.0" y2="725.5" stroke="#202020" stroke-width="2.55" fill="none"/>
+<line x1="240.5" y1="615" x2="240.5" y2="836.0" stroke="#202020" stroke-width="2.55" fill="none"/>
+<line x1="142.75" y1="768.0" x2="338.25" y2="768.0" stroke="#202020" stroke-width="1.105" fill="none" stroke-dasharray="8 8"/>
+<line x1="198.0" y1="627.75" x2="198.0" y2="823.25" stroke="#202020" stroke-width="1.105" fill="none" stroke-dasharray="8 8"/>
+<rect x="174.2" y="729.75" width="30.599999999999998" height="17.0" rx="6" fill="#dbe7f7" fill-opacity="1.0" stroke="#333333" stroke-width="1.5"/>
+<circle cx="182.7" cy="745.9" r="2.125" fill="#333333" stroke="#202020" stroke-width="1.5"/>
+<circle cx="196.3" cy="745.9" r="2.125" fill="#333333" stroke="#202020" stroke-width="1.5"/>
+<rect x="242.2" y="678.75" width="30.599999999999998" height="17.0" rx="6" fill="#e9eef5" fill-opacity="1.0" stroke="#333333" stroke-width="1.5"/>
+<circle cx="250.7" cy="694.9" r="2.125" fill="#333333" stroke="#202020" stroke-width="1.5"/>
+<circle cx="264.3" cy="694.9" r="2.125" fill="#333333" stroke="#202020" stroke-width="1.5"/>
+<rect x="250.7" y="768.0" width="30.599999999999998" height="17.0" rx="6" fill="#e9eef5" fill-opacity="1.0" stroke="#333333" stroke-width="1.5"/>
+<circle cx="259.2" cy="784.15" r="2.125" fill="#333333" stroke="#202020" stroke-width="1.5"/>
+<circle cx="272.8" cy="784.15" r="2.125" fill="#333333" stroke="#202020" stroke-width="1.5"/>
+<rect x="271.95" y="729.75" width="30.599999999999998" height="17.0" rx="6" fill="#bfe3bd" fill-opacity="1.0" stroke="#333333" stroke-width="1.5"/>
+<circle cx="280.45" cy="745.9" r="2.125" fill="#333333" stroke="#202020" stroke-width="1.5"/>
+<circle cx="294.05" cy="745.9" r="2.125" fill="#333333" stroke="#202020" stroke-width="1.5"/>
+<path d="M125,290 C205,310 240,260 335,300" stroke="#df4d4d" stroke-width="1.8" fill="none"/>
+<path d="M125,312 C205,332 240,282 335,322" stroke="#508bd8" stroke-width="1.8" fill="none"/>
+<path d="M125,334 C205,354 240,304 335,344" stroke="#55aa55" stroke-width="1.8" fill="none"/>
+<path d="M125,356 C205,376 240,326 335,366" stroke="#d7a938" stroke-width="1.8" fill="none"/>
+<path d="M125,378 C205,398 240,348 335,388" stroke="#7f52c4" stroke-width="1.8" fill="none"/>
+<path d="M125,400 C205,420 240,370 335,410" stroke="#2ab7ca" stroke-width="1.8" fill="none"/>
+<path d="M145,430 C160,390 175,360 225,340" stroke="#444444" stroke-width="1.2" fill="none"/>
+<path d="M167,430 C182,390 197,360 247,340" stroke="#444444" stroke-width="1.2" fill="none"/>
+<path d="M189,430 C204,390 219,360 269,340" stroke="#444444" stroke-width="1.2" fill="none"/>
+<path d="M211,430 C226,390 241,360 291,340" stroke="#444444" stroke-width="1.2" fill="none"/>
+<path d="M233,430 C248,390 263,360 313,340" stroke="#444444" stroke-width="1.2" fill="none"/>
+<path d="M255,430 C270,390 285,360 335,340" stroke="#444444" stroke-width="1.2" fill="none"/>
+<path d="M277,430 C292,390 307,360 357,340" stroke="#444444" stroke-width="1.2" fill="none"/>
+<path d="M299,430 C314,390 329,360 379,340" stroke="#444444" stroke-width="1.2" fill="none"/>
+<path d="M321,430 C336,390 351,360 401,340" stroke="#444444" stroke-width="1.2" fill="none"/>
+<text x="245" y="540" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="400" text-anchor="middle" fill="#111111" style="">map + agents</text>
+<rect x="380" y="270" width="155" height="64" rx="16" fill="#ffffff" fill-opacity="1.0" stroke="#333333" stroke-width="2.2" filter="url(#shadow)"/>
+<text x="457.5" y="296.0" font-family="Helvetica, Arial, sans-serif" font-size="25" font-weight="700" text-anchor="middle" fill="#111111" style="">RoadNet</text>
+<text x="457.5" y="330.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="400" text-anchor="middle" fill="#333333" style="">1.15M</text>
+<rect x="590" y="260" width="220" height="84" rx="16" fill="#dce8fa" fill-opacity="1.0" stroke="#668fc5" stroke-width="2.2" filter="url(#shadow)"/>
+<text x="700.0" y="296.0" font-family="Helvetica, Arial, sans-serif" font-size="25" font-weight="700" text-anchor="middle" fill="#111111" style="">Map-Agent Cross-Attn</text>
+<text x="700.0" y="330.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="400" text-anchor="middle" fill="#333333" style="">1.69M</text>
+<rect x="590" y="385" width="220" height="84" rx="16" fill="#f6d1d1" fill-opacity="1.0" stroke="#c26565" stroke-width="2.2" filter="url(#shadow)"/>
+<text x="700.0" y="421.0" font-family="Helvetica, Arial, sans-serif" font-size="25" font-weight="700" text-anchor="middle" fill="#111111" style="">Agent-Agent Attn</text>
+<text x="700.0" y="455.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="400" text-anchor="middle" fill="#333333" style="">1.69M</text>
+<rect x="590" y="510" width="220" height="84" rx="16" fill="#dcefd8" fill-opacity="1.0" stroke="#6aa060" stroke-width="2.2" filter="url(#shadow)"/>
+<text x="700.0" y="546.0" font-family="Helvetica, Arial, sans-serif" font-size="25" font-weight="700" text-anchor="middle" fill="#111111" style="">Temporal Attn</text>
+<text x="700.0" y="580.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="400" text-anchor="middle" fill="#333333" style="">1.69M</text>
+<rect x="590" y="655" width="220" height="76" rx="16" fill="#fff2d8" fill-opacity="1.0" stroke="#a06a25" stroke-width="2.2" filter="url(#shadow)"/>
+<text x="700.0" y="687.0" font-family="Helvetica, Arial, sans-serif" font-size="25" font-weight="700" text-anchor="middle" fill="#111111" style="">Token Head</text>
+<text x="700.0" y="721.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="400" text-anchor="middle" fill="#333333" style="">0.281M</text>
+<line x1="305" y1="330" x2="380" y2="302" stroke="#202020" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<line x1="535" y1="302" x2="590" y2="302" stroke="#202020" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<line x1="700" y1="510" x2="700" y2="470" stroke="#202020" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<line x1="700" y1="385" x2="700" y2="345" stroke="#202020" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<line x1="700" y1="594" x2="700" y2="655" stroke="#202020" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<line x1="810" y1="690" x2="850" y2="690" stroke="#202020" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="875" y="660" width="18" height="30" rx="0" fill="#b7dca7" fill-opacity="1.0" stroke="#6aa060" stroke-width="1"/>
+<rect x="897" y="632" width="18" height="58" rx="0" fill="#b7dca7" fill-opacity="1.0" stroke="#6aa060" stroke-width="1"/>
+<rect x="919" y="648" width="18" height="42" rx="0" fill="#b7dca7" fill-opacity="1.0" stroke="#6aa060" stroke-width="1"/>
+<rect x="941" y="654" width="18" height="36" rx="0" fill="#b7dca7" fill-opacity="1.0" stroke="#6aa060" stroke-width="1"/>
+<rect x="963" y="662" width="18" height="28" rx="0" fill="#b7dca7" fill-opacity="1.0" stroke="#6aa060" stroke-width="1"/>
+<rect x="985" y="668" width="18" height="22" rx="0" fill="#b7dca7" fill-opacity="1.0" stroke="#6aa060" stroke-width="1"/>
+<line x1="865" y1="690" x2="1025" y2="690" stroke="#777777" stroke-width="1" fill="none"/>
+<text x="720" y="770" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="700" text-anchor="middle" fill="#111111" style="">SMART CE loss</text>
+<text x="480" y="895" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="700" text-anchor="middle" fill="#305c96" style="">Default inference uses only this path</text>
+<text x="480" y="925" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="400" text-anchor="middle" fill="#305c96" style="">Autoregressive multi-agent rollout</text>
+<rect x="905" y="175" width="875" height="760" rx="12" fill="#fffafa" fill-opacity="1.0" stroke="#b13b3b" stroke-width="2" stroke-dasharray="12 8"/>
+<text x="1342" y="215" font-family="Helvetica, Arial, sans-serif" font-size="25" font-weight="700" text-anchor="middle" fill="#111111" style="">(b) Training-only PAIR future-latent branch</text>
+<text x="1342" y="245" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="400" text-anchor="middle" fill="#8b2f2f" style="">removed at default rollout/inference</text>
+<rect x="955" y="315" width="210" height="78" rx="16" fill="#eef4ff" fill-opacity="1.0" stroke="#305c96" stroke-width="2.2" filter="url(#shadow)"/>
+<text x="1060.0" y="348.0" font-family="Helvetica, Arial, sans-serif" font-size="25" font-weight="700" text-anchor="middle" fill="#111111" style="">Context hidden</text>
+<text x="1060.0" y="382.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="400" text-anchor="middle" fill="#333333" style="">h_context from SMART</text>
+<rect x="1230" y="315" width="210" height="78" rx="16" fill="#ffffff" fill-opacity="1.0" stroke="#555555" stroke-width="2.2" filter="url(#shadow)"/>
+<text x="1335.0" y="348.0" font-family="Helvetica, Arial, sans-serif" font-size="25" font-weight="700" text-anchor="middle" fill="#111111" style="">Context pooler</text>
+<text x="1335.0" y="382.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="400" text-anchor="middle" fill="#333333" style="">0 params</text>
+<rect x="1505" y="315" width="210" height="78" rx="16" fill="#ffe6e6" fill-opacity="1.0" stroke="#b13b3b" stroke-width="2.2" filter="url(#shadow)"/>
+<text x="1610.0" y="348.0" font-family="Helvetica, Arial, sans-serif" font-size="25" font-weight="700" text-anchor="middle" fill="#111111" style="">PAIR predictor</text>
+<text x="1610.0" y="382.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="400" text-anchor="middle" fill="#333333" style="">66,432 params</text>
+<line x1="860" y1="530" x2="955" y2="354" stroke="#305c96" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+<line x1="1165" y1="354" x2="1230" y2="354" stroke="#305c96" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+<line x1="1440" y1="354" x2="1505" y2="354" stroke="#305c96" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+<text x="1610" y="430" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="700" text-anchor="middle" fill="#111111" style="">z_hat</text>
+<rect x="955" y="635" width="210" height="78" rx="16" fill="#fff7e8" fill-opacity="1.0" stroke="#a06a25" stroke-width="2.2" filter="url(#shadow)"/>
+<text x="1060.0" y="668.0" font-family="Helvetica, Arial, sans-serif" font-size="25" font-weight="700" text-anchor="middle" fill="#111111" style="">Future scene chunk</text>
+<text x="1060.0" y="702.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="400" text-anchor="middle" fill="#333333" style="">tokens + rel features</text>
+<rect x="1230" y="635" width="210" height="78" rx="16" fill="#fff7e8" fill-opacity="1.0" stroke="#a06a25" stroke-width="2.2" filter="url(#shadow)"/>
+<text x="1335.0" y="668.0" font-family="Helvetica, Arial, sans-serif" font-size="25" font-weight="700" text-anchor="middle" fill="#111111" style="">Target encoder</text>
+<text x="1335.0" y="702.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="400" text-anchor="middle" fill="#333333" style="">33,280 params</text>
+<rect x="1505" y="635" width="210" height="78" rx="16" fill="#f4f4f4" fill-opacity="1.0" stroke="#555555" stroke-width="2.2" filter="url(#shadow)"/>
+<text x="1610.0" y="668.0" font-family="Helvetica, Arial, sans-serif" font-size="25" font-weight="700" text-anchor="middle" fill="#111111" style="">Stop-gradient target</text>
+<text x="1610.0" y="702.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="400" text-anchor="middle" fill="#333333" style="">z_future</text>
+<line x1="305" y1="735" x2="955" y2="674" stroke="#a06a25" stroke-width="2.2" fill="none" marker-end="url(#arrow)" stroke-dasharray="8 6"/>
+<line x1="1165" y1="674" x2="1230" y2="674" stroke="#a06a25" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+<line x1="1440" y1="674" x2="1505" y2="674" stroke="#a06a25" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+<text x="1610" y="748" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="700" text-anchor="middle" fill="#111111" style="">sg(z_future)</text>
+<rect x="1290" y="805" width="280" height="70" rx="16" fill="#ffe6e6" fill-opacity="1.0" stroke="#b13b3b" stroke-width="2.2" filter="url(#shadow)"/>
+<text x="1430.0" y="834.0" font-family="Helvetica, Arial, sans-serif" font-size="25" font-weight="700" text-anchor="middle" fill="#111111" style="">PAIR loss</text>
+<text x="1430.0" y="868.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="400" text-anchor="middle" fill="#333333" style="">cosine / normalized MSE</text>
+<line x1="1610" y1="430" x2="1450" y2="805" stroke="#b13b3b" stroke-width="2.2" fill="none" marker-end="url(#arrow)"/>
+<line x1="1610" y1="748" x2="1450" y2="805" stroke="#b13b3b" stroke-width="2.2" fill="none" marker-end="url(#arrow)"/>
+<rect x="1030" y="805" width="200" height="70" rx="16" fill="#eef4ff" fill-opacity="1.0" stroke="#305c96" stroke-width="2.2" filter="url(#shadow)"/>
+<text x="1130.0" y="834.0" font-family="Helvetica, Arial, sans-serif" font-size="25" font-weight="700" text-anchor="middle" fill="#111111" style="">Total loss</text>
+<text x="1130.0" y="868.0" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="400" text-anchor="middle" fill="#333333" style="">CE + lambda PAIR</text>
+<line x1="720" y1="770" x2="1030" y2="840" stroke="#305c96" stroke-width="2.2" fill="none" marker-end="url(#arrow)"/>
+<line x1="1290" y1="840" x2="1230" y2="840" stroke="#b13b3b" stroke-width="2.2" fill="none" marker-end="url(#arrow)"/>
+<text x="950" y="1040" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle" fill="#111111" style="">SMART-PAIR v1 trainable total: 7,251,008. Deployed total: 7,151,296. Added trainable branch: 1.39 percent.</text>
+<text x="950" y="1072" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="400" text-anchor="middle" fill="#111111" style="">Interpretation: SMART predicts the next token. SMART-PAIR also asks the hidden state to predict a compact future interaction latent.</text>
+</svg>
