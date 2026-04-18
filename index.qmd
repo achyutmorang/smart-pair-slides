@@ -257,18 +257,18 @@ $$
 <div class="video-panel">
 <h3>SMART-BC rollout</h3>
 <img class="rollout-gif" src="assets/videos/lead_braking_case_01/smart_bc.gif" alt="SMART-BC rollout animation" />
-<div class="metric-strip"><span class="metric-pill safe">no forced collision</span><span class="metric-pill">min gap 5.21 m</span><span class="metric-pill">TTC 2.62 s</span></div>
-<div class="video-caption">Behavior-cloned SMART-tiny checkpoint under the same forced lead-braking condition.</div>
+<div class="metric-strip"><span class="metric-pill risk">visual collision evident</span><span class="metric-pill">selected-pair gap 5.21 m</span><span class="metric-pill">selected-pair TTC 2.62 s</span></div>
+<div class="video-caption">Behavior-cloned SMART-tiny checkpoint. The pair metric does not capture every visible rollout collision, so this panel is treated as qualitative evidence.</div>
 </div>
 <div class="video-panel">
 <h3>SMART-CLSFT rollout</h3>
 <img class="rollout-gif" src="assets/videos/lead_braking_case_01/smart_clsft.gif" alt="SMART-CLSFT rollout animation" />
-<div class="metric-strip"><span class="metric-pill risk">forced collision</span><span class="metric-pill">min gap 0.19 m</span><span class="metric-pill">TTC 0.017 s</span></div>
-<div class="video-caption">Closed-loop fine-tuned reference checkpoint on the matched stress intervention.</div>
+<div class="metric-strip"><span class="metric-pill risk">visual collision evident</span><span class="metric-pill">selected-pair gap 0.19 m</span><span class="metric-pill">selected-pair TTC 0.017 s</span></div>
+<div class="video-caption">Closed-loop fine-tuned reference checkpoint. The selected-pair metric and visual rollout both indicate a severe interaction failure.</div>
 </div>
 </div>
 
-<div class="small center">GIFs are shown side-by-side for rapid visual comparison. This is a qualitative diagnostic slide, not a benchmark claim.</div>
+<div class="small center">GIFs are shown side-by-side for rapid visual comparison. Pair metrics are not global collision metrics; use this slide as qualitative diagnosis, not a benchmark claim.</div>
 
 ## First Stress Signal
 
