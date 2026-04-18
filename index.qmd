@@ -6,7 +6,7 @@ date: "April 2026"
 format:
   revealjs:
     title-slide-attributes:
-      data-background-gradient: "linear-gradient(135deg, #10151f 0%, #172034 55%, #0d1f1b 100%)"
+      data-background-gradient: "linear-gradient(180deg, #ffffff 0%, #fbfaf7 100%)"
 ---
 
 ## SMART-PAIR {.title-slide}
