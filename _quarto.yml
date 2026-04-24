@@ -7,7 +7,7 @@ project:
     - assets/plots/**
 
 website:
-  title: "SMART-PAIR"
+  title: "CIFT for SMART-Style Traffic Simulation"
   site-url: "https://achyutmorang.github.io/smart-pair-slides/"
 
 format:
@@ -30,7 +30,7 @@ format:
     toc: false
     html-math-method: katex
     smaller: false
-    footer: "SMART-PAIR | Predictive Agent Interaction Representation"
+    footer: "CIFT | Counterfactual Interaction Fine-Tuning"
 execute:
   echo: false
   warning: false

@@ -1,0 +1,135 @@
+[
+  {
+    "objectID": "index.html#cift-for-smart-style-traffic-simulation",
+    "href": "index.html#cift-for-smart-style-traffic-simulation",
+    "title": "CIFT for SMART-Style Traffic Simulation",
+    "section": "CIFT for SMART-Style Traffic Simulation",
+    "text": "CIFT for SMART-Style Traffic Simulation\n\n\n\n\nResearch deck | multi-agent simulation | counterfactual evaluation\n\n\nCIFT\n\n\nA CIFT-first thesis direction for SMART/CAT-K-style tokenized traffic simulation: diagnose the gap between observational realism and interventional response, then fine-tune against search-guided counterfactual targets while preserving standard realism.\n\n\nSMART baseline CAT-K / CLSFT reference Counterfactual stress suite Matched vs shuffled control\n\n\n\n\n\nCurrent thesis line\n\n\n\np(\\tau_{1:N}\\mid H,M)\n\\neq\np(\\tau_{-j}\\mid H,M,\\operatorname{do}(\\tau_j=\\tilde{\\tau}_j))\n\n\n\nWOSAC-style realism is necessary, but it does not fully test whether nearby agents respond plausibly when one agent’s future is externally changed.\n\n\n\n\n\nCurrent method focus: search-guided CIFT is the mainline. PAIR is no longer the primary claim; it is only a later auxiliary ablation if the behavioral signal stabilizes."
+  },
+  {
+    "objectID": "index.html#why-this-project-exists",
+    "href": "index.html#why-this-project-exists",
+    "title": "CIFT for SMART-Style Traffic Simulation",
+    "section": "Why This Project Exists",
+    "text": "Why This Project Exists\n\n\n\n1. SMART is a strong simulator substrate\n\nTokenized autoregressive motion generation gives a scalable, elegant simulator for multi-agent rollout.\n\nThe deployed generator path is already competitive and should be preserved.\n\n\n\n\n2. CAT-K solves an important problem\n\nCAT-K / CLSFT improves closed-loop behavior by training on model-likely rollouts anchored to logged futures.\n\nThis addresses covariate shift under observational rollout.\n\n\n\n\n3. A different problem remains\n\nAfter a localized intervention, the logged future may no longer be the correct target for affected responders.\n\nThat is the causal-responsiveness gap this project studies.\n\n\n\n\n\n\n\nClaim boundary: we are not arguing that CAT-K is bad. We are arguing that logged-future closed-loop realism and interventional response quality are different evaluation objects."
+  },
+  {
+    "objectID": "index.html#problem-formulation",
+    "href": "index.html#problem-formulation",
+    "title": "CIFT for SMART-Style Traffic Simulation",
+    "section": "Problem Formulation",
+    "text": "Problem Formulation\n\n\n\nObservational simulation\n\n\n\n\\tau_{1:N} \\sim p_\\theta(\\tau_{1:N}\\mid H,M)\n\n\n\nStandard realism asks whether the simulator can sample realistic futures conditioned on history and map.\n\n\n\n\nInterventional response\n\n\n\n\\tau_{-j} \\sim p_\\theta(\\tau_{-j}\\mid H,M,\\operatorname{do}(\\tau_j=\\tilde{\\tau}_j))\n\n\n\nCounterfactual evaluation asks whether nearby agents respond correctly when one agent is externally changed.\n\n\n\n\n\n\n\nKey distinction from the problem formulation: counterfactual failure is not just OOD. It is covariate shift plus possible target invalidation, because the original logged future can stop being the right local reference."
+  },
+  {
+    "objectID": "index.html#the-baseline-architecture-we-keep",
+    "href": "index.html#the-baseline-architecture-we-keep",
+    "title": "CIFT for SMART-Style Traffic Simulation",
+    "section": "The Baseline Architecture We Keep",
+    "text": "The Baseline Architecture We Keep\n\n\n\nSMART generator path\n\n\nvectorized map enters RoadNet\nagent motion tokens enter MotionNet\ntemporal, interaction, and map-agent attention produce next-token distributions\nrollout remains autoregressive at inference\n\n\n\n\n\nThe deployed inference path stays SMART/CAT-K-style unless a later experiment explicitly changes it."
+  },
+  {
+    "objectID": "index.html#counterfactual-diagnostic-framework",
+    "href": "index.html#counterfactual-diagnostic-framework",
+    "title": "CIFT for SMART-Style Traffic Simulation",
+    "section": "Counterfactual Diagnostic Framework",
+    "text": "Counterfactual Diagnostic Framework\n\n\n\nStress-suite question\n\nWhen one actor is forced to brake, merge, cut in, or otherwise change behavior, does the simulator produce the right localized response?\n\n\n\\text{CIRS / penalized CIRS} =\n\\text{response quality} + \\text{safety} + \\text{validity} - \\text{nuisance penalties}\n\n\n\n\n\nCurrent families\n\n\nlead braking\nblocked lane\ncut-in\nmerge pressure\nintersection conflict\nnon-interference\nVRU incursion\n\n\nThe stress harness exists to expose simulator behavior that aggregate realism tables may under-report."
+  },
+  {
+    "objectID": "index.html#trusted-baseline-diagnosis",
+    "href": "index.html#trusted-baseline-diagnosis",
+    "title": "CIFT for SMART-Style Traffic Simulation",
+    "section": "Trusted Baseline Diagnosis",
+    "text": "Trusted Baseline Diagnosis\n\n\n\n\nThe first solid result is diagnostic, not methodological: on the reliable 120-case manifest, BC and CLSFT do not rank the same way under counterfactual stress.\n\n\n\n\n\n\n\nModel\nPenalized CIRS-v2\nCollision rate\n\n\n\n\nBC\n0.7344\n0.1778\n\n\nCLSFT\n0.7141\n0.2583\n\n\n\n\nInterpretation: CLSFT was directionally worse on this diagnostic slice, but the paired uncertainty still crosses zero. The safe claim is narrower: CAT-K/CLSFT does not uniformly solve counterfactual interaction robustness."
+  },
+  {
+    "objectID": "index.html#focal-qualitative-example",
+    "href": "index.html#focal-qualitative-example",
+    "title": "CIFT for SMART-Style Traffic Simulation",
+    "section": "Focal Qualitative Example",
+    "text": "Focal Qualitative Example\n\n\n\nGround truth\n\n\n\nLogged scenario reference for case 17a010edfe6d47b3, follower 15, lead 22.\n\n\n\n\nSMART-BC rollout\n\n\n\nvisual collision evidentselected-pair gap 5.21 mselected-pair TTC 2.62 s\n\n\n\n\nSMART-CLSFT rollout\n\n\n\nvisual collision evidentselected-pair gap 0.19 mselected-pair TTC 0.017 s\n\n\n\n\nThis slide remains qualitative. The point is not that one pair metric is perfect; the point is that counterfactual failures are visible and worth measuring systematically."
+  },
+  {
+    "objectID": "index.html#why-the-project-pivoted-away-from-pair-first",
+    "href": "index.html#why-the-project-pivoted-away-from-pair-first",
+    "title": "CIFT for SMART-Style Traffic Simulation",
+    "section": "Why The Project Pivoted Away From PAIR-First",
+    "text": "Why The Project Pivoted Away From PAIR-First\n\n\n\nWhat hidden-state probes showed\n\n\ngeometry already predicts absolute future closeness well\nhidden states add stronger signal for dynamic closing and distance-drop structure\nthis supports future-interaction supervision as a plausible idea\n\n\nSo representation learning is still relevant.\n\n\n\n\nWhy PAIR is no longer the mainline\n\n\nPAIR-only was too indirect for the core behavioral gap\nthe stronger question is now behavioral: can we directly optimize interventional response?\ntherefore the method pivot is search-guided CIFT first, PAIR later only as an auxiliary ablation\n\n\nThe thesis is now evaluation-plus-method, not a representation-only thesis."
+  },
+  {
+    "objectID": "index.html#search-guided-cift-current-method",
+    "href": "index.html#search-guided-cift-current-method",
+    "title": "CIFT for SMART-Style Traffic Simulation",
+    "section": "Search-Guided CIFT: Current Method",
+    "text": "Search-Guided CIFT: Current Method\n\n\n\nPipeline\n\nintervention case\n-&gt; short-horizon candidate branches\n-&gt; locality-aware branch scoring\n-&gt; soft first-action token target\n-&gt; CIFT token-KL update\n-&gt; matched vs shuffled control\n\nCurrent best mechanics recipe: refreshed w15/m03 branch-only targeter.\n\n\n\n\nCurrent method equation\n\n\n\n\\mathcal{L}_{\\text{CIFT}}\n=\n\\mathcal{L}_{\\text{token-KL to search target}}\n+ \\beta(m)\\,\\mathcal{L}_{\\text{weak logged anchor}}\n+ \\mathcal{L}_{\\text{stability constraints}}\n\n\n\nThe exact recipe is still changing. What matters is the principle: supervise the model with search-derived local response targets, not only logged futures."
+  },
+  {
+    "objectID": "index.html#best-positive-mechanics-result-so-far",
+    "href": "index.html#best-positive-mechanics-result-so-far",
+    "title": "CIFT for SMART-Style Traffic Simulation",
+    "section": "Best Positive Mechanics Result So Far",
+    "text": "Best Positive Mechanics Result So Far\n\n\n\n\nThe strongest current positive evidence is still the short refreshed branch-only w15/m03 mechanics run.\n\n\n\n\n\n\n\n\n\n\n\n\n\nVariant\nPenalized CIRS-v2\nCollision Rate\nCorrect Direction\n\n\n\n\nrefreshed locality-aware branch-only matched\n0.398202\n0.100000\n0.600000\n\n\nrefreshed locality-aware branch-only shuffled\n0.318686\n0.166667\n0.266667\n\n\n\n\n\n\\Delta_{\\text{matched-shuffled}} = +0.079516\n\n\n\nPaired summary: matched better on 12/30 cases, shuffled better on 2/30, ties on 16/30. This is the current best evidence that the search-guided target carries nontrivial matched-vs-shuffled signal."
+  },
+  {
+    "objectID": "index.html#weak-logged-anchor-ablation",
+    "href": "index.html#weak-logged-anchor-ablation",
+    "title": "CIFT for SMART-Style Traffic Simulation",
+    "section": "Weak Logged-Anchor Ablation",
+    "text": "Weak Logged-Anchor Ablation\n\n\n\nWhat changed\n\nA weak placebo-only logged-token anchor was added as a local stability prior.\n\nThis was motivated by the idea that the logged future is not counterfactual ground truth, but can still regularize nuisance-like rows.\n\n\n\n\nResult\n\n\n\n\nVariant\nPenalized CIRS-v2\nValid CIRS-v2\nCollision Rate\n\n\n\n\nweak-anchor matched\n0.361773\n0.775228\n0.133333\n\n\nweak-anchor shuffled\n0.332857\n0.713266\n0.233333\n\n\n\n\nUseful ablation, but not a new best method. The original short w15/m03 result remains better."
+  },
+  {
+    "objectID": "index.html#medium-scale-gate-negative-result",
+    "href": "index.html#medium-scale-gate-negative-result",
+    "title": "CIFT for SMART-Style Traffic Simulation",
+    "section": "Medium-Scale Gate: Negative Result",
+    "text": "Medium-Scale Gate: Negative Result\n\n\n\n\nThe first medium-scale CIFT recipe should not be scaled further in its current form.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nVariant\nPenalized CIRS-v2\nCollision Rate\nCorrect Direction\nActor ADE\nResponder ADE\nGap Error\n\n\n\n\nmedium matched\n0.352317\n0.100000\n0.400000\n4.828479\n9.987420\n1.533412\n\n\nmedium shuffled\n0.372241\n0.100000\n0.533333\n13.212082\n21.784404\n3.757745\n\n\n\n\nInterpretation: matched is better than shuffled on some nominal quantities such as responder ADE, but it no longer wins the held-out penalized CIRS-v2 metric and both runs regress badly on realism relative to BC and CLSFT."
+  },
+  {
+    "objectID": "index.html#constrained-cift-gate-also-negative",
+    "href": "index.html#constrained-cift-gate-also-negative",
+    "title": "CIFT for SMART-Style Traffic Simulation",
+    "section": "Constrained CIFT Gate: Also Negative",
+    "text": "Constrained CIFT Gate: Also Negative\n\n\n\n\n\n\n\n\n\n\nEpoch\nMatched Penalized CIRS-v2\nShuffled Penalized CIRS-v2\nMatched - Shuffled\n95% CI\n\n\n\n\n000\n0.367532\n0.377063\n-0.009531\n[-0.085640, 0.051748]\n\n\n001\n0.410692\n0.384281\n+0.026411\n[-0.008054, 0.064872]\n\n\n002\n0.363511\n0.343696\n+0.019816\n[-0.006099, 0.051254]\n\n\n003\n0.364691\n0.412984\n-0.048293\n[-0.122378, 0.006887]\n\n\n\n\n\n\n\nBest held-out point: epoch_001. It shows a small matched-over-shuffled gain, but the confidence interval still overlaps zero and that same checkpoint fails the realism-preservation gate on corrected local validation."
+  },
+  {
+    "objectID": "index.html#what-the-new-notes-actually-say",
+    "href": "index.html#what-the-new-notes-actually-say",
+    "title": "CIFT for SMART-Style Traffic Simulation",
+    "section": "What The New Notes Actually Say",
+    "text": "What The New Notes Actually Say\n\n\n\nPositive\n\n\nthe evaluation gap is real\nthe target signal is learnable\nmatched-vs-shuffled controls are informative\nshort-horizon branch supervision can carry nontrivial causal signal\n\n\n\n\nNegative\n\n\nthe current scalable recipe is misaligned\nrealism preservation is not yet solved\nstronger response sensitivity can degrade standard validation\ncurrent best result is still a short mechanics win, not a mature method win"
+  },
+  {
+    "objectID": "index.html#current-bottleneck",
+    "href": "index.html#current-bottleneck",
+    "title": "CIFT for SMART-Style Traffic Simulation",
+    "section": "Current Bottleneck",
+    "text": "Current Bottleneck\n\n\n\nNot the bottleneck anymore\n\n\ntoken-target plumbing\nsearch-target generation wiring\nmatched-vs-shuffled evaluation setup\ncheckpoint loading / baseline trust\n\n\n\n\nActual bottlenecks\n\n\ntarget coverage and family balance\nper-epoch checkpoint selection\npreserving realism under stronger causal supervision\nteaching the model when not to react\nmoving from first-token supervision to 3-5 step branch distillation"
+  },
+  {
+    "objectID": "index.html#next-method-revision",
+    "href": "index.html#next-method-revision",
+    "title": "CIFT for SMART-Style Traffic Simulation",
+    "section": "Next Method Revision",
+    "text": "Next Method Revision\n\n\n\\text{Next step} =\n\\text{selective CIFT}\n+\n\\text{short-horizon branch distillation}\n+\n\\text{adaptive anchoring}\n+\n\\text{per-epoch validation gating}\n\n\nintervention rows\n-&gt; split into placebo / nuisance vs causal / interaction-changing rows\n-&gt; distill 3-5 step branch response segments instead of first action only\n-&gt; keep weak logged-token anchoring only as an ablation\n-&gt; use weaker anchor on high-confidence causal rows\n-&gt; evaluate every epoch on held-out CIRS and small standard validation"
+  },
+  {
+    "objectID": "index.html#updated-scientific-claim",
+    "href": "index.html#updated-scientific-claim",
+    "title": "CIFT for SMART-Style Traffic Simulation",
+    "section": "Updated Scientific Claim",
+    "text": "Updated Scientific Claim\n\n\n\nWhat we can claim now\n\n\nWOSAC-style realism is necessary but not sufficient for simulator trust.\nBC and CLSFT can rank differently under interventional stress.\nSearch-guided CIFT carries a real matched-vs-shuffled signal.\nThe current scalable recipe still fails the realism-versus-robustness tradeoff.\n\n\n\n\nWhat we cannot claim yet\n\n\nCIFT is already better than BC overall.\nPAIR is the main source of improvement.\nthe current constrained recipe solves the tradeoff.\nthe present local metric is final."
+  },
+  {
+    "objectID": "index.html#takeaway",
+    "href": "index.html#takeaway",
+    "title": "CIFT for SMART-Style Traffic Simulation",
+    "section": "Takeaway",
+    "text": "Takeaway\n\n\n\n\nCurrent thesis line: SMART/CAT-K-style simulators can be strong on logged closed-loop realism while remaining under-tested on localized interventional response. Counterfactual stress evaluation exposes that gap. Search-guided CIFT is a promising response, but the present constrained recipe still does not preserve realism well enough.\n\n\n\n\n\n\n\\text{evaluation gap is real}\n+ \\text{target signal is learnable}\n- \\text{current recipe still breaks the realism gate}"
+  },
+  {
+    "objectID": "index.html#backup-what-changed-since-the-old-deck",
+    "href": "index.html#backup-what-changed-since-the-old-deck",
+    "title": "CIFT for SMART-Style Traffic Simulation",
+    "section": "Backup: What Changed Since The Old Deck",
+    "text": "Backup: What Changed Since The Old Deck\n\ndropped PAIR-first framing\nreplaced early 4-batch / 20-pair story with CIFT-first evidence\nelevated the problem-formulation distinction between observational and interventional response\nadded negative medium and constrained gates\nrepositioned PAIR as optional later ablation only\nmade the next step selective / constrained CIFT, not larger training"
+  }
+]

@@ -1,8 +1,8 @@
-# SMART-PAIR Slides
+# CIFT Slides
 
 Live deck: https://achyutmorang.github.io/smart-pair-slides/
 
-Public-safe Quarto RevealJS research deck for SMART-PAIR: Predictive Agent Interaction Representation for SMART-style traffic simulation.
+Public-safe Quarto RevealJS research deck for the current CIFT-first thesis direction: counterfactual interaction fine-tuning for SMART/CAT-K-style traffic simulation.
 
 This repository intentionally excludes checkpoints, processed WOMD files, raw logs, and restricted artifacts.
 

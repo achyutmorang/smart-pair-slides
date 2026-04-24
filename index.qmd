@@ -1,6 +1,6 @@
 ---
-title: "SMART-PAIR"
-subtitle: "Predictive Agent Interaction Representation for SMART-Style Traffic Simulation"
+title: "CIFT for SMART-Style Traffic Simulation"
+subtitle: "Counterfactual Interaction Fine-Tuning beyond logged-future realism"
 author: "Achyut Morang"
 date: "April 2026"
 format:
@@ -9,43 +9,41 @@ format:
       data-background-gradient: "linear-gradient(180deg, #ffffff 0%, #fbfaf7 100%)"
 ---
 
-## SMART-PAIR {.title-slide}
+## CIFT for SMART-Style Traffic Simulation {.title-slide}
 
 :::: {.title-card}
 ::: {.r-stack}
 <div>
-<div class="kicker">Research deck | traffic simulation | WOSAC-style evaluation</div>
+<div class="kicker">Research deck | multi-agent simulation | counterfactual evaluation</div>
 
-<h1>SMART-PAIR</h1>
+<h1>CIFT</h1>
 
-<p class="subtitle">A checkpoint-first plan for improving SMART-style multi-agent traffic simulation with a training-time predictive interaction regularizer and counterfactual stress diagnosis.</p>
+<p class="subtitle">A CIFT-first thesis direction for SMART/CAT-K-style tokenized traffic simulation: diagnose the gap between observational realism and interventional response, then fine-tune against search-guided counterfactual targets while preserving standard realism.</p>
 
 <div class="badge-row">
 <span class="badge">SMART baseline</span>
-<span class="badge">CAT-K reference</span>
-<span class="badge">PAIR fine-tuning</span>
-<span class="badge">Counterfactual stress tests</span>
+<span class="badge">CAT-K / CLSFT reference</span>
+<span class="badge">Counterfactual stress suite</span>
+<span class="badge">Matched vs shuffled control</span>
 </div>
 </div>
 :::
 
 ::: {.hero-panel}
-<h3>Core idea</h3>
+<h3>Current thesis line</h3>
 
 <div class="equation-box">
 $$
-\mathcal{L}_{\text{SMART-PAIR}}
-=
-\mathcal{L}_{\text{task}}
-+
-\lambda_{\text{PAIR}}\mathcal{L}_{\text{PAIR}}
+p(\tau_{1:N}\mid H,M)
+\neq
+p(\tau_{-j}\mid H,M,\operatorname{do}(\tau_j=\tilde{\tau}_j))
 $$
 </div>
 
-<p>Keep the deployed SMART generator unchanged. Add a training-only objective that forces hidden states to predict future multi-agent interaction structure.</p>
+<p>WOSAC-style realism is necessary, but it does not fully test whether nearby agents respond plausibly when one agent's future is externally changed.</p>
 
 <div class="callout green">
-<strong>Inference footprint:</strong> unchanged SMART rollout path. PAIR is a fine-tuning regularizer, not a bigger deployed simulator.
+<strong>Current method focus:</strong> search-guided CIFT is the mainline. PAIR is no longer the primary claim; it is only a later auxiliary ablation if the behavioral signal stabilizes.
 </div>
 :::
 ::::
@@ -54,68 +52,64 @@ $$
 
 :::: {.grid-3}
 ::: {.claim-card}
-<h3>1&#46; SMART is strong</h3>
+<h3>1&#46; SMART is a strong simulator substrate</h3>
 
-SMART treats driving as next-token prediction over learned motion tokens and map context.
+Tokenized autoregressive motion generation gives a scalable, elegant simulator for multi-agent rollout.
 
-<div class="small">This gives an elegant language-like formulation for multi-agent rollout.</div>
+<div class="small">The deployed generator path is already competitive and should be preserved.</div>
 :::
 
 ::: {.claim-card}
-<h3>2&#46; CAT-K is useful</h3>
+<h3>2&#46; CAT-K solves an important problem</h3>
 
-CAT-K improves closed-loop behavior by selecting model-likely tokens closer to logged futures.
+CAT-K / CLSFT improves closed-loop behavior by training on model-likely rollouts anchored to logged futures.
 
-<div class="small">It is a strong fine-tuning reference, not a strawman.</div>
+<div class="small">This addresses covariate shift under observational rollout.</div>
 :::
 
 ::: {.claim-card}
-<h3>3&#46; A gap remains</h3>
+<h3>3&#46; A different problem remains</h3>
 
-Logged-future realism may not fully test whether agents react correctly when another agent changes behavior.
+After a localized intervention, the logged future may no longer be the correct target for affected responders.
 
-<div class="small">This is the opening for counterfactual interaction robustness.</div>
+<div class="small">That is the causal-responsiveness gap this project studies.</div>
 :::
 ::::
 
 <div class="callout blue">
-<strong>Research claim boundary:</strong> we are not claiming CAT-K is weak. We are asking whether logged-future metrics under-test changed-interaction response quality.
+<strong>Claim boundary:</strong> we are not arguing that CAT-K is bad. We are arguing that <em>logged-future closed-loop realism and interventional response quality are different evaluation objects</em>.
 </div>
 
-## First-Principles Distinction
+## Problem Formulation
 
 :::: {.grid-2}
 ::: {.card}
-<h3>Standard realism</h3>
+<h3>Observational simulation</h3>
 
 <div class="equation-box">
 $$
-\hat{\tau}_{1:N} \sim p_{\theta}(\tau_{1:N}\mid H,M)
+\tau_{1:N} \sim p_\theta(\tau_{1:N}\mid H,M)
 $$
 </div>
 
-<p>Can the simulator sample joint futures that look like the dataset?</p>
+<p>Standard realism asks whether the simulator can sample realistic futures conditioned on history and map.</p>
 :::
 
 ::: {.card}
-<h3>Counterfactual interaction realism</h3>
+<h3>Interventional response</h3>
 
 <div class="equation-box">
 $$
-\hat{\tau}_{-j}^{cf}
-\sim
-p_{\theta}(\tau_{-j}\mid H,M,\operatorname{do}(\tau_j=\tilde{\tau}_j))
+\tau_{-j} \sim p_\theta(\tau_{-j}\mid H,M,\operatorname{do}(\tau_j=\tilde{\tau}_j))
 $$
 </div>
 
-<p>If one agent behaves differently, do the nearby agents react plausibly?</p>
+<p>Counterfactual evaluation asks whether nearby agents respond correctly when one agent is externally changed.</p>
 :::
 ::::
 
 <div class="callout red">
-$$
-\text{closeness to logged future}\;\neq\;\text{correct response under changed interaction}
-$$
+<strong>Key distinction from the problem formulation:</strong> counterfactual failure is not just OOD. It is <em>covariate shift plus possible target invalidation</em>, because the original logged future can stop being the right local reference.
 </div>
 
 ## The Baseline Architecture We Keep
@@ -124,10 +118,14 @@ $$
 ::: {.card}
 <h3>SMART generator path</h3>
 
-- Vectorized map tokens enter **RoadNet**.
-- Agent motion tokens enter **MotionNet**.
-- Temporal, interaction, and map-agent attention produce next-token distributions.
-- Rollout samples or selects the next motion token autoregressively.
+- vectorized map enters <strong>RoadNet</strong>
+- agent motion tokens enter <strong>MotionNet</strong>
+- temporal, interaction, and map-agent attention produce next-token distributions
+- rollout remains autoregressive at inference
+
+<div class="callout blue">
+The deployed inference path stays SMART/CAT-K-style unless a later experiment explicitly changes it.
+</div>
 :::
 
 ::: {.card}
@@ -135,118 +133,51 @@ $$
 :::
 ::::
 
-## SMART-PAIR: Small Training-Time Addition
+## Counterfactual Diagnostic Framework
 
 :::: {.grid-2}
 ::: {.card}
-<img class="diagram" src="assets/diagrams/smart_pair_architecture.svg" />
-:::
+<h3>Stress-suite question</h3>
 
-::: {.card}
-<h3>What changes?</h3>
-
-- Use existing hidden states from the SMART agent decoder.
-- Predict future interaction latents through a compact PAIR branch.
-- Train with matched future targets and a shuffled-target control.
-- Remove the PAIR branch at inference.
+When one actor is forced to brake, merge, cut in, or otherwise change behavior, does the simulator produce the right localized response?
 
 <div class="equation-box">
 $$
-\mathcal{L}_{\text{PAIR}}
-= 2 - 2\cos\left(\hat{z}_{i,r},\operatorname{sg}(z^+_{i,r})\right)
-$$
-</div>
-:::
-::::
-
-## Experiment Logic: Checkpoint First
-
-<img class="plot" src="assets/plots/experiment_pipeline.svg" />
-
-<div class="small center">The project should not scale new training until checkpoint trust and stress diagnosis are reproducible.</div>
-
-## Current Substrate Status
-
-:::: {.grid-4}
-::: {.metric-card}
-<div class="metric-label">Author checkpoints</div>
-<div class="big-number">2</div>
-<p>BC and closed-loop fine-tuned reference checkpoints are available locally.</p>
-:::
-
-::: {.metric-card}
-<div class="metric-label">Smoke cache</div>
-<div class="big-number">✓</div>
-<p>Small fixed cache is enough for load, rollout, and validation-prefix checks.</p>
-:::
-
-::: {.metric-card}
-<div class="metric-label">Stress pairs</div>
-<div class="big-number">20</div>
-<p>Diverse lead-braking pairs across 10 scenarios for first diagnosis.</p>
-:::
-
-::: {.metric-card}
-<div class="metric-label">PAIR scaffold</div>
-<div class="big-number">off</div>
-<p>Implemented behind disabled-by-default config flags.</p>
-:::
-::::
-
-## Baseline Smoke Results
-
-:::: {.grid-2}
-::: {.card}
-<img class="plot" src="assets/plots/baseline_4batch.svg" />
-:::
-
-::: {.card}
-<img class="plot" src="assets/plots/ade_4batch.svg" />
-:::
-::::
-
-<div class="small">Scope: 4 validation batches, batch size 2, one closed-loop rollout, same fixed prefix. This is a mechanics/trust table, not a paper-grade benchmark.</div>
-
-## Baseline Table
-
-| Model | Open acc | Open loss | Closed ADE ↓ | RMM ↑ | Interaction ↑ | Map ↑ | Scenarios |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| BC | 0.8198 | 2.3412 | 0.8633 | 0.6966 | 0.7701 | 0.7724 | 8 |
-| CLSFT | 0.8163 | 2.9705 | 0.7836 | 0.7182 | 0.7889 | 0.8076 | 8 |
-
-<div class="callout green">
-<strong>Interpretation:</strong> the closed-loop fine-tuned checkpoint improves closed-loop ADE, RMM, interaction, and map metrics on this small fixed prefix. This makes it a credible reference before testing PAIR.
-</div>
-
-## Counterfactual Stress Diagnosis
-
-:::: {.grid-2}
-::: {.card}
-<h3>Lead-braking intervention</h3>
-
-A lead vehicle is forced to follow a plausible braking token sequence. The model must generate the follower response.
-
-<div class="equation-box">
-$$
-\tilde{\tau}_{lead} = \operatorname{Brake}(\tau_{lead}^{*}),
-\qquad
-\hat{\tau}_{follower}^{cf} \sim p_{\theta}(\cdot \mid \operatorname{do}(\tilde{\tau}_{lead}))
+\text{CIRS / penalized CIRS} =
+\text{response quality} + \text{safety} + \text{validity} - \text{nuisance penalties}
 $$
 </div>
 :::
 
 ::: {.card}
-<h3>Metrics</h3>
+<h3>Current families</h3>
 
-- forced collision rate
-- normal vs forced minimum gap
-- minimum time-to-collision
-- follower speed delta at 3 seconds
-- paired videos for qualitative inspection
+- lead braking
+- blocked lane
+- cut-in
+- merge pressure
+- intersection conflict
+- non-interference
+- VRU incursion
+
+<div class="small">The stress harness exists to expose simulator behavior that aggregate realism tables may under-report.</div>
 :::
 ::::
 
-## Focal Rollout Comparison: Lead-Braking Case
+## Trusted Baseline Diagnosis
+
+<div class="callout blue">
+The first solid result is diagnostic, not methodological: on the reliable 120-case manifest, BC and CLSFT do not rank the same way under counterfactual stress.
+</div>
+
+| Model | Penalized CIRS-v2 | Collision rate |
+|---|---:|---:|
+| BC | 0.7344 | 0.1778 |
+| CLSFT | 0.7141 | 0.2583 |
+
+<div class="small">Interpretation: CLSFT was directionally worse on this diagnostic slice, but the paired uncertainty still crosses zero. The safe claim is narrower: <strong>CAT-K/CLSFT does not uniformly solve counterfactual interaction robustness</strong>.</div>
+
+## Focal Qualitative Example
 
 <div class="video-grid-3">
 <div class="video-panel">
@@ -258,213 +189,253 @@ $$
 <h3>SMART-BC rollout</h3>
 <img class="rollout-gif" src="assets/videos/lead_braking_case_01/smart_bc.gif" alt="SMART-BC rollout animation" />
 <div class="metric-strip"><span class="metric-pill risk">visual collision evident</span><span class="metric-pill">selected-pair gap 5.21 m</span><span class="metric-pill">selected-pair TTC 2.62 s</span></div>
-<div class="video-caption">Behavior-cloned SMART-tiny checkpoint. The pair metric does not capture every visible rollout collision, so this panel is treated as qualitative evidence.</div>
 </div>
 <div class="video-panel">
 <h3>SMART-CLSFT rollout</h3>
 <img class="rollout-gif" src="assets/videos/lead_braking_case_01/smart_clsft.gif" alt="SMART-CLSFT rollout animation" />
 <div class="metric-strip"><span class="metric-pill risk">visual collision evident</span><span class="metric-pill">selected-pair gap 0.19 m</span><span class="metric-pill">selected-pair TTC 0.017 s</span></div>
-<div class="video-caption">Closed-loop fine-tuned reference checkpoint. The selected-pair metric and visual rollout both indicate a severe interaction failure.</div>
 </div>
 </div>
 
-<div class="small center">GIFs are shown side-by-side for rapid visual comparison. Pair metrics are not global collision metrics; use this slide as qualitative diagnosis, not a benchmark claim.</div>
+<div class="small center">This slide remains qualitative. The point is not that one pair metric is perfect; the point is that counterfactual failures are visible and worth measuring systematically.</div>
 
-## First Stress Signal
+## Why The Project Pivoted Away From PAIR-First
 
 :::: {.grid-2}
 ::: {.card}
-<img class="plot" src="assets/plots/stress_collision.svg" />
+<h3>What hidden-state probes showed</h3>
+
+- geometry already predicts absolute future closeness well
+- hidden states add stronger signal for dynamic closing and distance-drop structure
+- this supports future-interaction supervision as a plausible idea
+
+<div class="small">So representation learning is still relevant.</div>
 :::
 
 ::: {.card}
-<img class="plot" src="assets/plots/stress_gap.svg" />
+<h3>Why PAIR is no longer the mainline</h3>
+
+- PAIR-only was too indirect for the core behavioral gap
+- the stronger question is now behavioral: can we directly optimize interventional response?
+- therefore the method pivot is <strong>search-guided CIFT first</strong>, PAIR later only as an auxiliary ablation
+
+<div class="small">The thesis is now evaluation-plus-method, not a representation-only thesis.</div>
 :::
 ::::
 
-<div class="small">Scope: 20 selected lead/follower pairs from 10 scenarios. This is diagnostic evidence only; visual inspection and larger coverage are still required.</div>
-
-## What The Stress Result Means
+## Search-Guided CIFT: Current Method
 
 :::: {.grid-2}
 ::: {.card}
-<h3>Useful signal</h3>
+<h3>Pipeline</h3>
 
-On the 20-pair diagnostic subset, the fine-tuned checkpoint shows more forced lead-braking collisions than the BC checkpoint despite similar normal-condition gaps.
+```text
+intervention case
+-> short-horizon candidate branches
+-> locality-aware branch scoring
+-> soft first-action token target
+-> CIFT token-KL update
+-> matched vs shuffled control
+```
 
-This suggests the stress harness may reveal behavior not captured by the small aggregate realism prefix.
+<div class="small">Current best mechanics recipe: refreshed <code>w15/m03</code> branch-only targeter.</div>
 :::
 
 ::: {.card}
-<h3>Not yet a claim</h3>
+<h3>Current method equation</h3>
 
-The subset is small. The intervention family is narrow. No videos were generated in this pass. The result must be replicated with stronger controls before being treated as evidence.
+<div class="equation-box">
+$$
+\mathcal{L}_{\text{CIFT}}
+=
+\mathcal{L}_{\text{token-KL to search target}}
++ \beta(m)\,\mathcal{L}_{\text{weak logged anchor}}
++ \mathcal{L}_{\text{stability constraints}}
+$$
+</div>
+
+<p>The exact recipe is still changing. What matters is the principle: supervise the model with <em>search-derived local response targets</em>, not only logged futures.</p>
+:::
+::::
+
+## Best Positive Mechanics Result So Far
+
+<div class="callout green">
+The strongest current positive evidence is still the short refreshed branch-only <code>w15/m03</code> mechanics run.
+</div>
+
+| Variant | Penalized CIRS-v2 | Collision Rate | Correct Direction |
+|---|---:|---:|---:|
+| refreshed locality-aware branch-only matched | 0.398202 | 0.100000 | 0.600000 |
+| refreshed locality-aware branch-only shuffled | 0.318686 | 0.166667 | 0.266667 |
+
+<div class="equation-box">
+$$
+\Delta_{\text{matched-shuffled}} = +0.079516
+$$
+</div>
+
+<div class="small">Paired summary: matched better on 12/30 cases, shuffled better on 2/30, ties on 16/30. This is the current best evidence that the search-guided target carries nontrivial matched-vs-shuffled signal.</div>
+
+## Weak Logged-Anchor Ablation
+
+:::: {.grid-2}
+::: {.card}
+<h3>What changed</h3>
+
+A weak placebo-only logged-token anchor was added as a local stability prior.
+
+<div class="small">This was motivated by the idea that the logged future is not counterfactual ground truth, but can still regularize nuisance-like rows.</div>
+:::
+
+::: {.card}
+<h3>Result</h3>
+
+| Variant | Penalized CIRS-v2 | Valid CIRS-v2 | Collision Rate |
+|---|---:|---:|---:|
+| weak-anchor matched | 0.361773 | 0.775228 | 0.133333 |
+| weak-anchor shuffled | 0.332857 | 0.713266 | 0.233333 |
+
+<div class="small">Useful ablation, but not a new best method. The original short <code>w15/m03</code> result remains better.</div>
+:::
+::::
+
+## Medium-Scale Gate: Negative Result
 
 <div class="callout red">
-<strong>Decision gate:</strong> do not claim PAIR helps until matched PAIR, shuffled PAIR, BC, and CLSFT are compared on the same frozen stress suite.
+The first medium-scale CIFT recipe should <strong>not</strong> be scaled further in its current form.
 </div>
-:::
-::::
 
-## PAIR Fine-Tuning Design
+| Variant | Penalized CIRS-v2 | Collision Rate | Correct Direction | Actor ADE | Responder ADE | Gap Error |
+|---|---:|---:|---:|---:|---:|---:|
+| medium matched | 0.352317 | 0.100000 | 0.400000 | 4.828479 | 9.987420 | 1.533412 |
+| medium shuffled | 0.372241 | 0.100000 | 0.533333 | 13.212082 | 21.784404 | 3.757745 |
+
+<div class="small">Interpretation: matched is better than shuffled on some nominal quantities such as responder ADE, but it no longer wins the held-out penalized CIRS-v2 metric and both runs regress badly on realism relative to BC and CLSFT.</div>
+
+## Constrained CIFT Gate: Also Negative
+
+| Epoch | Matched Penalized CIRS-v2 | Shuffled Penalized CIRS-v2 | Matched - Shuffled | 95% CI |
+|---|---:|---:|---:|---|
+| 000 | 0.367532 | 0.377063 | -0.009531 | [-0.085640, 0.051748] |
+| 001 | 0.410692 | 0.384281 | +0.026411 | [-0.008054, 0.064872] |
+| 002 | 0.363511 | 0.343696 | +0.019816 | [-0.006099, 0.051254] |
+| 003 | 0.364691 | 0.412984 | -0.048293 | [-0.122378, 0.006887] |
+
+<div class="callout red">
+Best held-out point: <code>epoch_001</code>. It shows a small matched-over-shuffled gain, but the confidence interval still overlaps zero and that same checkpoint fails the realism-preservation gate on corrected local validation.
+</div>
+
+## What The New Notes Actually Say
 
 :::: {.grid-2}
 ::: {.card}
-<h3>Matched PAIR</h3>
+<h3>Positive</h3>
 
-<div class="equation-box">
-$$
-\theta_{PAIR}
-=
-\operatorname{FT}\left(
-\theta_{BC},
-\mathcal{L}_{task}+\lambda\mathcal{L}_{PAIR}
-\right)
-$$
-</div>
-
-Target latents come from the true future token structure.
+- the evaluation gap is real
+- the target signal is learnable
+- matched-vs-shuffled controls are informative
+- short-horizon branch supervision can carry nontrivial causal signal
 :::
 
 ::: {.card}
-<h3>Shuffled control</h3>
+<h3>Negative</h3>
 
-<div class="equation-box">
-$$
-\theta_{shuffle}
-=
-\operatorname{FT}\left(
-\theta_{BC},
-\mathcal{L}_{task}+\lambda\mathcal{L}_{PAIR}^{shuffle}
-\right)
-$$
-</div>
-
-Same capacity and training path, but future targets are mismatched.
+- the current scalable recipe is misaligned
+- realism preservation is not yet solved
+- stronger response sensitivity can degrade standard validation
+- current best result is still a short mechanics win, not a mature method win
 :::
 ::::
 
-<div class="callout blue">
-If matched PAIR improves stress behavior while shuffled PAIR does not, the evidence points toward future-interaction structure rather than extra parameters or extra optimization steps.
-</div>
-
-## Minimal Experiment Matrix
-
-| Variant | Initialization | Extra objective | Purpose |
-|---|---|---|---|
-| BC | author BC checkpoint | none | behavior-cloning baseline |
-| CLSFT / CAT-K reference | author fine-tuned checkpoint | closed-loop fine-tuning | strong reference |
-| SMART-PAIR | author BC checkpoint | matched PAIR | proposed method |
-| Shuffled PAIR | author BC checkpoint | shuffled PAIR | negative control |
-
-<div class="small">Every variant must be evaluated on the same validation subset, same stress manifest, same rollout settings, and same random seeds.</div>
-
-## Evidence Package Required
-
-:::: {.grid-3}
-::: {.card}
-<h3>Standard realism</h3>
-
-- RMM
-- interaction metrics
-- map metrics
-- kinematic metrics
-- closed-loop ADE
-:::
-
-::: {.card}
-<h3>Counterfactual diagnosis</h3>
-
-- forced collision rate
-- min gap distribution
-- TTC distribution
-- speed-response curves
-- side-by-side videos
-:::
-
-::: {.card}
-<h3>Representation evidence</h3>
-
-- hidden-state future probes
-- matched vs shuffled ablation
-- PAIR cosine curves
-- no-inference-size increase proof
-:::
-::::
-
-## Engineering Invariants
-
-<div class="callout green">
-<strong>Invariant 1:</strong> with <code>pair.enabled=false</code>, author checkpoints must strict-load with zero missing or unexpected keys.
-</div>
-
-<div class="callout green">
-<strong>Invariant 2:</strong> PAIR must be training-only unless an explicit inference-time reranking experiment is introduced.
-</div>
-
-<div class="callout green">
-<strong>Invariant 3:</strong> no restricted checkpoints, processed WOMD files, or private raw logs enter public slides or GitHub history.
-</div>
-
-## Current Limitations
+## Current Bottleneck
 
 :::: {.grid-2}
 ::: {.card}
-<h3>Scientific limitations</h3>
+<h3>Not the bottleneck anymore</h3>
 
-- Stress suite currently covers one intervention family.
-- 20-pair diagnosis is too small for a claim.
-- Need visual inspection to rule out metric artifacts.
-- Need non-interference controls and shuffled PAIR comparison.
+- token-target plumbing
+- search-target generation wiring
+- matched-vs-shuffled evaluation setup
+- checkpoint loading / baseline trust
 :::
 
 ::: {.card}
-<h3>Engineering limitations</h3>
+<h3>Actual bottlenecks</h3>
 
-- PAIR scaffold exists but has not been scaled.
-- Stress evaluator needs faster scenario caching and video export.
-- Validation must expand beyond the smoke prefix.
-- Documentation still needs cleanup of old J-SMART names.
+- target coverage and family balance
+- per-epoch checkpoint selection
+- preserving realism under stronger causal supervision
+- teaching the model when <em>not</em> to react
+- moving from first-token supervision to 3-5 step branch distillation
 :::
 ::::
 
-## Near-Term Plan
+## Next Method Revision
 
-<div class="timeline">
-<div class="step"><strong>1. Freeze deck inputs</strong><span>public-safe notes, plots, diagrams</span></div>
-<div class="step"><strong>2. Review code changes</strong><span>PAIR and stress harness regression checks</span></div>
-<div class="step"><strong>3. Generate videos</strong><span>BC vs CLSFT stress cases</span></div>
-<div class="step"><strong>4. Run PAIR smoke</strong><span>matched and shuffled fine-tune</span></div>
-<div class="step"><strong>5. Expand evidence</strong><span>fixed stress suite plus WOSAC-style metrics</span></div>
+<div class="equation-box">
+$$
+\text{Next step} =
+\text{selective CIFT}
++
+\text{short-horizon branch distillation}
++
+\text{adaptive anchoring}
++
+\text{per-epoch validation gating}
+$$
 </div>
+
+```text
+intervention rows
+-> split into placebo / nuisance vs causal / interaction-changing rows
+-> distill 3-5 step branch response segments instead of first action only
+-> keep weak logged-token anchoring only as an ablation
+-> use weaker anchor on high-confidence causal rows
+-> evaluate every epoch on held-out CIRS and small standard validation
+```
+
+## Updated Scientific Claim
+
+:::: {.grid-2}
+::: {.card}
+<h3>What we can claim now</h3>
+
+- WOSAC-style realism is necessary but not sufficient for simulator trust.
+- BC and CLSFT can rank differently under interventional stress.
+- Search-guided CIFT carries a real matched-vs-shuffled signal.
+- The current scalable recipe still fails the realism-versus-robustness tradeoff.
+:::
+
+::: {.card}
+<h3>What we cannot claim yet</h3>
+
+- CIFT is already better than BC overall.
+- PAIR is the main source of improvement.
+- the current constrained recipe solves the tradeoff.
+- the present local metric is final.
+:::
+::::
 
 ## Takeaway
 
-:::: {.grid-2}
-::: {.card}
-<h3>Technical thesis</h3>
-
-SMART-PAIR is a conservative modification: keep SMART's deployed autoregressive generator, but regularize the training representation toward future interaction structure.
-:::
-
-::: {.card}
-<h3>Scientific thesis</h3>
-
-A simulator should be judged not only by logged-future realism, but also by whether it reacts plausibly when another agent's future changes.
-:::
-::::
+<div class="callout blue">
+<strong>Current thesis line:</strong> SMART/CAT-K-style simulators can be strong on logged closed-loop realism while remaining under-tested on localized interventional response. Counterfactual stress evaluation exposes that gap. Search-guided CIFT is a promising response, but the present constrained recipe still does not preserve realism well enough.
+</div>
 
 <div class="equation-box center">
 $$
-\text{standard realism} + \text{counterfactual reaction quality} + \text{representation evidence}
+\text{evaluation gap is real}
++ \text{target signal is learnable}
+- \text{current recipe still breaks the realism gate}
 $$
 </div>
 
-## Backup: Source Grounding
+## Backup: What Changed Since The Old Deck
 
-- SMART: next-token multi-agent motion generation.
-- CAT-K: closed-loop fine-tuning reference through top-$K$ token targets.
-- WOSAC: realism metrics covering kinematic, interaction, and map behavior.
-- JEPA-style learning: latent predictive objectives that organize hidden states around future structure.
-
-<div class="small">This deck is public-safe: it includes only derived metrics, diagrams, equations, and research planning. It excludes checkpoints and restricted dataset artifacts.</div>
+- dropped PAIR-first framing
+- replaced early 4-batch / 20-pair story with CIFT-first evidence
+- elevated the problem-formulation distinction between observational and interventional response
+- added negative medium and constrained gates
+- repositioned PAIR as optional later ablation only
+- made the next step <strong>selective / constrained CIFT</strong>, not larger training
