@@ -27,6 +27,7 @@ format:
     margin: 0.055
     transition: none
     background-transition: none
+    scrollable: true
     fig-align: center
     toc: false
     html-math-method: katex

@@ -9,9 +9,7 @@
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.37">
 
-  <meta name="author" content="Achyut Morang">
-  <meta name="dcterms.date" content="2026-04-01">
-  <title>Traffic Interaction Authenticity – Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators</title>
+  <title>Traffic Interaction Authenticity</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -33,7 +31,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-abd447aa0f0704aaa4fedbd1011bb941.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-989df41b8d5f1114832fa4ac0b1be6e3.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
@@ -67,6 +65,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -148,21 +147,8 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-color="#ffffff" class="quarto-title-block center">
-  <h1 class="title">Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators</h1>
-  <p class="subtitle">Traffic Interaction Authenticity with Waymax-backed intervention diagnostics</p>
 
-<div class="quarto-title-authors">
-<div class="quarto-title-author">
-<div class="quarto-title-author-name">
-Achyut Morang 
-</div>
-</div>
-</div>
-
-  <p class="date">2026-04-01</p>
-</section>
-<section id="counterfactual-evaluation-and-adaptation-of-learned-multi-agent-traffic-simulators" class="slide level2 title-slide center">
+<section id="title-slide" class="slide level2 title-slide center">
 <h2>Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators</h2>
 <div class="title-card">
 <div>
@@ -523,7 +509,7 @@ Validity signals
 </div>
 </div>
 </section>
-<section id="latest-hardened-waymax-benchmark" class="slide level2">
+<section id="latest-hardened-waymax-benchmark" class="slide level2 scrollable">
 <h2>Latest Hardened Waymax Benchmark</h2>
 <div class="evidence-kicker">
 2026-04-28 branch-conditioned TIA benchmark
@@ -635,7 +621,7 @@ The diagnostic is not finished. The latest audit shows forced branches are geome
 Speed-response features are useful because they expose whether nearby agents respond in the expected direction rather than only avoiding collision.
 </p>
 </section>
-<section id="pre-critic-feasibility-audit" class="slide level2">
+<section id="pre-critic-feasibility-audit" class="slide level2 scrollable">
 <h2>Pre-Critic Feasibility Audit</h2>
 <div class="evidence-kicker">
 Selectivity signal audit, 2026-04-28
@@ -690,7 +676,7 @@ Selectivity signal audit, 2026-04-28
 <p>The feasibility result is useful but not sufficient. A high-capacity critic would be premature until it beats simple structural baselines under held-out scenarios, held-out intervention families, and placebo controls.</p>
 </div>
 </section>
-<section id="negative-results-that-changed-the-plan" class="slide level2">
+<section id="negative-results-that-changed-the-plan" class="slide level2 scrollable">
 <h2>Negative Results That Changed the Plan</h2>
 <table class="caption-top">
 <colgroup>
@@ -729,7 +715,7 @@ Selectivity signal audit, 2026-04-28
 </tbody>
 </table>
 </section>
-<section id="conservative-cift-cc-objective" class="slide level2">
+<section id="conservative-cift-cc-objective" class="slide level2 scrollable">
 <h2>Conservative CIFT-CC Objective</h2>
 <p>Adaptation is deferred until diagnostic and critic gates pass. The proposed objective is conservative:</p>
 <p><span class="math display">
@@ -771,7 +757,7 @@ Selectivity signal audit, 2026-04-28
 </tbody>
 </table>
 </section>
-<section id="proposed-algorithms" class="slide level2">
+<section id="proposed-algorithms" class="slide level2 scrollable">
 <h2>Proposed Algorithms</h2>
 <div class="grid-2">
 <div class="card">
@@ -893,7 +879,7 @@ Preservation
 </tbody>
 </table>
 </section>
-<section id="backup-qualitative-triptych" class="slide level2">
+<section id="backup-qualitative-triptych" class="slide level2 scrollable">
 <h2>Backup: Qualitative Triptych</h2>
 <div class="video-grid-3">
 <div class="video-panel">

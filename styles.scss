@@ -4,8 +4,8 @@ $mainColor: #111111;
 $headingColor: #002147;
 $linkColor: #0645ad;
 $selectionBackgroundColor: #dbeafe;
-$mainFont: "Latin Modern Roman", "Computer Modern Serif", "CMU Serif", "Times New Roman", Georgia, serif;
-$headingFont: "Latin Modern Roman", "Computer Modern Serif", "CMU Serif", "Times New Roman", Georgia, serif;
+$mainFont: "Latin Modern Sans", "CMU Sans Serif", "Source Sans 3", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$headingFont: "Latin Modern Sans", "CMU Sans Serif", "Source Sans 3", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $codeFont: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
 
 /*-- scss:rules --*/
@@ -30,11 +30,70 @@ $codeFont: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
 .reveal {
   background: var(--paper);
   color: var(--ink);
+  font-family: $mainFont;
   letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
 }
 
 .reveal .slides {
   text-align: left;
+  font-family: $mainFont;
+}
+
+.reveal .slides section {
+  box-sizing: border-box;
+  padding: 0.25em 0.35em 0.35em;
+  max-height: 100%;
+}
+
+.reveal .slides section:not(.title-slide) {
+  height: 100%;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+.reveal .slides section,
+.reveal .slides section *,
+.reveal p,
+.reveal li,
+.reveal table,
+.reveal th,
+.reveal td,
+.reveal div,
+.reveal span {
+  font-family: $mainFont;
+}
+
+.reveal .katex,
+.reveal .katex *,
+.reveal .math,
+.reveal .math * {
+  font-family: KaTeX_Main, "Times New Roman", serif;
+}
+
+.reveal .slide.scrollable,
+.reveal .slide:not(.center) {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+.reveal .slides section.scrollable {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding-right: 0.58em;
+}
+
+.reveal .slides section.scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.reveal .slides section.scrollable::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.reveal .slides section.scrollable::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 999px;
 }
 
 .reveal .slide-background-content {
@@ -46,33 +105,35 @@ $codeFont: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
 .reveal h3 {
   color: var(--heading);
   font-family: $headingFont;
-  font-weight: 700;
-  letter-spacing: -0.015em;
+  font-weight: 650;
+  letter-spacing: -0.010em;
   text-transform: none;
-  line-height: 1.08;
+  line-height: 1.12;
 }
 
 .reveal h1 {
-  font-size: 2.25em;
+  font-size: 1.95em;
 }
 
 .reveal h2 {
-  font-size: 1.62em;
-  margin-bottom: 0.55em;
-  padding-bottom: 0.18em;
-  border-bottom: 2px solid var(--navy);
+  font-size: 1.16em;
+  margin-bottom: 0.44em;
+  padding: 0.18em 0.28em 0.20em;
+  border-left: 0.25em solid var(--navy);
+  border-bottom: 1px solid var(--line);
+  background: #f4f7fb;
 }
 
 .reveal h3 {
-  font-size: 1.02em;
-  margin-bottom: 0.42em;
+  font-size: 0.78em;
+  margin-bottom: 0.28em;
 }
 
 .reveal p,
 .reveal li {
   color: var(--ink);
-  font-size: 0.74em;
-  line-height: 1.32;
+  font-size: 0.60em;
+  line-height: 1.22;
 }
 
 .reveal ul,
@@ -115,36 +176,41 @@ $codeFont: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
   text-align: center;
 }
 
+.reveal section.title-slide > h2 {
+  display: none;
+}
+
 .title-card {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.75em;
+  gap: 0.44em;
   align-items: center;
-  min-height: 650px;
+  min-height: 680px;
   border-top: 6px solid var(--navy);
   border-bottom: 2px solid var(--navy);
-  padding: 0.8em 1.0em 0.95em;
+  padding: 0.62em 0.90em 0.72em;
 }
 
 .title-card h1 {
-  font-size: 2.55em;
-  margin-bottom: 0.18em;
+  font-size: 1.98em;
+  margin: 0.05em 0 0.14em;
+  letter-spacing: -0.018em;
 }
 
 .kicker {
   color: var(--navy);
   text-transform: uppercase;
   letter-spacing: 0.09em;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 0.52em;
+  font-size: 0.38em;
   font-weight: 700;
-  margin-bottom: 0.4em;
+  margin-bottom: 0.25em;
 }
 
 .subtitle {
   color: var(--muted);
-  font-size: 0.82em !important;
-  max-width: 1120px;
+  font-size: 0.58em !important;
+  line-height: 1.25 !important;
+  max-width: 1040px;
   margin-left: auto !important;
   margin-right: auto !important;
 }
@@ -158,7 +224,7 @@ $codeFont: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
   background: #ffffff;
   border: 1px solid var(--line);
   border-radius: 3px;
-  padding: 0.70em 0.82em;
+  padding: 0.48em 0.58em;
   box-shadow: none;
 }
 
@@ -167,7 +233,7 @@ $codeFont: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
   overflow: visible;
   border-top: 2px solid var(--navy);
   margin: 0 auto;
-  max-width: 1180px;
+  max-width: 1080px;
   text-align: left;
 }
 
@@ -183,40 +249,39 @@ $codeFont: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
 .badge-row {
   display: flex;
   justify-content: center;
-  gap: 0.35em;
+  gap: 0.24em;
   flex-wrap: wrap;
-  margin-top: 0.75em;
+  margin-top: 0.45em;
 }
 
 .badge {
   border: 1px solid var(--line);
   border-radius: 2px;
-  padding: 0.24em 0.48em;
+  padding: 0.20em 0.42em;
   color: var(--navy);
   background: #f7f9fd;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 0.44em;
+  font-size: 0.37em;
   font-weight: 700;
 }
 
 .grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.62em;
+  gap: 0.44em;
   align-items: stretch;
 }
 
 .grid-3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.55em;
+  gap: 0.40em;
   align-items: stretch;
 }
 
 .grid-4 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.48em;
+  gap: 0.34em;
   align-items: stretch;
 }
 
@@ -232,7 +297,7 @@ $codeFont: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
 }
 
 .big-number {
-  font-size: 1.85em;
+  font-size: 1.35em;
   font-weight: 700;
   color: var(--heading);
   line-height: 1;
@@ -241,8 +306,7 @@ $codeFont: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
 .metric-label,
 .evidence-kicker {
   color: var(--navy);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 0.46em !important;
+  font-size: 0.34em !important;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 700;
@@ -255,12 +319,17 @@ $codeFont: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
   border-left: 4px solid var(--gold);
   border-radius: 3px;
   background: #ffffff;
-  padding: 0.55em 0.70em;
-  margin: 0.58em 0;
+  padding: 0.38em 0.50em;
+  margin: 0.38em 0;
   box-shadow: none;
 }
 
 .callout.green {
+  border-left-color: var(--teal);
+  background: var(--pale-green);
+}
+
+.green .callout {
   border-left-color: var(--teal);
   background: var(--pale-green);
 }
@@ -271,7 +340,17 @@ $codeFont: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
   background: var(--pale-red);
 }
 
+.red .callout {
+  border-left-color: var(--red);
+  background: var(--pale-red);
+}
+
 .callout.blue {
+  border-left-color: var(--navy);
+  background: var(--pale-blue);
+}
+
+.blue .callout {
   border-left-color: var(--navy);
   background: var(--pale-blue);
 }
@@ -281,9 +360,18 @@ $codeFont: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
   background: #fbfcff;
 }
 
+.reveal .math.display {
+  font-size: 0.78em;
+}
+
+.reveal pre,
+.reveal code {
+  font-size: 0.82em;
+}
+
 .reveal table {
   width: 100%;
-  font-size: 0.48em;
+  font-size: 0.39em;
   color: var(--ink);
   border-collapse: collapse;
   background: #ffffff;
@@ -301,14 +389,14 @@ $codeFont: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
 .reveal table td,
 .reveal table th {
   border-bottom: 1px solid var(--line-light);
-  padding: 0.38em 0.48em;
+  padding: 0.27em 0.36em;
 }
 
 img.diagram,
 img.plot,
 .full-figure {
   width: 100%;
-  max-height: 560px;
+  max-height: 500px;
   object-fit: contain;
   border-radius: 2px;
   background: #ffffff;
@@ -318,10 +406,9 @@ img.plot,
 
 .figure-caption {
   color: var(--muted);
-  font-size: 0.43em !important;
-  line-height: 1.25 !important;
-  margin-top: 0.30em !important;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.34em !important;
+  line-height: 1.16 !important;
+  margin-top: 0.22em !important;
 }
 
 .formula {
@@ -333,8 +420,8 @@ img.plot,
 }
 
 .thesis-line {
-  font-size: 1.05em !important;
-  line-height: 1.25 !important;
+  font-size: 0.76em !important;
+  line-height: 1.20 !important;
   font-weight: 700;
   letter-spacing: -0.01em;
 }
@@ -342,7 +429,7 @@ img.plot,
 .split-figure {
   display: grid;
   grid-template-columns: 0.92fr 1.08fr;
-  gap: 0.70em;
+  gap: 0.48em;
   align-items: center;
 }
 
@@ -350,25 +437,24 @@ img.plot,
   counter-reset: phase;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.50em;
+  gap: 0.36em;
 }
 
 .phase-card {
   counter-increment: phase;
   border-top: 3px solid var(--navy);
-  min-height: 190px;
+  min-height: 140px;
 }
 
 .phase-card:before {
   content: "Phase " counter(phase);
   display: block;
   color: var(--navy);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  font-size: 0.42em;
+  font-size: 0.32em;
   font-weight: 700;
-  margin-bottom: 0.30em;
+  margin-bottom: 0.20em;
 }
 
 .phase-card strong {
@@ -385,14 +471,13 @@ img.plot,
 }
 
 .small {
-  font-size: 0.55em !important;
+  font-size: 0.45em !important;
   color: var(--muted) !important;
 }
 
 .tiny {
-  font-size: 0.42em !important;
+  font-size: 0.32em !important;
   color: var(--muted) !important;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .center { text-align: center; }
@@ -405,36 +490,36 @@ img.plot,
 .timeline {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 0.45em;
-  margin-top: 0.70em;
+  gap: 0.32em;
+  margin-top: 0.46em;
 }
 
 .timeline .step {
   border-top: 3px solid var(--navy);
-  padding-top: 0.42em;
+  padding-top: 0.30em;
 }
 
 .timeline .step strong {
   display: block;
-  font-size: 0.68em;
+  font-size: 0.50em;
   color: var(--heading);
 }
 
 .timeline .step span {
   color: var(--muted);
-  font-size: 0.50em;
+  font-size: 0.38em;
 }
 
 .video-grid-3 {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.42em;
+  gap: 0.32em;
   align-items: start;
 }
 
 .video-panel h3 {
-  font-size: 0.72em;
-  margin: 0 0 0.25em 0;
+  font-size: 0.54em;
+  margin: 0 0 0.18em 0;
   color: var(--heading);
 }
 
@@ -450,25 +535,24 @@ img.plot,
 }
 
 .video-caption {
-  margin-top: 0.25em;
+  margin-top: 0.18em;
   color: var(--muted);
-  font-size: 0.38em;
-  line-height: 1.18;
+  font-size: 0.30em;
+  line-height: 1.12;
 }
 
 .metric-strip {
   display: flex;
-  gap: 0.28em;
+  gap: 0.20em;
   flex-wrap: wrap;
-  margin-top: 0.25em;
+  margin-top: 0.18em;
 }
 
 .metric-pill {
-  font-size: 0.34em;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.28em;
   font-weight: 700;
   border-radius: 2px;
-  padding: 0.16em 0.34em;
+  padding: 0.12em 0.26em;
   border: 1px solid var(--line);
   background: #ffffff;
   color: var(--heading);

@@ -1,15 +1,11 @@
 ---
-title: "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators"
-subtitle: "Traffic Interaction Authenticity with Waymax-backed intervention diagnostics"
-author: "Achyut Morang"
-date: "April 2026"
 format:
   revealjs:
     title-slide-attributes:
       data-background-color: "#ffffff"
 ---
 
-## Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators {.title-slide}
+## Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators {#title-slide .title-slide}
 
 :::: {.title-card}
 ::: {}
@@ -324,7 +320,7 @@ Apply CIFT-CC only with KL-to-base, ordinary replay, and WOSAC-realism budgets.
 :::
 ::::
 
-## Latest Hardened Waymax Benchmark
+## Latest Hardened Waymax Benchmark {.scrollable}
 
 <div class="evidence-kicker">2026-04-28 branch-conditioned TIA benchmark</div>
 
@@ -383,7 +379,7 @@ On forced branches, BC and CLSFT do not show a clean winner. Confidence interval
 
 <p class="figure-caption">Speed-response features are useful because they expose whether nearby agents respond in the expected direction rather than only avoiding collision.</p>
 
-## Pre-Critic Feasibility Audit
+## Pre-Critic Feasibility Audit {.scrollable}
 
 <div class="evidence-kicker">Selectivity signal audit, 2026-04-28</div>
 
@@ -400,7 +396,7 @@ On forced branches, BC and CLSFT do not show a clean winner. Confidence interval
 The feasibility result is useful but not sufficient. A high-capacity critic would be premature until it beats simple structural baselines under held-out scenarios, held-out intervention families, and placebo controls.
 :::
 
-## Negative Results That Changed the Plan
+## Negative Results That Changed the Plan {.scrollable}
 
 | Probe | Observation | Consequence |
 |---|---|---|
@@ -409,7 +405,7 @@ The feasibility result is useful but not sufficient. A high-capacity critic woul
 | Weak residual adapters | Preserve realism but often change behavior too little | Need a stronger validated branch preference signal |
 | Unchecked learned critic | Can learn collision or targeter artifacts | Require placebo, collision-free, and family-held-out audits |
 
-## Conservative CIFT-CC Objective
+## Conservative CIFT-CC Objective {.scrollable}
 
 Adaptation is deferred until diagnostic and critic gates pass. The proposed objective is conservative:
 
@@ -429,7 +425,7 @@ $$
 | `L_NTP^WOMD` | preserve ordinary WOMD / WOSAC-style realism |
 | `L_placebo` | penalize overreaction to irrelevant interventions |
 
-## Proposed Algorithms
+## Proposed Algorithms {.scrollable}
 
 :::: {.grid-2}
 ::: {.card}
@@ -501,7 +497,7 @@ Show that any adaptation improves TIA without degrading ordinary WOSAC realism, 
 | Critic design | A critic can learn artifacts if unchecked | Is structural-first, style-second the right order? |
 | Adaptation | Fine-tuning can damage realism | Are the KL, replay, placebo, and realism budgets sufficient? |
 
-## Backup: Qualitative Triptych
+## Backup: Qualitative Triptych {.scrollable}
 
 :::: {.video-grid-3}
 ::: {.video-panel}
