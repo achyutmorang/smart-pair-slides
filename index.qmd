@@ -6,7 +6,7 @@ date: "April 2026"
 format:
   revealjs:
     title-slide-attributes:
-      data-background-gradient: "linear-gradient(180deg, #ffffff 0%, #fbfaf7 100%)"
+      data-background-color: "#ffffff"
 ---
 
 ## Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators {.title-slide}
