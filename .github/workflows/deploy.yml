@@ -1,4 +1,4 @@
-name: Render and deploy Quarto slides
+name: Deploy static slides site
 
 on:
   push:
@@ -21,11 +21,8 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
-
-      - name: Render slides
-        run: quarto render index.qmd
+      - name: Validate docs site exists
+        run: test -f docs/index.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
