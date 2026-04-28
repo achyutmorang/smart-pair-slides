@@ -1,0 +1,16 @@
+.texlive-cache/
+site/
+slides_files/
+*.aux
+*.brlog
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.pdf
+*.rvl
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
