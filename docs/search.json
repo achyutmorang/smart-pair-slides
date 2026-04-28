@@ -1,135 +1,191 @@
 [
   {
-    "objectID": "index.html#cift-for-smart-style-traffic-simulation",
-    "href": "index.html#cift-for-smart-style-traffic-simulation",
-    "title": "CIFT for SMART-Style Traffic Simulation",
-    "section": "CIFT for SMART-Style Traffic Simulation",
-    "text": "CIFT for SMART-Style Traffic Simulation\n\n\n\n\nResearch deck | multi-agent simulation | counterfactual evaluation\n\n\nCIFT\n\n\nA CIFT-first thesis direction for SMART/CAT-K-style tokenized traffic simulation: diagnose the gap between observational realism and interventional response, then fine-tune against search-guided counterfactual targets while preserving standard realism.\n\n\nSMART baseline CAT-K / CLSFT reference Counterfactual stress suite Matched vs shuffled control\n\n\n\n\n\nCurrent thesis line\n\n\n\np(\\tau_{1:N}\\mid H,M)\n\\neq\np(\\tau_{-j}\\mid H,M,\\operatorname{do}(\\tau_j=\\tilde{\\tau}_j))\n\n\n\nWOSAC-style realism is necessary, but it does not fully test whether nearby agents respond plausibly when one agent’s future is externally changed.\n\n\n\n\n\nCurrent method focus: search-guided CIFT is the mainline. PAIR is no longer the primary claim; it is only a later auxiliary ablation if the behavioral signal stabilizes."
+    "objectID": "index.html#counterfactual-evaluation-and-adaptation-of-learned-multi-agent-traffic-simulators",
+    "href": "index.html#counterfactual-evaluation-and-adaptation-of-learned-multi-agent-traffic-simulators",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "text": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators\n\n\n\nTentative thesis deck | SMART / CAT-K | WOMD / WOSAC / Waymax\n\n\nTraffic Interaction Authenticity\n\n\nA diagnostic-first research direction for learned multi-agent traffic simulators: preserve ordinary WOSAC-style realism, but additionally test whether generated agents respond plausibly when one actor is externally changed.\n\n\nSMART-BC SMART-CLSFT / CAT-K-style Waymax branch harness Counterfactual diagnostics\n\n\nM.Tech Smart Mobility, IIT Hyderabad\n\n\n\n\nCentral claim\n\n\nA simulator can look realistic under ordinary closed-loop evaluation and still respond poorly to localized interventions.\n\n\np_\\theta(\\tau_{1:N}\\mid H,M)\n\\quad \\text{and} \\quad\np_\\theta(\\tau_{-j}\\mid H,M,\\operatorname{do}(\\tau_j=\\tilde{\\tau}_j))\n\n\nThese are different evaluation objects. The second one is the object needed for “what happens if” simulation.\n\n\n\n\n\nCurrent method stance: diagnose first, validate the execution substrate, learn a small audited critic only if the branch signal is stable, and adapt the simulator only under realism-preservation budgets."
   },
   {
-    "objectID": "index.html#why-this-project-exists",
-    "href": "index.html#why-this-project-exists",
-    "title": "CIFT for SMART-Style Traffic Simulation",
-    "section": "Why This Project Exists",
-    "text": "Why This Project Exists\n\n\n\n1. SMART is a strong simulator substrate\n\nTokenized autoregressive motion generation gives a scalable, elegant simulator for multi-agent rollout.\n\nThe deployed generator path is already competitive and should be preserved.\n\n\n\n\n2. CAT-K solves an important problem\n\nCAT-K / CLSFT improves closed-loop behavior by training on model-likely rollouts anchored to logged futures.\n\nThis addresses covariate shift under observational rollout.\n\n\n\n\n3. A different problem remains\n\nAfter a localized intervention, the logged future may no longer be the correct target for affected responders.\n\nThat is the causal-responsiveness gap this project studies.\n\n\n\n\n\n\n\nClaim boundary: we are not arguing that CAT-K is bad. We are arguing that logged-future closed-loop realism and interventional response quality are different evaluation objects."
+    "objectID": "index.html#story-in-one-slide",
+    "href": "index.html#story-in-one-slide",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Story in One Slide",
+    "text": "Story in One Slide\n\n\n\nProblem\n\nWOSAC-style realism asks whether generated traffic looks plausible under logged initial conditions.\n\n\n\nGap\n\nIt does not directly ask whether nearby agents respond plausibly after a localized do() intervention.\n\n\n\nEvidence\n\nBC and CLSFT/CAT-K-style checkpoints can disagree between ordinary validation and counterfactual stress tests.\n\n\n\n\n\nSubstrate\n\nWaymax gives a reproducible closed-loop branch environment for normal, forced, and placebo rollouts.\n\n\n\nMethod\n\nDefine Traffic Interaction Authenticity, validate structural critics, then consider conservative CIFT-CC adaptation.\n\n\n\nAsk\n\nFeedback on the problem formulation, evidence gates, and whether the next engineering phase is defensible."
+  },
+  {
+    "objectID": "index.html#why-this-matters",
+    "href": "index.html#why-this-matters",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Why This Matters",
+    "text": "Why This Matters\n\n\n\n\n\n\nSimulation is useful when it answers interventions\n\nOrdinary learned simulators are usually trained and evaluated on the logged distribution:\n\n\\hat{\\tau}_{1:N} \\sim p_\\theta(\\tau_{1:N}\\mid H,M).\n\nThe counterfactual question changes the conditioning:\n\n\\hat{\\tau}_{-j} \\sim p_\\theta(\\tau_{-j}\\mid H,M,\\operatorname{do}(\\tau_j=\\tilde{\\tau}_j)).\n\nThe logged future is no longer a ground-truth oracle for the other agents after the intervention."
+  },
+  {
+    "objectID": "index.html#dataset-and-benchmark-context",
+    "href": "index.html#dataset-and-benchmark-context",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Dataset and Benchmark Context",
+    "text": "Dataset and Benchmark Context\n\n\n\nWOMD\n\nLogged multi-agent driving scenarios with agent state histories, future trajectories, map polylines, and traffic signals.\n\nIt is observational: it records what happened, not what would have happened under a modified actor future.\n\n\n\n\nWOSAC\n\nThe sim-agent task asks models to generate realistic future rollouts for up to 32 modeled agents from logged scenario context.\n\nIt is a world-model-style task over multi-agent future traffic distributions.\n\n\n\n\nOur axis\n\nTraffic Interaction Authenticity asks whether realism is preserved after localized interventions.\n\nThis complements WOSAC; it does not replace it."
+  },
+  {
+    "objectID": "index.html#wosac-as-a-stochastic-world-model-task",
+    "href": "index.html#wosac-as-a-stochastic-world-model-task",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "WOSAC as a Stochastic World-Model Task",
+    "text": "WOSAC as a Stochastic World-Model Task\n\n\nThe WOSAC view can be written as a stochastic closed-loop rollout problem:\n\ns=(H,M,\\tau_{1:N}),\n\n\n\\hat{\\tau}_{1:N}\\sim p_\\theta(\\tau_{1:N}\\mid H,M).\n\nThe hidden Markov view is useful: a simulator samples future traffic states from a learned transition model conditioned on history and map context.\n\n\n\n\n\nWhy this is not enough: matching plausible future rollouts does not identify the response operator under interventions. Two simulators can produce similar observational rollouts while encoding different causal response rules."
+  },
+  {
+    "objectID": "index.html#related-work-where-this-sits",
+    "href": "index.html#related-work-where-this-sits",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Related Work: Where This Sits",
+    "text": "Related Work: Where This Sits\n\n\n\n\n\n\n\n\nLine of work\nWhat it gives\nRemaining gap for this project\n\n\n\n\nWOSAC and sim agents\nStandardized closed-loop realism benchmark\nDoes not directly score localized interventional response\n\n\nSMART and MotionLM-like NTP models\nScalable tokenized autoregressive traffic generation\nNext-token likelihood is observational continuation\n\n\nCAT-K / CLSFT\nClosed-loop post-training improves rollout realism\nLogged future anchoring remains ambiguous after intervention\n\n\nControllable / causal simulation\nPerturbation and safety-critical scenario ideas\nNot yet a unified authenticity protocol for SMART/CAT-K-style rollouts\n\n\nDriving style / latent personality\nModels behavior diversity and agent-specific tendencies\nNeeds integration with branch-level intervention diagnostics\n\n\n\n\n\n\n\nResearch gap: existing work gives realistic closed-loop simulation, tokenized autoregressive generation, closed-loop fine-tuning, controllable stress generation, and latent driver-style modeling. What remains missing is a unified protocol for localized interventional response authenticity."
+  },
+  {
+    "objectID": "index.html#smart-cat-k-substrate",
+    "href": "index.html#smart-cat-k-substrate",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "SMART / CAT-K Substrate",
+    "text": "SMART / CAT-K Substrate\n\n\nSMART/CAT-K next-token simulation pipeline. SMART-style models tokenize road vectors and agent motion, encode map context with RoadNet, and autoregressively decode future motion tokens with MotionNet. CAT-K/CLSFT-style post-training improves closed-loop behavior by fine-tuning the generator under rollout-aware feedback."
+  },
+  {
+    "objectID": "index.html#why-next-token-prediction-is-still-the-right-baseline",
+    "href": "index.html#why-next-token-prediction-is-still-the-right-baseline",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Why Next-Token Prediction Is Still the Right Baseline",
+    "text": "Why Next-Token Prediction Is Still the Right Baseline\n\n\nSMART-style next-token generation is not a strawman. It gives:\n\nscalable multi-agent rollout;\nmap-conditioned sampling;\nreusable token vocabulary;\na strong WOSAC-oriented baseline;\nauthor-provided BC and CLSFT checkpoints for controlled comparison.\n\n\n\nBut the base objective is observational:\n\np_\\theta(z_{1:T}\\mid H,M)\n=\n\\prod_{t=1}^{T} p_\\theta(z_t\\mid z_{&lt;t},H,M),\n\n\n\\mathcal{L}_{\\mathrm{NTP}}\n=\n-\\sum_{t=1}^{T}\\log p_\\theta(z_t\\mid z_{&lt;t},H,M).\n\nIt does not by itself identify what the response should be after do() changes one actor."
   },
   {
     "objectID": "index.html#problem-formulation",
     "href": "index.html#problem-formulation",
-    "title": "CIFT for SMART-Style Traffic Simulation",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
     "section": "Problem Formulation",
-    "text": "Problem Formulation\n\n\n\nObservational simulation\n\n\n\n\\tau_{1:N} \\sim p_\\theta(\\tau_{1:N}\\mid H,M)\n\n\n\nStandard realism asks whether the simulator can sample realistic futures conditioned on history and map.\n\n\n\n\nInterventional response\n\n\n\n\\tau_{-j} \\sim p_\\theta(\\tau_{-j}\\mid H,M,\\operatorname{do}(\\tau_j=\\tilde{\\tau}_j))\n\n\n\nCounterfactual evaluation asks whether nearby agents respond correctly when one agent is externally changed.\n\n\n\n\n\n\n\nKey distinction from the problem formulation: counterfactual failure is not just OOD. It is covariate shift plus possible target invalidation, because the original logged future can stop being the right local reference."
+    "text": "Problem Formulation\nAn intervention case is defined as\n\nm = (j,\\ell,\\tilde{\\tau}_j^m,\\Omega_m),\n\nwhere j is the forced actor, ell is the intervention family, tilde tau is the imposed branch, and Omega_m is the responder set.\nValid branches must satisfy map, kinematic, and causal-relevance gates:\n\n\\mathcal{M}_{\\mathrm{valid}}\n=\n\\{m:V_{\\mathrm{map}}(m)=1,\\ V_{\\mathrm{kin}}(m)=1,\\ E_{\\mathrm{force}}(m)\\leq \\epsilon_f,\\ \\Omega_m\\neq \\emptyset\\}.\n\nThe target is not exact counterfactual truth. The target is an operational authenticity score that is falsifiable under controls."
   },
   {
-    "objectID": "index.html#the-baseline-architecture-we-keep",
-    "href": "index.html#the-baseline-architecture-we-keep",
-    "title": "CIFT for SMART-Style Traffic Simulation",
-    "section": "The Baseline Architecture We Keep",
-    "text": "The Baseline Architecture We Keep\n\n\n\nSMART generator path\n\n\nvectorized map enters RoadNet\nagent motion tokens enter MotionNet\ntemporal, interaction, and map-agent attention produce next-token distributions\nrollout remains autoregressive at inference\n\n\n\n\n\nThe deployed inference path stays SMART/CAT-K-style unless a later experiment explicitly changes it."
+    "objectID": "index.html#traffic-interaction-authenticity",
+    "href": "index.html#traffic-interaction-authenticity",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Traffic Interaction Authenticity",
+    "text": "Traffic Interaction Authenticity\n\n\nFor a branch rollout b, define a vector-valued evaluation object:\n\n\\mathrm{TIA}(b)=\n\\left[\nR_{\\mathrm{obs}}(b),\nC_{\\mathrm{resp}}(b),\nI_{\\mathrm{placebo}}(b),\nV_{\\mathrm{phys}}(b),\nV_{\\mathrm{map}}(b),\nS_{\\mathrm{style}}(b)\n\\right].\n\nR_obs preserves ordinary realism. C_resp scores localized response. I_placebo penalizes overreaction to irrelevant edits.\n\n\n\n\n\nClaim boundary: this is not a claim that true counterfactual ground truth is known. It is a controlled diagnostic object: response direction, safety, map validity, placebo invariance, and optional style consistency should move coherently."
   },
   {
-    "objectID": "index.html#counterfactual-diagnostic-framework",
-    "href": "index.html#counterfactual-diagnostic-framework",
-    "title": "CIFT for SMART-Style Traffic Simulation",
-    "section": "Counterfactual Diagnostic Framework",
-    "text": "Counterfactual Diagnostic Framework\n\n\n\nStress-suite question\n\nWhen one actor is forced to brake, merge, cut in, or otherwise change behavior, does the simulator produce the right localized response?\n\n\n\\text{CIRS / penalized CIRS} =\n\\text{response quality} + \\text{safety} + \\text{validity} - \\text{nuisance penalties}\n\n\n\n\n\nCurrent families\n\n\nlead braking\nblocked lane\ncut-in\nmerge pressure\nintersection conflict\nnon-interference\nVRU incursion\n\n\nThe stress harness exists to expose simulator behavior that aggregate realism tables may under-report."
+    "objectID": "index.html#why-waymax-enters-the-loop",
+    "href": "index.html#why-waymax-enters-the-loop",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Why Waymax Enters the Loop",
+    "text": "Why Waymax Enters the Loop\n\n\n\nControlled branch execution\n\nApply the same normal, forced, and placebo branches at simulator-state level.\n\n\n\nClosed-loop comparability\n\nRun BC, CLSFT, and future adapted checkpoints under the same branch points.\n\n\n\nValidity signals\n\nExpose collision, offroad, kinematics, and map validity during rollout.\n\n\n\n\n\n\nWaymax does not solve the no-ground-truth problem by itself. It makes the counterfactual execution reproducible enough that branch-level diagnostics and critics can be audited."
   },
   {
-    "objectID": "index.html#trusted-baseline-diagnosis",
-    "href": "index.html#trusted-baseline-diagnosis",
-    "title": "CIFT for SMART-Style Traffic Simulation",
-    "section": "Trusted Baseline Diagnosis",
-    "text": "Trusted Baseline Diagnosis\n\n\n\n\nThe first solid result is diagnostic, not methodological: on the reliable 120-case manifest, BC and CLSFT do not rank the same way under counterfactual stress.\n\n\n\n\n\n\n\nModel\nPenalized CIRS-v2\nCollision rate\n\n\n\n\nBC\n0.7344\n0.1778\n\n\nCLSFT\n0.7141\n0.2583\n\n\n\n\nInterpretation: CLSFT was directionally worse on this diagnostic slice, but the paired uncertainty still crosses zero. The safe claim is narrower: CAT-K/CLSFT does not uniformly solve counterfactual interaction robustness."
+    "objectID": "index.html#revised-method-pipeline",
+    "href": "index.html#revised-method-pipeline",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Revised Method Pipeline",
+    "text": "Revised Method Pipeline\n\n\nDiagnose first, critic second, adapt last. The current plan moves from SMART/CAT-K checkpoints into a Waymax branch harness, computes TIA/CIRS diagnostics, validates a small structural critic, optionally adds style-consistency, and only then considers conservative adaptation under realism budgets."
   },
   {
-    "objectID": "index.html#focal-qualitative-example",
-    "href": "index.html#focal-qualitative-example",
-    "title": "CIFT for SMART-Style Traffic Simulation",
-    "section": "Focal Qualitative Example",
-    "text": "Focal Qualitative Example\n\n\n\nGround truth\n\n\n\nLogged scenario reference for case 17a010edfe6d47b3, follower 15, lead 22.\n\n\n\n\nSMART-BC rollout\n\n\n\nvisual collision evidentselected-pair gap 5.21 mselected-pair TTC 2.62 s\n\n\n\n\nSMART-CLSFT rollout\n\n\n\nvisual collision evidentselected-pair gap 0.19 mselected-pair TTC 0.017 s\n\n\n\n\nThis slide remains qualitative. The point is not that one pair metric is perfect; the point is that counterfactual failures are visible and worth measuring systematically."
+    "objectID": "index.html#phase-plan",
+    "href": "index.html#phase-plan",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Phase Plan",
+    "text": "Phase Plan\n\n\nReproduce the diagnostic\nNormal, forced, and placebo rollouts for BC and CLSFT under identical Waymax branches.\n\n\nValidate a structural critic\nStart with interpretable features: gap, TTC, speed drop, jerk, collision, offroad, and placebo deviation.\n\n\nOptional style extension\nUse VAE-style responder consistency only after feature-only critics pass held-out and placebo gates.\n\n\nConservative adaptation\nApply CIFT-CC only with KL-to-base, ordinary replay, and WOSAC-realism budgets."
   },
   {
-    "objectID": "index.html#why-the-project-pivoted-away-from-pair-first",
-    "href": "index.html#why-the-project-pivoted-away-from-pair-first",
-    "title": "CIFT for SMART-Style Traffic Simulation",
-    "section": "Why The Project Pivoted Away From PAIR-First",
-    "text": "Why The Project Pivoted Away From PAIR-First\n\n\n\nWhat hidden-state probes showed\n\n\ngeometry already predicts absolute future closeness well\nhidden states add stronger signal for dynamic closing and distance-drop structure\nthis supports future-interaction supervision as a plausible idea\n\n\nSo representation learning is still relevant.\n\n\n\n\nWhy PAIR is no longer the mainline\n\n\nPAIR-only was too indirect for the core behavioral gap\nthe stronger question is now behavioral: can we directly optimize interventional response?\ntherefore the method pivot is search-guided CIFT first, PAIR later only as an auxiliary ablation\n\n\nThe thesis is now evaluation-plus-method, not a representation-only thesis."
+    "objectID": "index.html#latest-hardened-waymax-benchmark",
+    "href": "index.html#latest-hardened-waymax-benchmark",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Latest Hardened Waymax Benchmark",
+    "text": "Latest Hardened Waymax Benchmark\n\n2026-04-28 branch-conditioned TIA benchmark\n\nThe latest harness corrected an important issue: normal, forced, and placebo branches now run as separate model-conditioned inference calls instead of reusing the same decoded future. This makes branch sensitivity measurable.\n\n\n\n\n\n\n\n\n\n\nModel\nComparison\nMin gap effect\nCollision effect\nInterpretation\n\n\n\n\nSMART-BC\nforced - normal\n-15.33 m\n+0.214\nforced branch creates a large measurable disturbance\n\n\nSMART-BC\nplacebo - normal\n-0.41 m\n+0.036\ngeometry mostly stable under placebo\n\n\nSMART-CLSFT\nforced - normal\n-16.98 m\n+0.148\nforced branch also exposes response stress\n\n\nSMART-CLSFT\nplacebo - normal\n-0.45 m\n+0.000\nplacebo geometry mostly stable\n\n\n\n\nPilot scale: 30 matched cases. Values are treated as diagnostic evidence, not leaderboard claims."
   },
   {
-    "objectID": "index.html#search-guided-cift-current-method",
-    "href": "index.html#search-guided-cift-current-method",
-    "title": "CIFT for SMART-Style Traffic Simulation",
-    "section": "Search-Guided CIFT: Current Method",
-    "text": "Search-Guided CIFT: Current Method\n\n\n\nPipeline\n\nintervention case\n-&gt; short-horizon candidate branches\n-&gt; locality-aware branch scoring\n-&gt; soft first-action token target\n-&gt; CIFT token-KL update\n-&gt; matched vs shuffled control\n\nCurrent best mechanics recipe: refreshed w15/m03 branch-only targeter.\n\n\n\n\nCurrent method equation\n\n\n\n\\mathcal{L}_{\\text{CIFT}}\n=\n\\mathcal{L}_{\\text{token-KL to search target}}\n+ \\beta(m)\\,\\mathcal{L}_{\\text{weak logged anchor}}\n+ \\mathcal{L}_{\\text{stability constraints}}\n\n\n\nThe exact recipe is still changing. What matters is the principle: supervise the model with search-derived local response targets, not only logged futures."
+    "objectID": "index.html#main-result-forced-branches-are-not-placebos",
+    "href": "index.html#main-result-forced-branches-are-not-placebos",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Main Result: Forced Branches Are Not Placebos",
+    "text": "Main Result: Forced Branches Are Not Placebos\n\n\nForced branches create large negative min-gap shifts and collision-rate changes, while placebo branches are much smaller geometrically. This is the current strongest evidence that the counterfactual diagnostic is measuring a real branch-conditioned effect."
   },
   {
-    "objectID": "index.html#best-positive-mechanics-result-so-far",
-    "href": "index.html#best-positive-mechanics-result-so-far",
-    "title": "CIFT for SMART-Style Traffic Simulation",
-    "section": "Best Positive Mechanics Result So Far",
-    "text": "Best Positive Mechanics Result So Far\n\n\n\n\nThe strongest current positive evidence is still the short refreshed branch-only w15/m03 mechanics run.\n\n\n\n\n\n\n\n\n\n\n\n\n\nVariant\nPenalized CIRS-v2\nCollision Rate\nCorrect Direction\n\n\n\n\nrefreshed locality-aware branch-only matched\n0.398202\n0.100000\n0.600000\n\n\nrefreshed locality-aware branch-only shuffled\n0.318686\n0.166667\n0.266667\n\n\n\n\n\n\\Delta_{\\text{matched-shuffled}} = +0.079516\n\n\n\nPaired summary: matched better on 12/30 cases, shuffled better on 2/30, ties on 16/30. This is the current best evidence that the search-guided target carries nontrivial matched-vs-shuffled signal."
+    "objectID": "index.html#min-gap-distributions",
+    "href": "index.html#min-gap-distributions",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Min-Gap Distributions",
+    "text": "Min-Gap Distributions\n\n\nThe distributional view matters more than a single aggregate. The research claim should be family-wise and scenario-wise, not only an average score."
   },
   {
-    "objectID": "index.html#weak-logged-anchor-ablation",
-    "href": "index.html#weak-logged-anchor-ablation",
-    "title": "CIFT for SMART-Style Traffic Simulation",
-    "section": "Weak Logged-Anchor Ablation",
-    "text": "Weak Logged-Anchor Ablation\n\n\n\nWhat changed\n\nA weak placebo-only logged-token anchor was added as a local stability prior.\n\nThis was motivated by the idea that the logged future is not counterfactual ground truth, but can still regularize nuisance-like rows.\n\n\n\n\nResult\n\n\n\n\nVariant\nPenalized CIRS-v2\nValid CIRS-v2\nCollision Rate\n\n\n\n\nweak-anchor matched\n0.361773\n0.775228\n0.133333\n\n\nweak-anchor shuffled\n0.332857\n0.713266\n0.233333\n\n\n\n\nUseful ablation, but not a new best method. The original short w15/m03 result remains better."
+    "objectID": "index.html#bc-vs-clsft-the-important-surprise",
+    "href": "index.html#bc-vs-clsft-the-important-surprise",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "BC vs CLSFT: The Important Surprise",
+    "text": "BC vs CLSFT: The Important Surprise\n\n\n\nOrdinary validation\n\nCLSFT looks stronger on small ordinary closed-loop validation prefixes: lower ADE and better realism-oriented scores.\n\n\n\nCounterfactual stress\n\nOn forced branches, BC and CLSFT do not show a clean winner. Confidence intervals overlap on the latest Waymax gate.\n\n\n\n\n\n\nInterpretation: closed-loop realism improvement is not automatically the same as localized interventional robustness. This is the core motivation for reporting Traffic Interaction Authenticity separately."
   },
   {
-    "objectID": "index.html#medium-scale-gate-negative-result",
-    "href": "index.html#medium-scale-gate-negative-result",
-    "title": "CIFT for SMART-Style Traffic Simulation",
-    "section": "Medium-Scale Gate: Negative Result",
-    "text": "Medium-Scale Gate: Negative Result\n\n\n\n\nThe first medium-scale CIFT recipe should not be scaled further in its current form.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nVariant\nPenalized CIRS-v2\nCollision Rate\nCorrect Direction\nActor ADE\nResponder ADE\nGap Error\n\n\n\n\nmedium matched\n0.352317\n0.100000\n0.400000\n4.828479\n9.987420\n1.533412\n\n\nmedium shuffled\n0.372241\n0.100000\n0.533333\n13.212082\n21.784404\n3.757745\n\n\n\n\nInterpretation: matched is better than shuffled on some nominal quantities such as responder ADE, but it no longer wins the held-out penalized CIRS-v2 metric and both runs regress badly on realism relative to BC and CLSFT."
+    "objectID": "index.html#selectivity-caveat",
+    "href": "index.html#selectivity-caveat",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Selectivity Caveat",
+    "text": "Selectivity Caveat\n\n\nThe diagnostic is not finished. The latest audit shows forced branches are geometrically meaningful, but stochastic actor-token selectivity still needs stricter controls. A strict top-1 measurement removes much placebo bleed on an audit set, but it is not yet proof that stochastic selectivity is solved."
   },
   {
-    "objectID": "index.html#constrained-cift-gate-also-negative",
-    "href": "index.html#constrained-cift-gate-also-negative",
-    "title": "CIFT for SMART-Style Traffic Simulation",
-    "section": "Constrained CIFT Gate: Also Negative",
-    "text": "Constrained CIFT Gate: Also Negative\n\n\n\n\n\n\n\n\n\n\nEpoch\nMatched Penalized CIRS-v2\nShuffled Penalized CIRS-v2\nMatched - Shuffled\n95% CI\n\n\n\n\n000\n0.367532\n0.377063\n-0.009531\n[-0.085640, 0.051748]\n\n\n001\n0.410692\n0.384281\n+0.026411\n[-0.008054, 0.064872]\n\n\n002\n0.363511\n0.343696\n+0.019816\n[-0.006099, 0.051254]\n\n\n003\n0.364691\n0.412984\n-0.048293\n[-0.122378, 0.006887]\n\n\n\n\n\n\n\nBest held-out point: epoch_001. It shows a small matched-over-shuffled gain, but the confidence interval still overlaps zero and that same checkpoint fails the realism-preservation gate on corrected local validation."
+    "objectID": "index.html#responder-speed-drop-effects",
+    "href": "index.html#responder-speed-drop-effects",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Responder Speed-Drop Effects",
+    "text": "Responder Speed-Drop Effects\n\n\nSpeed-response features are useful because they expose whether nearby agents respond in the expected direction rather than only avoiding collision."
   },
   {
-    "objectID": "index.html#what-the-new-notes-actually-say",
-    "href": "index.html#what-the-new-notes-actually-say",
-    "title": "CIFT for SMART-Style Traffic Simulation",
-    "section": "What The New Notes Actually Say",
-    "text": "What The New Notes Actually Say\n\n\n\nPositive\n\n\nthe evaluation gap is real\nthe target signal is learnable\nmatched-vs-shuffled controls are informative\nshort-horizon branch supervision can carry nontrivial causal signal\n\n\n\n\nNegative\n\n\nthe current scalable recipe is misaligned\nrealism preservation is not yet solved\nstronger response sensitivity can degrade standard validation\ncurrent best result is still a short mechanics win, not a mature method win"
+    "objectID": "index.html#pre-critic-feasibility-audit",
+    "href": "index.html#pre-critic-feasibility-audit",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Pre-Critic Feasibility Audit",
+    "text": "Pre-Critic Feasibility Audit\n\nSelectivity signal audit, 2026-04-28\n\n\n\n\n\n\n\n\n\nQuantity\nCurrent value\nMeaning\n\n\n\n\nComplete scenario-model triples\n55\nenough to build a first branch preference table\n\n\nPairwise preferences\n165\nmatched branch comparisons available\n\n\nHigh-confidence non-tie preferences\n51\nabout 30.9 percent coverage\n\n\nLogistic critic accuracy\n0.875\nsignal is learnable on the pilot split\n\n\nLogistic critic AUC\n0.965\nranking signal is strong on the pilot split\n\n\nGap-only baseline accuracy\n0.875\nthe critic does not yet beat a simple structural feature\n\n\n\n\nThe feasibility result is useful but not sufficient. A high-capacity critic would be premature until it beats simple structural baselines under held-out scenarios, held-out intervention families, and placebo controls."
   },
   {
-    "objectID": "index.html#current-bottleneck",
-    "href": "index.html#current-bottleneck",
-    "title": "CIFT for SMART-Style Traffic Simulation",
-    "section": "Current Bottleneck",
-    "text": "Current Bottleneck\n\n\n\nNot the bottleneck anymore\n\n\ntoken-target plumbing\nsearch-target generation wiring\nmatched-vs-shuffled evaluation setup\ncheckpoint loading / baseline trust\n\n\n\n\nActual bottlenecks\n\n\ntarget coverage and family balance\nper-epoch checkpoint selection\npreserving realism under stronger causal supervision\nteaching the model when not to react\nmoving from first-token supervision to 3-5 step branch distillation"
+    "objectID": "index.html#negative-results-that-changed-the-plan",
+    "href": "index.html#negative-results-that-changed-the-plan",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Negative Results That Changed the Plan",
+    "text": "Negative Results That Changed the Plan\n\n\n\n\n\n\n\n\nProbe\nObservation\nConsequence\n\n\n\n\nDirect CIFT-style adaptation\nCan improve selected stress cases but risks ordinary realism degradation\nDo not adapt before branch diagnostics are stable\n\n\nLogged-anchor variants\nStabilize some behavior but cannot make the original logged future a true counterfactual label\nTreat logged futures as manifold regularizers only\n\n\nWeak residual adapters\nPreserve realism but often change behavior too little\nNeed a stronger validated branch preference signal\n\n\nUnchecked learned critic\nCan learn collision or targeter artifacts\nRequire placebo, collision-free, and family-held-out audits"
   },
   {
-    "objectID": "index.html#next-method-revision",
-    "href": "index.html#next-method-revision",
-    "title": "CIFT for SMART-Style Traffic Simulation",
-    "section": "Next Method Revision",
-    "text": "Next Method Revision\n\n\n\\text{Next step} =\n\\text{selective CIFT}\n+\n\\text{short-horizon branch distillation}\n+\n\\text{adaptive anchoring}\n+\n\\text{per-epoch validation gating}\n\n\nintervention rows\n-&gt; split into placebo / nuisance vs causal / interaction-changing rows\n-&gt; distill 3-5 step branch response segments instead of first action only\n-&gt; keep weak logged-token anchoring only as an ablation\n-&gt; use weaker anchor on high-confidence causal rows\n-&gt; evaluate every epoch on held-out CIRS and small standard validation"
+    "objectID": "index.html#conservative-cift-cc-objective",
+    "href": "index.html#conservative-cift-cc-objective",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Conservative CIFT-CC Objective",
+    "text": "Conservative CIFT-CC Objective\nAdaptation is deferred until diagnostic and critic gates pass. The proposed objective is conservative:\n\n\\mathcal{L}_{\\mathrm{CIFT\\text{-}CC}}\n=\n\\mathcal{L}_{\\mathrm{pref}}\n+\\lambda_{\\mathrm{KL}}D_{\\mathrm{KL}}(\\pi_\\theta\\Vert\\pi_{\\mathrm{base}})\n+\\lambda_{\\mathrm{replay}}\\mathcal{L}^{\\mathrm{WOMD}}_{\\mathrm{NTP}}\n+\\lambda_{\\mathrm{inv}}\\mathcal{L}_{\\mathrm{placebo}}.\n\n\n\n\n\n\n\n\nTerm\nRole\n\n\n\n\nL_pref\nfit audited branch preferences from the critic or hand diagnostic\n\n\nD_KL\nkeep the adapted policy close to the author checkpoint\n\n\nL_NTP^WOMD\npreserve ordinary WOMD / WOSAC-style realism\n\n\nL_placebo\npenalize overreaction to irrelevant interventions"
   },
   {
-    "objectID": "index.html#updated-scientific-claim",
-    "href": "index.html#updated-scientific-claim",
-    "title": "CIFT for SMART-Style Traffic Simulation",
-    "section": "Updated Scientific Claim",
-    "text": "Updated Scientific Claim\n\n\n\nWhat we can claim now\n\n\nWOSAC-style realism is necessary but not sufficient for simulator trust.\nBC and CLSFT can rank differently under interventional stress.\nSearch-guided CIFT carries a real matched-vs-shuffled signal.\nThe current scalable recipe still fails the realism-versus-robustness tradeoff.\n\n\n\n\nWhat we cannot claim yet\n\n\nCIFT is already better than BC overall.\nPAIR is the main source of improvement.\nthe current constrained recipe solves the tradeoff.\nthe present local metric is final."
+    "objectID": "index.html#proposed-algorithms",
+    "href": "index.html#proposed-algorithms",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Proposed Algorithms",
+    "text": "Proposed Algorithms\n\n\n\nAlgorithm 1: Waymax-backed diagnostic evaluation\n\n\nLoad WOMD scenario and initialize Waymax state.\nRun normal rollout with policy pi.\nFor each intervention family, construct a valid forced branch.\nRun forced and placebo branches from the same state.\nCompute gap, TTC, speed response, collision, offroad, and placebo features.\nAggregate TIA/CIRS by model, scenario, family, and branch pair.\n\n\n\n\nAlgorithm 2: Critic-gated adaptation\n\n\nBuild branch preference pairs from validated diagnostics.\nTrain small structural critics first.\nReject critics that fail held-out or placebo tests.\nOptionally add style-consistency if structural gates pass.\nFine-tune only with KL, replay, and realism budgets.\nRoll back any checkpoint that improves TIA while hurting WOSAC realism."
   },
   {
-    "objectID": "index.html#takeaway",
-    "href": "index.html#takeaway",
-    "title": "CIFT for SMART-Style Traffic Simulation",
-    "section": "Takeaway",
-    "text": "Takeaway\n\n\n\n\nCurrent thesis line: SMART/CAT-K-style simulators can be strong on logged closed-loop realism while remaining under-tested on localized interventional response. Counterfactual stress evaluation exposes that gap. Search-guided CIFT is a promising response, but the present constrained recipe still does not preserve realism well enough.\n\n\n\n\n\n\n\\text{evaluation gap is real}\n+ \\text{target signal is learnable}\n- \\text{current recipe still breaks the realism gate}"
+    "objectID": "index.html#current-contribution-boundary",
+    "href": "index.html#current-contribution-boundary",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Current Contribution Boundary",
+    "text": "Current Contribution Boundary\n\n\n\n\n\nAlready defensible: a diagnostic framing and pilot evidence that ordinary closed-loop realism can disagree with localized counterfactual response quality.\n\n\n\n\n\n\n\n\nNot yet claimed: that CIFT-CC, a structural critic, or a VAE-style critic has already improved WOSAC and TIA simultaneously.\n\n\n\n\n\nThe near-term contribution is a measurable evaluation gap and a reproducible Waymax-backed protocol. The method contribution becomes valid only if the critic and conservative adaptation gates pass."
   },
   {
-    "objectID": "index.html#backup-what-changed-since-the-old-deck",
-    "href": "index.html#backup-what-changed-since-the-old-deck",
-    "title": "CIFT for SMART-Style Traffic Simulation",
-    "section": "Backup: What Changed Since The Old Deck",
-    "text": "Backup: What Changed Since The Old Deck\n\ndropped PAIR-first framing\nreplaced early 4-batch / 20-pair story with CIFT-first evidence\nelevated the problem-formulation distinction between observational and interventional response\nadded negative medium and constrained gates\nrepositioned PAIR as optional later ablation only\nmade the next step selective / constrained CIFT, not larger training"
+    "objectID": "index.html#what-makes-this-publishable-later",
+    "href": "index.html#what-makes-this-publishable-later",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "What Makes This Publishable Later",
+    "text": "What Makes This Publishable Later\n\n\n\nScale\n\nEvaluate across more scenarios, intervention families, and random seeds.\n\n\n\nControls\n\nShow forced-vs-placebo separation, matched-vs-shuffled preference separation, and held-out-family generalization.\n\n\n\nPreservation\n\nShow that any adaptation improves TIA without degrading ordinary WOSAC realism, collision, or offroad metrics beyond a fixed budget."
+  },
+  {
+    "objectID": "index.html#feedback-requested",
+    "href": "index.html#feedback-requested",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Feedback Requested",
+    "text": "Feedback Requested\n\n\n\n\n\n\n\n\nDecision\nWhy it matters\nRequested feedback\n\n\n\n\nProblem framing\nThe thesis depends on separating observational realism from interventional authenticity\nIs Traffic Interaction Authenticity a meaningful evaluation axis?\n\n\nWaymax substrate\nThe next phase should be reproducible and branch-controlled\nShould Waymax become the primary execution substrate?\n\n\nEvidence gates\nPilot evidence must not be overclaimed\nWhich controls are required before method claims?\n\n\nCritic design\nA critic can learn artifacts if unchecked\nIs structural-first, style-second the right order?\n\n\nAdaptation\nFine-tuning can damage realism\nAre the KL, replay, placebo, and realism budgets sufficient?"
+  },
+  {
+    "objectID": "index.html#backup-qualitative-triptych",
+    "href": "index.html#backup-qualitative-triptych",
+    "title": "Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators",
+    "section": "Backup: Qualitative Triptych",
+    "text": "Backup: Qualitative Triptych\n\n\n\nGround truth / logged\n\n\n\n\n\nSMART-BC\n\n\n\n\n\nSMART-CLSFT\n\n\n\n\n\nQualitative clips are useful for communication, but the main claim should rest on branch-conditioned metrics and controls."
   }
 ]

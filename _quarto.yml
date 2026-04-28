@@ -4,10 +4,11 @@ project:
   resources:
     - assets/videos/**
     - assets/diagrams/**
+    - assets/figures/**
     - assets/plots/**
 
 website:
-  title: "CIFT for SMART-Style Traffic Simulation"
+  title: "Traffic Interaction Authenticity"
   site-url: "https://achyutmorang.github.io/smart-pair-slides/"
 
 format:
@@ -30,7 +31,7 @@ format:
     toc: false
     html-math-method: katex
     smaller: false
-    footer: "CIFT | Counterfactual Interaction Fine-Tuning"
+    footer: "Traffic Interaction Authenticity | Waymax-backed counterfactual simulation"
 execute:
   echo: false
   warning: false

@@ -11,7 +11,7 @@
 
   <meta name="author" content="Achyut Morang">
   <meta name="dcterms.date" content="2026-04-01">
-  <title>CIFT for SMART-Style Traffic Simulation</title>
+  <title>Traffic Interaction Authenticity – Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -33,7 +33,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-b215f8ef33fcf3a7630f3ec61c8e752f.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-413a111a65a7a4d72a1b4d7e800e338f.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
@@ -149,8 +149,8 @@
     <div class="slides">
 
 <section id="title-slide" data-background-gradient="linear-gradient(180deg, #ffffff 0%, #fbfaf7 100%)" class="quarto-title-block center">
-  <h1 class="title">CIFT for SMART-Style Traffic Simulation</h1>
-  <p class="subtitle">Counterfactual Interaction Fine-Tuning beyond logged-future realism</p>
+  <h1 class="title">Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators</h1>
+  <p class="subtitle">Traffic Interaction Authenticity with Waymax-backed intervention diagnostics</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -162,44 +162,46 @@ Achyut Morang
 
   <p class="date">2026-04-01</p>
 </section>
-<section id="cift-for-smart-style-traffic-simulation" class="slide level2 title-slide center">
-<h2>CIFT for SMART-Style Traffic Simulation</h2>
+<section id="counterfactual-evaluation-and-adaptation-of-learned-multi-agent-traffic-simulators" class="slide level2 title-slide center">
+<h2>Counterfactual Evaluation and Adaptation of Learned Multi-Agent Traffic Simulators</h2>
 <div class="title-card">
-<div class="r-stack">
 <div>
 <div class="kicker">
-Research deck | multi-agent simulation | counterfactual evaluation
+Tentative thesis deck | SMART / CAT-K | WOMD / WOSAC / Waymax
 </div>
 <h1>
-CIFT
+Traffic Interaction Authenticity
 </h1>
 <p class="subtitle">
-A CIFT-first thesis direction for SMART/CAT-K-style tokenized traffic simulation: diagnose the gap between observational realism and interventional response, then fine-tune against search-guided counterfactual targets while preserving standard realism.
+A diagnostic-first research direction for learned multi-agent traffic simulators: preserve ordinary WOSAC-style realism, but additionally test whether generated agents respond plausibly when one actor is externally changed.
 </p>
 <div class="badge-row">
-<p><span class="badge">SMART baseline</span> <span class="badge">CAT-K / CLSFT reference</span> <span class="badge">Counterfactual stress suite</span> <span class="badge">Matched vs shuffled control</span></p>
+<p><span class="badge">SMART-BC</span> <span class="badge">SMART-CLSFT / CAT-K-style</span> <span class="badge">Waymax branch harness</span> <span class="badge">Counterfactual diagnostics</span></p>
 </div>
-</div>
+<p class="tiny">
+M.Tech Smart Mobility, IIT Hyderabad
+</p>
 </div>
 <div class="hero-panel">
 <h3>
-Current thesis line
+Central claim
 </h3>
-<div class="equation-box">
+<p class="thesis-line">
+A simulator can look realistic under ordinary closed-loop evaluation and still respond poorly to localized interventions.
+</p>
 <p><span class="math display">
-p(\tau_{1:N}\mid H,M)
-\neq
-p(\tau_{-j}\mid H,M,\operatorname{do}(\tau_j=\tilde{\tau}_j))
+p_\theta(\tau_{1:N}\mid H,M)
+\quad \text{and} \quad
+p_\theta(\tau_{-j}\mid H,M,\operatorname{do}(\tau_j=\tilde{\tau}_j))
 </span></p>
-</div>
 <p>
-WOSAC-style realism is necessary, but it does not fully test whether nearby agents respond plausibly when one agent’s future is externally changed.
+These are different evaluation objects. The second one is the object needed for “what happens if” simulation.
 </p>
 <div class="green">
 <div class="callout callout-none no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p><strong>Current method focus:</strong> search-guided CIFT is the mainline. PAIR is no longer the primary claim; it is only a later auxiliary ablation if the behavioral signal stabilizes.</p>
+<p><strong>Current method stance:</strong> diagnose first, validate the execution substrate, learn a small audited critic only if the branch signal is stable, and adapt the simulator only under realism-preservation budgets.</p>
 </div>
 </div>
 </div>
@@ -207,442 +209,326 @@ WOSAC-style realism is necessary, but it does not fully test whether nearby agen
 </div>
 </div>
 </section>
-<section id="why-this-project-exists" class="slide level2">
-<h2>Why This Project Exists</h2>
+<section id="story-in-one-slide" class="slide level2">
+<h2>Story in One Slide</h2>
 <div class="grid-3">
 <div class="claim-card">
 <h3>
-1. SMART is a strong simulator substrate
+Problem
 </h3>
-<p>Tokenized autoregressive motion generation gives a scalable, elegant simulator for multi-agent rollout.</p>
+<p>WOSAC-style realism asks whether generated traffic looks plausible under logged initial conditions.</p>
+</div>
+<div class="claim-card">
+<h3>
+Gap
+</h3>
+<p>It does not directly ask whether nearby agents respond plausibly after a localized <code>do()</code> intervention.</p>
+</div>
+<div class="claim-card">
+<h3>
+Evidence
+</h3>
+<p>BC and CLSFT/CAT-K-style checkpoints can disagree between ordinary validation and counterfactual stress tests.</p>
+</div>
+</div>
+<div class="grid-3">
+<div class="claim-card">
+<h3>
+Substrate
+</h3>
+<p>Waymax gives a reproducible closed-loop branch environment for normal, forced, and placebo rollouts.</p>
+</div>
+<div class="claim-card">
+<h3>
+Method
+</h3>
+<p>Define Traffic Interaction Authenticity, validate structural critics, then consider conservative CIFT-CC adaptation.</p>
+</div>
+<div class="claim-card">
+<h3>
+Ask
+</h3>
+<p>Feedback on the problem formulation, evidence gates, and whether the next engineering phase is defensible.</p>
+</div>
+</div>
+</section>
+<section id="why-this-matters" class="slide level2">
+<h2>Why This Matters</h2>
+<div class="split-figure">
+<div>
+<p><img data-src="assets/figures/method/problem_gap_observational_vs_interventional.svg" class="full-figure"></p>
+</div>
+<div>
+<p class="evidence-kicker">
+Simulation is useful when it answers interventions
+</p>
+<p>Ordinary learned simulators are usually trained and evaluated on the logged distribution:</p>
+<p><span class="math display">
+\hat{\tau}_{1:N} \sim p_\theta(\tau_{1:N}\mid H,M).
+</span></p>
+<p>The counterfactual question changes the conditioning:</p>
+<p><span class="math display">
+\hat{\tau}_{-j} \sim p_\theta(\tau_{-j}\mid H,M,\operatorname{do}(\tau_j=\tilde{\tau}_j)).
+</span></p>
+<p>The logged future is no longer a ground-truth oracle for the other agents after the intervention.</p>
+</div>
+</div>
+</section>
+<section id="dataset-and-benchmark-context" class="slide level2">
+<h2>Dataset and Benchmark Context</h2>
+<div class="grid-3">
+<div class="claim-card">
+<h3>
+WOMD
+</h3>
+<p>Logged multi-agent driving scenarios with agent state histories, future trajectories, map polylines, and traffic signals.</p>
 <div class="small">
-The deployed generator path is already competitive and should be preserved.
+It is observational: it records what happened, not what would have happened under a modified actor future.
 </div>
 </div>
 <div class="claim-card">
 <h3>
-2. CAT-K solves an important problem
+WOSAC
 </h3>
-<p>CAT-K / CLSFT improves closed-loop behavior by training on model-likely rollouts anchored to logged futures.</p>
+<p>The sim-agent task asks models to generate realistic future rollouts for up to 32 modeled agents from logged scenario context.</p>
 <div class="small">
-This addresses covariate shift under observational rollout.
+It is a world-model-style task over multi-agent future traffic distributions.
 </div>
 </div>
 <div class="claim-card">
 <h3>
-3. A different problem remains
+Our axis
 </h3>
-<p>After a localized intervention, the logged future may no longer be the correct target for affected responders.</p>
+<p>Traffic Interaction Authenticity asks whether realism is preserved after localized interventions.</p>
 <div class="small">
-That is the causal-responsiveness gap this project studies.
+This complements WOSAC; it does not replace it.
 </div>
 </div>
+</div>
+</section>
+<section id="wosac-as-a-stochastic-world-model-task" class="slide level2">
+<h2>WOSAC as a Stochastic World-Model Task</h2>
+<div class="grid-2">
+<div>
+<p>The WOSAC view can be written as a stochastic closed-loop rollout problem:</p>
+<p><span class="math display">
+s=(H,M,\tau_{1:N}),
+</span></p>
+<p><span class="math display">
+\hat{\tau}_{1:N}\sim p_\theta(\tau_{1:N}\mid H,M).
+</span></p>
+<p>The hidden Markov view is useful: a simulator samples future traffic states from a learned transition model conditioned on history and map context.</p>
 </div>
 <div class="blue">
 <div class="callout callout-none no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p><strong>Claim boundary:</strong> we are not arguing that CAT-K is bad. We are arguing that <em>logged-future closed-loop realism and interventional response quality are different evaluation objects</em>.</p>
+<p><strong>Why this is not enough:</strong> matching plausible future rollouts does not identify the response operator under interventions. Two simulators can produce similar observational rollouts while encoding different causal response rules.</p>
 </div>
 </div>
+</div>
+</div>
+</div>
+</section>
+<section id="related-work-where-this-sits" class="slide level2">
+<h2>Related Work: Where This Sits</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Line of work</th>
+<th>What it gives</th>
+<th>Remaining gap for this project</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>WOSAC and sim agents</td>
+<td>Standardized closed-loop realism benchmark</td>
+<td>Does not directly score localized interventional response</td>
+</tr>
+<tr class="even">
+<td>SMART and MotionLM-like NTP models</td>
+<td>Scalable tokenized autoregressive traffic generation</td>
+<td>Next-token likelihood is observational continuation</td>
+</tr>
+<tr class="odd">
+<td>CAT-K / CLSFT</td>
+<td>Closed-loop post-training improves rollout realism</td>
+<td>Logged future anchoring remains ambiguous after intervention</td>
+</tr>
+<tr class="even">
+<td>Controllable / causal simulation</td>
+<td>Perturbation and safety-critical scenario ideas</td>
+<td>Not yet a unified authenticity protocol for SMART/CAT-K-style rollouts</td>
+</tr>
+<tr class="odd">
+<td>Driving style / latent personality</td>
+<td>Models behavior diversity and agent-specific tendencies</td>
+<td>Needs integration with branch-level intervention diagnostics</td>
+</tr>
+</tbody>
+</table>
+<div class="blue">
+<div class="callout callout-none no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p><strong>Research gap:</strong> existing work gives <strong>realistic closed-loop simulation</strong>, <strong>tokenized autoregressive generation</strong>, <strong>closed-loop fine-tuning</strong>, <strong>controllable stress generation</strong>, and <strong>latent driver-style modeling</strong>. What remains missing is a unified protocol for <strong>localized interventional response authenticity</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="smart-cat-k-substrate" class="slide level2">
+<h2>SMART / CAT-K Substrate</h2>
+
+<img data-src="assets/figures/method/smart_catk_ntp_pipeline_imagegen_20260425.png" class="full-figure r-stretch"><p class="figure-caption">
+<strong>SMART/CAT-K next-token simulation pipeline.</strong> SMART-style models tokenize road vectors and agent motion, encode map context with RoadNet, and autoregressively decode future motion tokens with MotionNet. CAT-K/CLSFT-style post-training improves closed-loop behavior by fine-tuning the generator under rollout-aware feedback.
+</p>
+</section>
+<section id="why-next-token-prediction-is-still-the-right-baseline" class="slide level2">
+<h2>Why Next-Token Prediction Is Still the Right Baseline</h2>
+<div class="grid-2">
+<div>
+<p>SMART-style next-token generation is not a strawman. It gives:</p>
+<ul>
+<li>scalable multi-agent rollout;</li>
+<li>map-conditioned sampling;</li>
+<li>reusable token vocabulary;</li>
+<li>a strong WOSAC-oriented baseline;</li>
+<li>author-provided BC and CLSFT checkpoints for controlled comparison.</li>
+</ul>
+</div>
+<div>
+<p>But the base objective is observational:</p>
+<p><span class="math display">
+p_\theta(z_{1:T}\mid H,M)
+=
+\prod_{t=1}^{T} p_\theta(z_t\mid z_{&lt;t},H,M),
+</span></p>
+<p><span class="math display">
+\mathcal{L}_{\mathrm{NTP}}
+=
+-\sum_{t=1}^{T}\log p_\theta(z_t\mid z_{&lt;t},H,M).
+</span></p>
+<p>It does not by itself identify what the response should be after <code>do()</code> changes one actor.</p>
 </div>
 </div>
 </section>
 <section id="problem-formulation" class="slide level2">
 <h2>Problem Formulation</h2>
-<div class="grid-2">
-<div class="card">
-<h3>
-Observational simulation
-</h3>
-<div class="equation-box">
+<p>An intervention case is defined as</p>
 <p><span class="math display">
-\tau_{1:N} \sim p_\theta(\tau_{1:N}\mid H,M)
+m = (j,\ell,\tilde{\tau}_j^m,\Omega_m),
 </span></p>
-</div>
-<p>
-Standard realism asks whether the simulator can sample realistic futures conditioned on history and map.
-</p>
-</div>
-<div class="card">
-<h3>
-Interventional response
-</h3>
-<div class="equation-box">
+<p>where <code>j</code> is the forced actor, <code>ell</code> is the intervention family, <code>tilde tau</code> is the imposed branch, and <code>Omega_m</code> is the responder set.</p>
+<p>Valid branches must satisfy map, kinematic, and causal-relevance gates:</p>
 <p><span class="math display">
-\tau_{-j} \sim p_\theta(\tau_{-j}\mid H,M,\operatorname{do}(\tau_j=\tilde{\tau}_j))
-</span></p>
-</div>
-<p>
-Counterfactual evaluation asks whether nearby agents respond correctly when one agent is externally changed.
-</p>
-</div>
-</div>
-<div class="red">
-<div class="callout callout-none no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
-<p><strong>Key distinction from the problem formulation:</strong> counterfactual failure is not just OOD. It is <em>covariate shift plus possible target invalidation</em>, because the original logged future can stop being the right local reference.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-baseline-architecture-we-keep" class="slide level2">
-<h2>The Baseline Architecture We Keep</h2>
-<div class="grid-2">
-<div class="card">
-<h3>
-SMART generator path
-</h3>
-<ul>
-<li>vectorized map enters <strong>RoadNet</strong></li>
-<li>agent motion tokens enter <strong>MotionNet</strong></li>
-<li>temporal, interaction, and map-agent attention produce next-token distributions</li>
-<li>rollout remains autoregressive at inference</li>
-</ul>
-<div class="blue">
-<div class="callout callout-none no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
-<p>The deployed inference path stays SMART/CAT-K-style unless a later experiment explicitly changes it.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="card">
-<p><img class="diagram" src="assets/diagrams/smart_architecture.svg"></p>
-</div>
-</div>
-</section>
-<section id="counterfactual-diagnostic-framework" class="slide level2">
-<h2>Counterfactual Diagnostic Framework</h2>
-<div class="grid-2">
-<div class="card">
-<h3>
-Stress-suite question
-</h3>
-<p>When one actor is forced to brake, merge, cut in, or otherwise change behavior, does the simulator produce the right localized response?</p>
-<div class="equation-box">
-<p><span class="math display">
-\text{CIRS / penalized CIRS} =
-\text{response quality} + \text{safety} + \text{validity} - \text{nuisance penalties}
-</span></p>
-</div>
-</div>
-<div class="card">
-<h3>
-Current families
-</h3>
-<ul>
-<li>lead braking</li>
-<li>blocked lane</li>
-<li>cut-in</li>
-<li>merge pressure</li>
-<li>intersection conflict</li>
-<li>non-interference</li>
-<li>VRU incursion</li>
-</ul>
-<div class="small">
-The stress harness exists to expose simulator behavior that aggregate realism tables may under-report.
-</div>
-</div>
-</div>
-</section>
-<section id="trusted-baseline-diagnosis" class="slide level2">
-<h2>Trusted Baseline Diagnosis</h2>
-<div class="blue">
-<div class="callout callout-none no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
-<p>The first solid result is diagnostic, not methodological: on the reliable 120-case manifest, BC and CLSFT do not rank the same way under counterfactual stress.</p>
-</div>
-</div>
-</div>
-</div>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Model</th>
-<th style="text-align: right;">Penalized CIRS-v2</th>
-<th style="text-align: right;">Collision rate</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>BC</td>
-<td style="text-align: right;">0.7344</td>
-<td style="text-align: right;">0.1778</td>
-</tr>
-<tr class="even">
-<td>CLSFT</td>
-<td style="text-align: right;">0.7141</td>
-<td style="text-align: right;">0.2583</td>
-</tr>
-</tbody>
-</table>
-<div class="small">
-Interpretation: CLSFT was directionally worse on this diagnostic slice, but the paired uncertainty still crosses zero. The safe claim is narrower: <strong>CAT-K/CLSFT does not uniformly solve counterfactual interaction robustness</strong>.
-</div>
-</section>
-<section id="focal-qualitative-example" class="slide level2">
-<h2>Focal Qualitative Example</h2>
-<div class="video-grid-3">
-<div class="video-panel">
-<h3>
-Ground truth
-</h3>
-<img class="rollout-gif" src="assets/videos/lead_braking_case_01/ground_truth.gif" alt="Ground truth rollout animation">
-<div class="video-caption">
-Logged scenario reference for case <code>17a010edfe6d47b3</code>, follower 15, lead 22.
-</div>
-</div>
-<div class="video-panel">
-<h3>
-SMART-BC rollout
-</h3>
-<img class="rollout-gif" src="assets/videos/lead_braking_case_01/smart_bc.gif" alt="SMART-BC rollout animation">
-<div class="metric-strip">
-<span class="metric-pill risk">visual collision evident</span><span class="metric-pill">selected-pair gap 5.21 m</span><span class="metric-pill">selected-pair TTC 2.62 s</span>
-</div>
-</div>
-<div class="video-panel">
-<h3>
-SMART-CLSFT rollout
-</h3>
-<img class="rollout-gif" src="assets/videos/lead_braking_case_01/smart_clsft.gif" alt="SMART-CLSFT rollout animation">
-<div class="metric-strip">
-<span class="metric-pill risk">visual collision evident</span><span class="metric-pill">selected-pair gap 0.19 m</span><span class="metric-pill">selected-pair TTC 0.017 s</span>
-</div>
-</div>
-</div>
-<div class="small center">
-This slide remains qualitative. The point is not that one pair metric is perfect; the point is that counterfactual failures are visible and worth measuring systematically.
-</div>
-</section>
-<section id="why-the-project-pivoted-away-from-pair-first" class="slide level2">
-<h2>Why The Project Pivoted Away From PAIR-First</h2>
-<div class="grid-2">
-<div class="card">
-<h3>
-What hidden-state probes showed
-</h3>
-<ul>
-<li>geometry already predicts absolute future closeness well</li>
-<li>hidden states add stronger signal for dynamic closing and distance-drop structure</li>
-<li>this supports future-interaction supervision as a plausible idea</li>
-</ul>
-<div class="small">
-So representation learning is still relevant.
-</div>
-</div>
-<div class="card">
-<h3>
-Why PAIR is no longer the mainline
-</h3>
-<ul>
-<li>PAIR-only was too indirect for the core behavioral gap</li>
-<li>the stronger question is now behavioral: can we directly optimize interventional response?</li>
-<li>therefore the method pivot is <strong>search-guided CIFT first</strong>, PAIR later only as an auxiliary ablation</li>
-</ul>
-<div class="small">
-The thesis is now evaluation-plus-method, not a representation-only thesis.
-</div>
-</div>
-</div>
-</section>
-<section id="search-guided-cift-current-method" class="slide level2">
-<h2>Search-Guided CIFT: Current Method</h2>
-<div class="grid-2">
-<div class="card">
-<h3>
-Pipeline
-</h3>
-<pre class="text"><code>intervention case
--&gt; short-horizon candidate branches
--&gt; locality-aware branch scoring
--&gt; soft first-action token target
--&gt; CIFT token-KL update
--&gt; matched vs shuffled control</code></pre>
-<div class="small">
-Current best mechanics recipe: refreshed <code>w15/m03</code> branch-only targeter.
-</div>
-</div>
-<div class="card">
-<h3>
-Current method equation
-</h3>
-<div class="equation-box">
-<p><span class="math display">
-\mathcal{L}_{\text{CIFT}}
+\mathcal{M}_{\mathrm{valid}}
 =
-\mathcal{L}_{\text{token-KL to search target}}
-+ \beta(m)\,\mathcal{L}_{\text{weak logged anchor}}
-+ \mathcal{L}_{\text{stability constraints}}
+\{m:V_{\mathrm{map}}(m)=1,\ V_{\mathrm{kin}}(m)=1,\ E_{\mathrm{force}}(m)\leq \epsilon_f,\ \Omega_m\neq \emptyset\}.
 </span></p>
-</div>
-<p>
-The exact recipe is still changing. What matters is the principle: supervise the model with <em>search-derived local response targets</em>, not only logged futures.
-</p>
-</div>
-</div>
+<p>The target is not exact counterfactual truth. The target is an operational authenticity score that is falsifiable under controls.</p>
 </section>
-<section id="best-positive-mechanics-result-so-far" class="slide level2">
-<h2>Best Positive Mechanics Result So Far</h2>
+<section id="traffic-interaction-authenticity" class="slide level2">
+<h2>Traffic Interaction Authenticity</h2>
+<div class="grid-2">
+<div>
+<p>For a branch rollout <code>b</code>, define a vector-valued evaluation object:</p>
+<p><span class="math display">
+\mathrm{TIA}(b)=
+\left[
+R_{\mathrm{obs}}(b),
+C_{\mathrm{resp}}(b),
+I_{\mathrm{placebo}}(b),
+V_{\mathrm{phys}}(b),
+V_{\mathrm{map}}(b),
+S_{\mathrm{style}}(b)
+\right].
+</span></p>
+<p><code>R_obs</code> preserves ordinary realism. <code>C_resp</code> scores localized response. <code>I_placebo</code> penalizes overreaction to irrelevant edits.</p>
+</div>
 <div class="green">
 <div class="callout callout-none no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>The strongest current positive evidence is still the short refreshed branch-only <code>w15/m03</code> mechanics run.</p>
+<p><strong>Claim boundary:</strong> this is not a claim that true counterfactual ground truth is known. It is a controlled diagnostic object: response direction, safety, map validity, placebo invariance, and optional style consistency should move coherently.</p>
 </div>
 </div>
-</div>
-</div>
-<table class="caption-top">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 26%">
-<col style="width: 26%">
-<col style="width: 26%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Variant</th>
-<th style="text-align: right;">Penalized CIRS-v2</th>
-<th style="text-align: right;">Collision Rate</th>
-<th style="text-align: right;">Correct Direction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>refreshed locality-aware branch-only matched</td>
-<td style="text-align: right;">0.398202</td>
-<td style="text-align: right;">0.100000</td>
-<td style="text-align: right;">0.600000</td>
-</tr>
-<tr class="even">
-<td>refreshed locality-aware branch-only shuffled</td>
-<td style="text-align: right;">0.318686</td>
-<td style="text-align: right;">0.166667</td>
-<td style="text-align: right;">0.266667</td>
-</tr>
-</tbody>
-</table>
-<div class="equation-box">
-<p><span class="math display">
-\Delta_{\text{matched-shuffled}} = +0.079516
-</span></p>
-</div>
-<div class="small">
-Paired summary: matched better on 12/30 cases, shuffled better on 2/30, ties on 16/30. This is the current best evidence that the search-guided target carries nontrivial matched-vs-shuffled signal.
-</div>
-</section>
-<section id="weak-logged-anchor-ablation" class="slide level2">
-<h2>Weak Logged-Anchor Ablation</h2>
-<div class="grid-2">
-<div class="card">
-<h3>
-What changed
-</h3>
-<p>A weak placebo-only logged-token anchor was added as a local stability prior.</p>
-<div class="small">
-This was motivated by the idea that the logged future is not counterfactual ground truth, but can still regularize nuisance-like rows.
-</div>
-</div>
-<div class="card">
-<h3>
-Result
-</h3>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Variant</th>
-<th style="text-align: right;">Penalized CIRS-v2</th>
-<th style="text-align: right;">Valid CIRS-v2</th>
-<th style="text-align: right;">Collision Rate</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>weak-anchor matched</td>
-<td style="text-align: right;">0.361773</td>
-<td style="text-align: right;">0.775228</td>
-<td style="text-align: right;">0.133333</td>
-</tr>
-<tr class="even">
-<td>weak-anchor shuffled</td>
-<td style="text-align: right;">0.332857</td>
-<td style="text-align: right;">0.713266</td>
-<td style="text-align: right;">0.233333</td>
-</tr>
-</tbody>
-</table>
-<div class="small">
-Useful ablation, but not a new best method. The original short <code>w15/m03</code> result remains better.
 </div>
 </div>
 </div>
 </section>
-<section id="medium-scale-gate-negative-result" class="slide level2">
-<h2>Medium-Scale Gate: Negative Result</h2>
-<div class="red">
+<section id="why-waymax-enters-the-loop" class="slide level2">
+<h2>Why Waymax Enters the Loop</h2>
+<div class="grid-3">
+<div class="claim-card">
+<h3>
+Controlled branch execution
+</h3>
+<p>Apply the same normal, forced, and placebo branches at simulator-state level.</p>
+</div>
+<div class="claim-card">
+<h3>
+Closed-loop comparability
+</h3>
+<p>Run BC, CLSFT, and future adapted checkpoints under the same branch points.</p>
+</div>
+<div class="claim-card">
+<h3>
+Validity signals
+</h3>
+<p>Expose collision, offroad, kinematics, and map validity during rollout.</p>
+</div>
+</div>
+<div class="blue">
 <div class="callout callout-none no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>The first medium-scale CIFT recipe should <strong>not</strong> be scaled further in its current form.</p>
+<p>Waymax does not solve the no-ground-truth problem by itself. It makes the counterfactual execution reproducible enough that branch-level diagnostics and critics can be audited.</p>
 </div>
 </div>
 </div>
-</div>
-<table class="caption-top">
-<colgroup>
-<col style="width: 11%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Variant</th>
-<th style="text-align: right;">Penalized CIRS-v2</th>
-<th style="text-align: right;">Collision Rate</th>
-<th style="text-align: right;">Correct Direction</th>
-<th style="text-align: right;">Actor ADE</th>
-<th style="text-align: right;">Responder ADE</th>
-<th style="text-align: right;">Gap Error</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>medium matched</td>
-<td style="text-align: right;">0.352317</td>
-<td style="text-align: right;">0.100000</td>
-<td style="text-align: right;">0.400000</td>
-<td style="text-align: right;">4.828479</td>
-<td style="text-align: right;">9.987420</td>
-<td style="text-align: right;">1.533412</td>
-</tr>
-<tr class="even">
-<td>medium shuffled</td>
-<td style="text-align: right;">0.372241</td>
-<td style="text-align: right;">0.100000</td>
-<td style="text-align: right;">0.533333</td>
-<td style="text-align: right;">13.212082</td>
-<td style="text-align: right;">21.784404</td>
-<td style="text-align: right;">3.757745</td>
-</tr>
-</tbody>
-</table>
-<div class="small">
-Interpretation: matched is better than shuffled on some nominal quantities such as responder ADE, but it no longer wins the held-out penalized CIRS-v2 metric and both runs regress badly on realism relative to BC and CLSFT.
 </div>
 </section>
-<section id="constrained-cift-gate-also-negative" class="slide level2">
-<h2>Constrained CIFT Gate: Also Negative</h2>
+<section id="revised-method-pipeline" class="slide level2">
+<h2>Revised Method Pipeline</h2>
+
+<img data-src="assets/figures/method/traffic_authenticity_waymax_ciftcc_pipeline_imagegen_20260427.png" class="full-figure r-stretch"><p class="figure-caption">
+<strong>Diagnose first, critic second, adapt last.</strong> The current plan moves from SMART/CAT-K checkpoints into a Waymax branch harness, computes TIA/CIRS diagnostics, validates a small structural critic, optionally adds style-consistency, and only then considers conservative adaptation under realism budgets.
+</p>
+</section>
+<section id="phase-plan" class="slide level2">
+<h2>Phase Plan</h2>
+<div class="phase-list">
+<div class="phase-card">
+<p><strong>Reproduce the diagnostic</strong></p>
+<p>Normal, forced, and placebo rollouts for BC and CLSFT under identical Waymax branches.</p>
+</div>
+<div class="phase-card">
+<p><strong>Validate a structural critic</strong></p>
+<p>Start with interpretable features: gap, TTC, speed drop, jerk, collision, offroad, and placebo deviation.</p>
+</div>
+<div class="phase-card">
+<p><strong>Optional style extension</strong></p>
+<p>Use VAE-style responder consistency only after feature-only critics pass held-out and placebo gates.</p>
+</div>
+<div class="phase-card">
+<p><strong>Conservative adaptation</strong></p>
+<p>Apply CIFT-CC only with KL-to-base, ordinary replay, and WOSAC-realism budgets.</p>
+</div>
+</div>
+</section>
+<section id="latest-hardened-waymax-benchmark" class="slide level2">
+<h2>Latest Hardened Waymax Benchmark</h2>
+<div class="evidence-kicker">
+2026-04-28 branch-conditioned TIA benchmark
+</div>
+<p>The latest harness corrected an important issue: normal, forced, and placebo branches now run as separate model-conditioned inference calls instead of reusing the same decoded future. This makes branch sensitivity measurable.</p>
 <table class="caption-top" style="width:100%;">
 <colgroup>
 <col style="width: 16%">
@@ -653,193 +539,392 @@ Interpretation: matched is better than shuffled on some nominal quantities such 
 </colgroup>
 <thead>
 <tr class="header">
-<th>Epoch</th>
-<th style="text-align: right;">Matched Penalized CIRS-v2</th>
-<th style="text-align: right;">Shuffled Penalized CIRS-v2</th>
-<th style="text-align: right;">Matched - Shuffled</th>
-<th>95% CI</th>
+<th>Model</th>
+<th style="text-align: right;">Comparison</th>
+<th style="text-align: right;">Min gap effect</th>
+<th style="text-align: right;">Collision effect</th>
+<th>Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>000</td>
-<td style="text-align: right;">0.367532</td>
-<td style="text-align: right;">0.377063</td>
-<td style="text-align: right;">-0.009531</td>
-<td>[-0.085640, 0.051748]</td>
+<td>SMART-BC</td>
+<td style="text-align: right;">forced - normal</td>
+<td style="text-align: right;">-15.33 m</td>
+<td style="text-align: right;">+0.214</td>
+<td>forced branch creates a large measurable disturbance</td>
 </tr>
 <tr class="even">
-<td>001</td>
-<td style="text-align: right;">0.410692</td>
-<td style="text-align: right;">0.384281</td>
-<td style="text-align: right;">+0.026411</td>
-<td>[-0.008054, 0.064872]</td>
+<td>SMART-BC</td>
+<td style="text-align: right;">placebo - normal</td>
+<td style="text-align: right;">-0.41 m</td>
+<td style="text-align: right;">+0.036</td>
+<td>geometry mostly stable under placebo</td>
 </tr>
 <tr class="odd">
-<td>002</td>
-<td style="text-align: right;">0.363511</td>
-<td style="text-align: right;">0.343696</td>
-<td style="text-align: right;">+0.019816</td>
-<td>[-0.006099, 0.051254]</td>
+<td>SMART-CLSFT</td>
+<td style="text-align: right;">forced - normal</td>
+<td style="text-align: right;">-16.98 m</td>
+<td style="text-align: right;">+0.148</td>
+<td>forced branch also exposes response stress</td>
 </tr>
 <tr class="even">
-<td>003</td>
-<td style="text-align: right;">0.364691</td>
-<td style="text-align: right;">0.412984</td>
-<td style="text-align: right;">-0.048293</td>
-<td>[-0.122378, 0.006887]</td>
+<td>SMART-CLSFT</td>
+<td style="text-align: right;">placebo - normal</td>
+<td style="text-align: right;">-0.45 m</td>
+<td style="text-align: right;">+0.000</td>
+<td>placebo geometry mostly stable</td>
 </tr>
 </tbody>
 </table>
+<p class="tiny">
+Pilot scale: 30 matched cases. Values are treated as diagnostic evidence, not leaderboard claims.
+</p>
+</section>
+<section id="main-result-forced-branches-are-not-placebos" class="slide level2">
+<h2>Main Result: Forced Branches Are Not Placebos</h2>
+
+<img data-src="assets/figures/results/waymax_tia_20260428/aggregate_gap_collision_effects.svg" class="full-figure r-stretch"><p class="figure-caption">
+Forced branches create large negative min-gap shifts and collision-rate changes, while placebo branches are much smaller geometrically. This is the current strongest evidence that the counterfactual diagnostic is measuring a real branch-conditioned effect.
+</p>
+</section>
+<section id="min-gap-distributions" class="slide level2">
+<h2>Min-Gap Distributions</h2>
+
+<img data-src="assets/figures/results/waymax_tia_20260428/branch_min_gap_distributions.svg" class="full-figure r-stretch"><p class="figure-caption">
+The distributional view matters more than a single aggregate. The research claim should be family-wise and scenario-wise, not only an average score.
+</p>
+</section>
+<section id="bc-vs-clsft-the-important-surprise" class="slide level2">
+<h2>BC vs CLSFT: The Important Surprise</h2>
+<div class="grid-2">
+<div class="claim-card">
+<h3>
+Ordinary validation
+</h3>
+<p>CLSFT looks stronger on small ordinary closed-loop validation prefixes: lower ADE and better realism-oriented scores.</p>
+</div>
+<div class="claim-card">
+<h3>
+Counterfactual stress
+</h3>
+<p>On forced branches, BC and CLSFT do not show a clean winner. Confidence intervals overlap on the latest Waymax gate.</p>
+</div>
+</div>
 <div class="red">
 <div class="callout callout-none no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>Best held-out point: <code>epoch_001</code>. It shows a small matched-over-shuffled gain, but the confidence interval still overlaps zero and that same checkpoint fails the realism-preservation gate on corrected local validation.</p>
+<p><strong>Interpretation:</strong> closed-loop realism improvement is not automatically the same as localized interventional robustness. This is the core motivation for reporting Traffic Interaction Authenticity separately.</p>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="what-the-new-notes-actually-say" class="slide level2">
-<h2>What The New Notes Actually Say</h2>
-<div class="grid-2">
-<div class="card">
-<h3>
-Positive
-</h3>
-<ul>
-<li>the evaluation gap is real</li>
-<li>the target signal is learnable</li>
-<li>matched-vs-shuffled controls are informative</li>
-<li>short-horizon branch supervision can carry nontrivial causal signal</li>
-</ul>
+<section id="selectivity-caveat" class="slide level2">
+<h2>Selectivity Caveat</h2>
+
+<img data-src="assets/figures/results/waymax_tia_20260428/actor_token_selectivity_rates.svg" class="full-figure r-stretch"><p class="figure-caption">
+The diagnostic is not finished. The latest audit shows forced branches are geometrically meaningful, but stochastic actor-token selectivity still needs stricter controls. A strict top-1 measurement removes much placebo bleed on an audit set, but it is not yet proof that stochastic selectivity is solved.
+</p>
+</section>
+<section id="responder-speed-drop-effects" class="slide level2">
+<h2>Responder Speed-Drop Effects</h2>
+
+<img data-src="assets/figures/results/waymax_tia_20260428/responder_speed_drop_effects.svg" class="full-figure r-stretch"><p class="figure-caption">
+Speed-response features are useful because they expose whether nearby agents respond in the expected direction rather than only avoiding collision.
+</p>
+</section>
+<section id="pre-critic-feasibility-audit" class="slide level2">
+<h2>Pre-Critic Feasibility Audit</h2>
+<div class="evidence-kicker">
+Selectivity signal audit, 2026-04-28
 </div>
-<div class="card">
-<h3>
-Negative
-</h3>
-<ul>
-<li>the current scalable recipe is misaligned</li>
-<li>realism preservation is not yet solved</li>
-<li>stronger response sensitivity can degrade standard validation</li>
-<li>current best result is still a short mechanics win, not a mature method win</li>
-</ul>
-</div>
+<table class="caption-top">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Quantity</th>
+<th style="text-align: right;">Current value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Complete scenario-model triples</td>
+<td style="text-align: right;">55</td>
+<td>enough to build a first branch preference table</td>
+</tr>
+<tr class="even">
+<td>Pairwise preferences</td>
+<td style="text-align: right;">165</td>
+<td>matched branch comparisons available</td>
+</tr>
+<tr class="odd">
+<td>High-confidence non-tie preferences</td>
+<td style="text-align: right;">51</td>
+<td>about 30.9 percent coverage</td>
+</tr>
+<tr class="even">
+<td>Logistic critic accuracy</td>
+<td style="text-align: right;">0.875</td>
+<td>signal is learnable on the pilot split</td>
+</tr>
+<tr class="odd">
+<td>Logistic critic AUC</td>
+<td style="text-align: right;">0.965</td>
+<td>ranking signal is strong on the pilot split</td>
+</tr>
+<tr class="even">
+<td>Gap-only baseline accuracy</td>
+<td style="text-align: right;">0.875</td>
+<td>the critic does not yet beat a simple structural feature</td>
+</tr>
+</tbody>
+</table>
+<div class="warning-strip">
+<p>The feasibility result is useful but not sufficient. A high-capacity critic would be premature until it beats simple structural baselines under held-out scenarios, held-out intervention families, and placebo controls.</p>
 </div>
 </section>
-<section id="current-bottleneck" class="slide level2">
-<h2>Current Bottleneck</h2>
-<div class="grid-2">
-<div class="card">
-<h3>
-Not the bottleneck anymore
-</h3>
-<ul>
-<li>token-target plumbing</li>
-<li>search-target generation wiring</li>
-<li>matched-vs-shuffled evaluation setup</li>
-<li>checkpoint loading / baseline trust</li>
-</ul>
-</div>
-<div class="card">
-<h3>
-Actual bottlenecks
-</h3>
-<ul>
-<li>target coverage and family balance</li>
-<li>per-epoch checkpoint selection</li>
-<li>preserving realism under stronger causal supervision</li>
-<li>teaching the model when <em>not</em> to react</li>
-<li>moving from first-token supervision to 3-5 step branch distillation</li>
-</ul>
-</div>
-</div>
+<section id="negative-results-that-changed-the-plan" class="slide level2">
+<h2>Negative Results That Changed the Plan</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Probe</th>
+<th>Observation</th>
+<th>Consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Direct CIFT-style adaptation</td>
+<td>Can improve selected stress cases but risks ordinary realism degradation</td>
+<td>Do not adapt before branch diagnostics are stable</td>
+</tr>
+<tr class="even">
+<td>Logged-anchor variants</td>
+<td>Stabilize some behavior but cannot make the original logged future a true counterfactual label</td>
+<td>Treat logged futures as manifold regularizers only</td>
+</tr>
+<tr class="odd">
+<td>Weak residual adapters</td>
+<td>Preserve realism but often change behavior too little</td>
+<td>Need a stronger validated branch preference signal</td>
+</tr>
+<tr class="even">
+<td>Unchecked learned critic</td>
+<td>Can learn collision or targeter artifacts</td>
+<td>Require placebo, collision-free, and family-held-out audits</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="next-method-revision" class="slide level2">
-<h2>Next Method Revision</h2>
-<div class="equation-box">
+<section id="conservative-cift-cc-objective" class="slide level2">
+<h2>Conservative CIFT-CC Objective</h2>
+<p>Adaptation is deferred until diagnostic and critic gates pass. The proposed objective is conservative:</p>
 <p><span class="math display">
-\text{Next step} =
-\text{selective CIFT}
-+
-\text{short-horizon branch distillation}
-+
-\text{adaptive anchoring}
-+
-\text{per-epoch validation gating}
+\mathcal{L}_{\mathrm{CIFT\text{-}CC}}
+=
+\mathcal{L}_{\mathrm{pref}}
++\lambda_{\mathrm{KL}}D_{\mathrm{KL}}(\pi_\theta\Vert\pi_{\mathrm{base}})
++\lambda_{\mathrm{replay}}\mathcal{L}^{\mathrm{WOMD}}_{\mathrm{NTP}}
++\lambda_{\mathrm{inv}}\mathcal{L}_{\mathrm{placebo}}.
 </span></p>
-</div>
-<pre class="text"><code>intervention rows
--&gt; split into placebo / nuisance vs causal / interaction-changing rows
--&gt; distill 3-5 step branch response segments instead of first action only
--&gt; keep weak logged-token anchoring only as an ablation
--&gt; use weaker anchor on high-confidence causal rows
--&gt; evaluate every epoch on held-out CIRS and small standard validation</code></pre>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>L_pref</code></td>
+<td>fit audited branch preferences from the critic or hand diagnostic</td>
+</tr>
+<tr class="even">
+<td><code>D_KL</code></td>
+<td>keep the adapted policy close to the author checkpoint</td>
+</tr>
+<tr class="odd">
+<td><code>L_NTP^WOMD</code></td>
+<td>preserve ordinary WOMD / WOSAC-style realism</td>
+</tr>
+<tr class="even">
+<td><code>L_placebo</code></td>
+<td>penalize overreaction to irrelevant interventions</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="updated-scientific-claim" class="slide level2">
-<h2>Updated Scientific Claim</h2>
+<section id="proposed-algorithms" class="slide level2">
+<h2>Proposed Algorithms</h2>
 <div class="grid-2">
 <div class="card">
 <h3>
-What we can claim now
+Algorithm 1: Waymax-backed diagnostic evaluation
 </h3>
-<ul>
-<li>WOSAC-style realism is necessary but not sufficient for simulator trust.</li>
-<li>BC and CLSFT can rank differently under interventional stress.</li>
-<li>Search-guided CIFT carries a real matched-vs-shuffled signal.</li>
-<li>The current scalable recipe still fails the realism-versus-robustness tradeoff.</li>
-</ul>
+<ol type="1">
+<li>Load WOMD scenario and initialize Waymax state.</li>
+<li>Run normal rollout with policy <code>pi</code>.</li>
+<li>For each intervention family, construct a valid forced branch.</li>
+<li>Run forced and placebo branches from the same state.</li>
+<li>Compute gap, TTC, speed response, collision, offroad, and placebo features.</li>
+<li>Aggregate TIA/CIRS by model, scenario, family, and branch pair.</li>
+</ol>
 </div>
 <div class="card">
 <h3>
-What we cannot claim yet
+Algorithm 2: Critic-gated adaptation
 </h3>
-<ul>
-<li>CIFT is already better than BC overall.</li>
-<li>PAIR is the main source of improvement.</li>
-<li>the current constrained recipe solves the tradeoff.</li>
-<li>the present local metric is final.</li>
-</ul>
+<ol type="1">
+<li>Build branch preference pairs from validated diagnostics.</li>
+<li>Train small structural critics first.</li>
+<li>Reject critics that fail held-out or placebo tests.</li>
+<li>Optionally add style-consistency if structural gates pass.</li>
+<li>Fine-tune only with KL, replay, and realism budgets.</li>
+<li>Roll back any checkpoint that improves TIA while hurting WOSAC realism.</li>
+</ol>
 </div>
 </div>
 </section>
-<section id="takeaway" class="slide level2">
-<h2>Takeaway</h2>
-<div class="blue">
+<section id="current-contribution-boundary" class="slide level2">
+<h2>Current Contribution Boundary</h2>
+<div class="grid-2">
+<div class="green">
 <div class="callout callout-none no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p><strong>Current thesis line:</strong> SMART/CAT-K-style simulators can be strong on logged closed-loop realism while remaining under-tested on localized interventional response. Counterfactual stress evaluation exposes that gap. Search-guided CIFT is a promising response, but the present constrained recipe still does not preserve realism well enough.</p>
+<p><strong>Already defensible:</strong> a diagnostic framing and pilot evidence that ordinary closed-loop realism can disagree with localized counterfactual response quality.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="equation-box center">
-<p><span class="math display">
-\text{evaluation gap is real}
-+ \text{target signal is learnable}
-- \text{current recipe still breaks the realism gate}
-</span></p>
+<div class="red">
+<div class="callout callout-none no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p><strong>Not yet claimed:</strong> that CIFT-CC, a structural critic, or a VAE-style critic has already improved WOSAC and TIA simultaneously.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The near-term contribution is a measurable evaluation gap and a reproducible Waymax-backed protocol. The method contribution becomes valid only if the critic and conservative adaptation gates pass.</p>
+</section>
+<section id="what-makes-this-publishable-later" class="slide level2">
+<h2>What Makes This Publishable Later</h2>
+<div class="grid-3">
+<div class="claim-card">
+<h3>
+Scale
+</h3>
+<p>Evaluate across more scenarios, intervention families, and random seeds.</p>
+</div>
+<div class="claim-card">
+<h3>
+Controls
+</h3>
+<p>Show forced-vs-placebo separation, matched-vs-shuffled preference separation, and held-out-family generalization.</p>
+</div>
+<div class="claim-card">
+<h3>
+Preservation
+</h3>
+<p>Show that any adaptation improves TIA without degrading ordinary WOSAC realism, collision, or offroad metrics beyond a fixed budget.</p>
+</div>
 </div>
 </section>
-<section id="backup-what-changed-since-the-old-deck" class="slide level2">
-<h2>Backup: What Changed Since The Old Deck</h2>
-<ul>
-<li>dropped PAIR-first framing</li>
-<li>replaced early 4-batch / 20-pair story with CIFT-first evidence</li>
-<li>elevated the problem-formulation distinction between observational and interventional response</li>
-<li>added negative medium and constrained gates</li>
-<li>repositioned PAIR as optional later ablation only</li>
-<li>made the next step <strong>selective / constrained CIFT</strong>, not larger training</li>
-</ul>
+<section id="feedback-requested" class="slide level2">
+<h2>Feedback Requested</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Decision</th>
+<th>Why it matters</th>
+<th>Requested feedback</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Problem framing</td>
+<td>The thesis depends on separating observational realism from interventional authenticity</td>
+<td>Is Traffic Interaction Authenticity a meaningful evaluation axis?</td>
+</tr>
+<tr class="even">
+<td>Waymax substrate</td>
+<td>The next phase should be reproducible and branch-controlled</td>
+<td>Should Waymax become the primary execution substrate?</td>
+</tr>
+<tr class="odd">
+<td>Evidence gates</td>
+<td>Pilot evidence must not be overclaimed</td>
+<td>Which controls are required before method claims?</td>
+</tr>
+<tr class="even">
+<td>Critic design</td>
+<td>A critic can learn artifacts if unchecked</td>
+<td>Is structural-first, style-second the right order?</td>
+</tr>
+<tr class="odd">
+<td>Adaptation</td>
+<td>Fine-tuning can damage realism</td>
+<td>Are the KL, replay, placebo, and realism budgets sufficient?</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="backup-qualitative-triptych" class="slide level2">
+<h2>Backup: Qualitative Triptych</h2>
+<div class="video-grid-3">
+<div class="video-panel">
+<h3>
+Ground truth / logged
+</h3>
+<p><img data-src="assets/videos/lead_braking_case_01/ground_truth.gif" class="rollout-gif"></p>
+</div>
+<div class="video-panel">
+<h3>
+SMART-BC
+</h3>
+<p><img data-src="assets/videos/lead_braking_case_01/smart_bc.gif" class="rollout-gif"></p>
+</div>
+<div class="video-panel">
+<h3>
+SMART-CLSFT
+</h3>
+<p><img data-src="assets/videos/lead_braking_case_01/smart_clsft.gif" class="rollout-gif"></p>
+</div>
+</div>
+<p class="figure-caption">
+Qualitative clips are useful for communication, but the main claim should rest on branch-conditioned metrics and controls.
+</p>
 
 
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
-<p>CIFT | Counterfactual Interaction Fine-Tuning</p>
+<p>Traffic Interaction Authenticity | Waymax-backed counterfactual simulation</p>
 </div>
 </div></div>
 
