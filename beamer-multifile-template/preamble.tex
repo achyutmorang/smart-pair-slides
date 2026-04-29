@@ -1,0 +1,71 @@
+% =========================
+% Load packages
+% =========================
+
+% Engine-aware text setup
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+\fi
+
+% Geometry and margins
+\usepackage{geometry}
+\geometry{margin=1in}
+
+% Microtypography for better digital readability
+\usepackage{microtype}
+
+% Serif text configuration
+% \usepackage{newtxtext,newtxmath}
+% \usepackage{lmodern}
+% \usepackage{XCharter}
+\ifPDFTeX
+  \usepackage{mathpazo}
+\else
+  % Use engine defaults under XeTeX/LuaTeX for broad Unicode coverage.
+\fi
+% \usepackage{pxfonts}
+
+% Math & theorem environments
+\usepackage{amsmath,amssymb,amsthm}
+
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+% Spacing
+\usepackage{setspace}
+\onehalfspacing
+
+% Lists without extra spaces
+\usepackage{enumitem}
+\setlist{nosep}
+
+% Figures
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\captionsetup{font=small,labelfont=bf}
+
+% Section spacing tighter for compactness
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{10pt}{6pt}
+\titlespacing*{\subsection}{0pt}{8pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{6pt}{2pt}
+
+% Hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue,
+    pdfborder={0 0 0}
+}
+
+% Custom macros
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}

@@ -1,0 +1,162 @@
+\documentclass[aspectratio=169]{beamer}
+
+% =========================
+% Theme
+% =========================
+\usetheme{metropolis}
+\metroset{
+  progressbar=frametitle,
+  numbering=fraction
+}
+
+% =========================
+% Packages
+% =========================
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{positioning,calc}
+
+% =========================
+% Colors
+% =========================
+% === Custom Colors (Approximate from image) ===
+\definecolor{titleblue}{HTML}{003366}      % Dark blue for title/headers
+\definecolor{authgreen}{HTML}{006400}      % Dark green for authors on title slide
+\definecolor{detailbrown}{HTML}{8B4513}    % Brownish-orange for details on title slide
+\definecolor{backgroundbeige}{HTML}{FDFBF5} % Off-white background for title slide
+
+% === Theme & Color Settings ===
+% Set default background (will be white for content slides later)
+\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{normal text}{fg=black} % Default text color
+
+% Set frame title colors (using titleblue)
+\setbeamercolor{frametitle}{bg=white, fg=titleblue} % White background, blue text
+% Metropolis specific settings (Progress bar color etc. - optional)
+\metroset{progressbar=frametitle}
+\setbeamercolor{progress bar}{bg=titleblue, fg=white} % Example: blue progress bar
+
+% =========================
+% Global styling
+% =========================
+% \setbeamertemplate{navigation symbols}{}
+% \setbeamertemplate{caption}{\raggedright\insertcaption\par}
+
+
+% =========================
+% Title metadata
+% =========================
+\title{Planner-Derived Uncertainty Signals for Failure-Oriented Scenario Search\\
+in Closed-Loop Autonomous Driving}
+
+\author{Achyut Morang}
+\institute{Indian Institute of Technology Hyderabad}
+\date{\today}
+
+% =========================
+% Document
+% =========================
+\begin{document}
+
+% =========================
+% Title slide
+% =========================
+\begin{frame}[plain]
+
+    \vspace{1cm}
+
+    % ===== Title =====
+    \begin{center}
+        \begin{minipage}{0.85\textwidth}
+        \centering
+        {\Large\bfseries\color{titleblue}
+        Planner-Derived Uncertainty Signals for Failure-Oriented
+        Scenario Search in Closed-Loop Autonomous Driving}
+        \end{minipage}
+    \end{center}
+
+    \vspace{0.25cm}
+
+    % ===== Subtitle =====
+    \begin{center}
+        {\small Two-Phase Thesis: Exploration to Benchmark-Focused Contribution}
+    \end{center}
+
+    \vfill
+   \vspace{0.35cm}
+    % ===== Author and Supervisors =====
+    \begin{center}
+        \setlength{\tabcolsep}{14pt} % controls horizontal spacing
+        \renewcommand{\arraystretch}{1} % controls vertical spacing
+
+        \begin{tabular}{c c c}
+            \textbf{Achyut Morang} &
+            \textbf{Prof. Srijith P.K.} &
+            \textbf{Mohan KRK} \\[0.2em]
+
+            {\scriptsize Presenter} &
+            {\scriptsize Supervisor} &
+            {\scriptsize Co-Supervisor} \\[0.1em]   
+
+            {\scriptsize M.Tech Smart Mobility} &
+            {\scriptsize Dept. of CSE} &
+            {\scriptsize Dept. of AI}
+        \end{tabular}
+    \end{center}
+
+    % \vspace{0.3cm}
+
+    % ===== Institute Logo =====
+    \begin{center}
+        \includegraphics[height=3em]{../figures/logos/iith_logo_.png}\\
+        {\scriptsize Indian Institute of Technology Hyderabad}
+    \end{center}
+
+    \vspace{0.2cm}
+
+\end{frame}
+% =========================
+% Outline
+% =========================
+% \begin{frame}{Outline}
+%   \tableofcontents
+% \end{frame}
+
+% --- Table of Contents Frame ---
+\metroset{progressbar=frametitle}
+% Reset background for subsequent slides if needed, or set default globally
+\setbeamercolor{background canvas}{bg=white} % Example: Reset to white
+\setbeamercolor{normal text}{fg=black}
+\begin{frame}{Contents}
+  \setbeamertemplate{section in toc}[sections numbered]
+  \tableofcontents
+\end{frame}
+
+% =========================
+% Sections
+% =========================
+
+\input{sections/01_context_motivation}
+\input{sections/02_literature_map}
+\input{sections/03_problem_formulation}
+\input{sections/04_methodology}
+\input{sections/05_preliminary_results}
+\input{sections/06_hypotheses_questions}
+\input{sections/07_plan}
+\input{sections/08_contributions_risks}
+\input{sections/09_conclusion}
+\input{sections/10_references}
+
+% =========================
+% Thank you
+% =========================
+\begin{frame}[plain]
+  \centering
+  \Huge Thank you
+\end{frame}
+
+\end{document}

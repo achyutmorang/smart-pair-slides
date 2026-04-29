@@ -1,0 +1,22 @@
+\section{Failure Analysis and Negative Results}
+
+\begin{frame}{Hypotheses Status}
+\begin{itemize}
+    \item \textbf{H1 (unsupported):} surprise did not consistently beat risk-only search.
+    \item \textbf{H2 (partial):} better calibration helped diagnostics, but control gains were conditional.
+    \item \textbf{H3 (supported):} baseline-first framing improved reproducibility and interpretability.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Observed Failure Modes}
+\begin{itemize}
+    \item objective collapse (near-zero surprise mass),
+    \item low realization under feasible perturbations,
+    \item sensitivity to planner fallback behavior,
+    \item unstable transfer from signal scores to decision gains.
+\end{itemize}
+\vspace{0.4em}
+\begin{block}{Takeaway}
+In this stack, surprise is not yet robust as a \emph{primary} optimization objective.
+\end{block}
+\end{frame}

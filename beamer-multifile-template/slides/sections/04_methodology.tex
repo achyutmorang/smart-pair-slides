@@ -1,0 +1,36 @@
+\section{Infrastructure and Methodology}
+
+\begin{frame}{Two-Phase Thesis Design}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Phase I: Exploration}
+\begin{itemize}
+    \item broad uncertainty formulations
+    \item open-loop + closed-loop probes
+    \item quality-gated objective testing
+\end{itemize}
+
+\column{0.48\textwidth}
+\textbf{Phase II: Focused Contribution}
+\begin{itemize}
+    \item WOSAC baseline-first alignment
+    \item reproducible run contracts
+    \item benchmark-grounded reporting
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Reproducibility Stack}
+\begin{itemize}
+    \item Colab-first execution with Drive-backed persistence.
+    \item Thin notebooks + versioned Python workflows in \texttt{src/}.
+    \item Run manifests with:
+    \begin{itemize}
+        \item seed maps
+        \item fairness constraints
+        \item calibration thresholds
+        \item per-scenario and per-eval artifacts
+    \end{itemize}
+    \item Resume/shard aware execution for long closed-loop jobs.
+\end{itemize}
+\end{frame}

@@ -1,0 +1,27 @@
+\section{Problem Formulation and RQs}
+
+\begin{frame}{Optimization View}
+\[
+\max_{\delta \in \Delta} J(x,\delta)
+\quad
+\text{s.t. } g(x,\delta)\le 0
+\]
+\begin{itemize}
+    \item \(x\): scenario seed; \(\delta\): structured perturbation.
+    \item \(J\): objective signal, instantiated as:
+    \begin{itemize}
+        \item \(J_S\): surprise-based objective
+        \item \(J_R\): risk-based objective
+    \end{itemize}
+    \item \(g\): feasibility constraints (map, kinematic, interaction).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Research Questions}
+\begin{enumerate}
+    \item Are surprise objectives realizable robustly in closed-loop Waymax?
+    \item Do surprise objectives outperform risk-centered search under matched compute?
+    \item Does better calibration improve thresholded control outcomes?
+    \item Which formulations are actionable for benchmark-grounded contribution?
+\end{enumerate}
+\end{frame}
